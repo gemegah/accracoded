@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Accra Coded - You are not alone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F2EEE4;
+    --surface: #A8A090;
+    --surface-2: #B0A898;
+    --accent: #109088;
+    --accent-strong: #0E8179;
+    --text: #1F1B16;
+    --text-muted: #3A332A;
+    --text-soft: #564D40;
+    --text-inverse: #FDFDFA;
+    --border: #CFC6B5;
+    --border-strong: #B7AB96;
+    --success: #2F6F4F;
+    --warning: #A26A2A;
+    --danger: #9B3A34;
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+    --shadow-soft: 0 12px 30px -20px rgba(31, 27, 22, 0.45);
+    --motion-fast: 120ms;
+    --motion-normal: 170ms;
+    --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.5;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .screen {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity var(--motion-normal) var(--ease-standard), transform var(--motion-normal) var(--ease-standard);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+  }
+
+  .screen.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .screen__inner {
+    min-height: 100dvh;
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 24px 20px max(24px, env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .screen__footer {
+    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+    padding-top: 12px;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--bg) 70%, rgba(242, 238, 228, 0));
+    display: grid;
+    gap: 12px;
+  }
+
+  .screen--surface {
+    background: var(--surface);
+    color: var(--text-inverse);
+  }
+
+  .screen--surface .screen__footer {
+    background: linear-gradient(to top, var(--surface) 70%, rgba(168, 160, 144, 0));
+  }
+
+  .screen--surface .section-label,
+  .screen--surface .body-sub,
+  .screen--surface .meta-note,
+  .screen--surface .copy-soft {
+    color: rgba(253, 253, 250, 0.78);
+  }
+
+  .screen--dark {
+    background: #8F8778;
+    color: var(--text-inverse);
+  }
+
+  .screen--dark .screen__footer {
+    background: linear-gradient(to top, #8F8778 70%, rgba(143, 135, 120, 0));
+  }
+
+  .section-label {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+
+  .brand {
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(253, 253, 250, 0.78);
+  }
+
+  .display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 10vw, 56px);
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+
+  .display em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 8vw, 40px);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .body-copy {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 36ch;
+  }
+
+  .screen--surface .body-copy,
+  .screen--dark .body-copy {
+    color: rgba(253, 253, 250, 0.9);
+  }
+
+  .body-sub {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-soft);
+  }
+
+  .meta-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--text-soft);
+  }
+
+  .copy-soft {
+    font-size: 14px;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .c-button {
+    min-height: 48px;
+    width: 100%;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    padding: 12px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform var(--motion-fast) var(--ease-standard), background-color var(--motion-fast) var(--ease-standard), color var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard), opacity var(--motion-fast) var(--ease-standard);
+  }
+
+  .c-button:active {
+    transform: scale(0.98);
+  }
+
+  .c-button--primary {
+    background: var(--accent-strong);
+    color: var(--text-inverse);
+  }
+
+  .c-button--primary:hover {
+    background: #0C6E68;
+  }
+
+  .c-button--secondary {
+    background: var(--text-inverse);
+    color: var(--text);
+    border-color: rgba(31, 27, 22, 0.14);
+  }
+
+  .c-button--ghost {
+    background: transparent;
+    color: inherit;
+    border-color: rgba(253, 253, 250, 0.35);
+  }
+
+  .c-button--danger {
+    background: var(--danger);
+    color: var(--text-inverse);
+  }
+
+  .c-card {
+    background: rgba(253, 253, 250, 0.82);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    color: var(--text);
+    box-shadow: var(--shadow-soft);
+  }
+  .c-card--solid {
+    background: var(--text-inverse);
+  }
+
+  .c-card--subtle {
+    background: rgba(176, 168, 152, 0.22);
+    border-color: rgba(31, 27, 22, 0.12);
+    box-shadow: none;
+  }
+
+  .c-badge {
+    width: fit-content;
+    min-height: 32px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    background: rgba(16, 144, 136, 0.12);
+    border: 1px solid rgba(16, 144, 136, 0.26);
+  }
+
+  .c-icon {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+
+  .c-icon--lg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .hero-stack {
+    display: grid;
+    gap: 16px;
+    padding-top: 10px;
+  }
+
+  .info-grid {
+    display: grid;
+    gap: 14px;
+  }
+
+  .progress-dots {
+    display: flex;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(58, 51, 42, 0.28);
+    transition: width var(--motion-fast) var(--ease-standard), background-color var(--motion-fast) var(--ease-standard);
+  }
+
+  .dot.is-active {
+    width: 22px;
+    background: var(--accent-strong);
+  }
+
+  .screen--surface .dot {
+    background: rgba(253, 253, 250, 0.34);
+  }
+
+  .screen--surface .dot.is-active,
+  .screen--dark .dot.is-active {
+    background: var(--accent);
+  }
+
+  .format-options {
+    display: grid;
+    gap: 12px;
+  }
+
+  .format-card {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--text-inverse);
+    color: var(--text);
+    padding: 14px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    min-height: 72px;
+    cursor: pointer;
+    transition: border-color var(--motion-fast) var(--ease-standard), background-color var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-standard);
+  }
+
+  .format-card:active {
+    transform: scale(0.99);
+  }
+
+  .format-card.is-selected {
+    border-color: var(--accent-strong);
+    background: rgba(16, 144, 136, 0.08);
+  }
+
+  .format-card__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: rgba(16, 144, 136, 0.14);
+    color: var(--accent-strong);
+    flex-shrink: 0;
+  }
+
+  .format-card__title {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text);
+  }
+
+  .format-card__desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-soft);
+    margin-top: 4px;
+  }
+
+  .c-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(242, 238, 228, 0.94);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .c-tab {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    min-height: 44px;
+    padding: 10px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-soft);
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .c-tab[aria-pressed='true'] {
+    color: var(--accent-strong);
+    border-color: rgba(16, 144, 136, 0.38);
+    background: rgba(16, 144, 136, 0.1);
+  }
+
+  .content-stack {
+    display: grid;
+    gap: 16px;
+  }
+
+  .view {
+    display: grid;
+    gap: 16px;
+  }
+
+  .view.is-hidden {
+    display: none;
+  }
+
+  .media-shell {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #2C3D36;
+    color: var(--text-inverse);
+    min-height: 280px;
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+
+  .media-shell__inner {
+    width: 100%;
+    min-height: 280px;
+    padding: 24px 18px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 16px;
+    background: linear-gradient(145deg, #385046 0%, #1E2924 100%);
+  }
+
+  .avatar {
+    width: 82px;
+    height: 82px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(253, 253, 250, 0.18);
+    color: var(--text-inverse);
+  }
+
+  .play-toggle {
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    border: none;
+    background: var(--accent-strong);
+    color: var(--text-inverse);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  .play-toggle .icon-pause {
+    display: none;
+  }
+
+  .play-toggle.is-playing .icon-play {
+    display: none;
+  }
+
+  .play-toggle.is-playing .icon-pause {
+    display: block;
+  }
+
+  .media-caption {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 36px 16px 14px;
+    background: linear-gradient(to top, rgba(31, 27, 22, 0.84), rgba(31, 27, 22, 0));
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .detail-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .detail-sub {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .audio-panel {
+    display: grid;
+    gap: 16px;
+    justify-items: center;
+  }
+
+  .audio-wave {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .wave-bar {
+    width: 4px;
+    border-radius: 999px;
+    height: 14px;
+    background: rgba(16, 144, 136, 0.35);
+    transition: background-color var(--motion-fast) var(--ease-standard);
+    animation: wave 1.2s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .wave-bar:nth-child(2) { animation-delay: 0.08s; }
+  .wave-bar:nth-child(3) { animation-delay: 0.16s; }
+  .wave-bar:nth-child(4) { animation-delay: 0.24s; }
+  .wave-bar:nth-child(5) { animation-delay: 0.32s; }
+  .wave-bar:nth-child(6) { animation-delay: 0.24s; }
+  .wave-bar:nth-child(7) { animation-delay: 0.16s; }
+  .wave-bar:nth-child(8) { animation-delay: 0.08s; }
+
+  .audio-panel.is-playing .wave-bar {
+    background: var(--accent-strong);
+    animation-play-state: running;
+  }
+
+  @keyframes wave {
+    0%, 100% { height: 14px; }
+    50% { height: 42px; }
+  }
+
+  .audio-toggle {
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    border: none;
+    background: var(--accent-strong);
+    color: var(--text-inverse);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  .audio-toggle .icon-pause {
+    display: none;
+  }
+
+  .audio-toggle.is-playing .icon-play {
+    display: none;
+  }
+
+  .audio-toggle.is-playing .icon-pause {
+    display: block;
+  }
+
+  .letter {
+    display: grid;
+    gap: 16px;
+  }
+
+  .letter-head {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+  }
+
+  .letter-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    line-height: 1.65;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .letter-body p + p {
+    margin-top: 12px;
+  }
+
+  .letter-sign {
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 15px;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  .check-group {
+    display: grid;
+    gap: 10px;
+  }
+
+  .check-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .mood-options {
+    display: grid;
+    gap: 10px;
+  }
+
+  .mood-btn {
+    width: 100%;
+    min-height: 56px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--text-inverse);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--motion-fast) var(--ease-standard), background-color var(--motion-fast) var(--ease-standard);
+  }
+
+  .mood-btn .mood-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: rgba(16, 144, 136, 0.1);
+    color: var(--accent-strong);
+    flex-shrink: 0;
+  }
+
+  .mood-btn.is-selected {
+    border-color: var(--accent-strong);
+    background: rgba(16, 144, 136, 0.08);
+  }
+
+  .input-grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .field label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-soft);
+  }
+
+  .c-select {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--text-inverse);
+    color: var(--text);
+    padding: 10px 16px;
+    font-size: 16px;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-soft) 50%), linear-gradient(135deg, var(--text-soft) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+  }
+
+  .resources-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .c-list-item {
+    border: 1px solid rgba(253, 253, 250, 0.25);
+    border-radius: var(--radius-md);
+    background: rgba(253, 253, 250, 0.1);
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .resource-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-inverse);
+  }
+
+  .resource-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(253, 253, 250, 0.86);
+  }
+
+  .resource-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .resource-row .c-button {
+    min-height: 44px;
+    font-size: 15px;
+  }
+
+  .share-card {
+    margin-top: 8px;
+    border: 1px solid rgba(253, 253, 250, 0.24);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    display: grid;
+    gap: 12px;
+    background: rgba(253, 253, 250, 0.08);
+  }
+
+  .c-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    background: rgba(31, 27, 22, 0.48);
+    padding: 12px;
+  }
+
+  .c-dialog-overlay.is-open {
+    display: flex;
+  }
+
+  .c-dialog {
+    width: min(100%, 430px);
+    border-radius: 20px 20px 14px 14px;
+    border: 1px solid var(--border);
+    background: var(--text-inverse);
+    color: var(--text);
+    padding: 22px 18px max(20px, env(safe-area-inset-bottom));
+    display: grid;
+    gap: 14px;
+    max-height: min(86dvh, 700px);
+    overflow-y: auto;
+    box-shadow: 0 20px 48px -30px rgba(31, 27, 22, 0.8);
+  }
+  .dialog-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 500;
+  }
+
+  .dialog-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .dialog-item {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .dialog-item__title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .dialog-item__meta {
+    font-size: 14px;
+    color: var(--text-soft);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  @media (min-width: 640px) {
+    .screen__inner {
+      max-width: 700px;
+      padding: 32px 28px max(28px, env(safe-area-inset-bottom));
+      gap: 28px;
+    }
+
+    .hero-stack {
+      gap: 18px;
+    }
+
+    .body-copy {
+      max-width: 52ch;
+    }
+
+    .format-options {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .format-card {
+      align-items: flex-start;
+      min-height: 170px;
+      flex-direction: column;
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .content-stack {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .media-shell {
+      min-height: 380px;
+    }
+
+    .media-shell__inner {
+      min-height: 380px;
+      padding: 28px;
+    }
+
+    .mood-options {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .input-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .resources-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .share-card {
+      max-width: 620px;
+    }
+
+    .screen__footer {
+      position: static;
+      background: transparent;
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<section class="screen screen--surface is-active" id="s-landing" aria-label="Welcome">
+  <div class="screen__inner">
+    <div class="hero-stack">
+      <p class="brand">Accra Coded</p>
+      <h1 class="display">Feeling the pressure? You are not <em>alone.</em></h1>
+      <p class="body-copy">Accra is intense. Sometimes your mind needs a pause. This space gives you one short moment to reset.</p>
+      <p class="meta-note">"Wo ho te sen?" How are you, really?</p>
+    </div>
+
+    <div class="spacer" aria-hidden="true"></div>
+
+    <div class="screen__footer">
+      <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-format">I am ready. Take a breath with me</button>
+      <button type="button" class="c-button c-button--ghost" data-action="show-crisis">In immediate danger? Get help now</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="s-format" aria-label="Choose format">
+  <div class="screen__inner">
+    <div class="progress-dots" aria-hidden="true">
+      <span class="dot"></span>
+      <span class="dot is-active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <div class="info-grid">
+      <p class="section-label">How you would like to receive this</p>
+      <h2 class="title">Choose your format</h2>
+      <p class="body-sub">All three carry the same message. Pick what feels right for you right now.</p>
+      <div class="c-badge">
+        <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 1 1 8 0v3"></path></svg>
+        <span>No sign-in. No tracking. This is private.</span>
+      </div>
+    </div>
+
+    <div class="format-options">
+      <button type="button" class="format-card is-selected" id="fmt-video" data-action="select-format" data-format="video" aria-pressed="true">
+        <span class="format-card__icon" aria-hidden="true">
+          <svg class="c-icon c-icon--lg" viewBox="0 0 24 24"><polygon points="8 6 18 12 8 18 8 6"></polygon></svg>
+        </span>
+        <span>
+          <span class="format-card__title">Watch</span>
+          <span class="format-card__desc">A short video from a real person in Accra. About 90 seconds.</span>
+        </span>
+      </button>
+
+      <button type="button" class="format-card" id="fmt-audio" data-action="select-format" data-format="audio" aria-pressed="false">
+        <span class="format-card__icon" aria-hidden="true">
+          <svg class="c-icon c-icon--lg" viewBox="0 0 24 24"><path d="M4 13v-2a2 2 0 0 1 2-2h2v6H6a2 2 0 0 1-2-2z"></path><path d="M20 13v-2a2 2 0 0 0-2-2h-2v6h2a2 2 0 0 0 2-2z"></path><path d="M8 9a4 4 0 0 1 8 0"></path></svg>
+        </span>
+        <span>
+          <span class="format-card__title">Listen</span>
+          <span class="format-card__desc">Audio-only format for busy spaces and lower data use.</span>
+        </span>
+      </button>
+
+      <button type="button" class="format-card" id="fmt-text" data-action="select-format" data-format="text" aria-pressed="false">
+        <span class="format-card__icon" aria-hidden="true">
+          <svg class="c-icon c-icon--lg" viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v14l-3-2-3 2-3-2-3 2V5a1 1 0 0 1 1-1z"></path></svg>
+        </span>
+        <span>
+          <span class="format-card__title">Read</span>
+          <span class="format-card__desc">A quiet letter. Works reliably on any connection.</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="spacer" aria-hidden="true"></div>
+
+    <div class="screen__footer">
+      <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-content">Continue</button>
+    </div>
+  </div>
+</section>
+<section class="screen" id="s-content" aria-label="Content options">
+  <div class="screen__inner">
+    <div class="c-tabs" role="group" aria-label="Content format">
+      <button type="button" class="c-tab" id="tb-video" data-action="switch-view" data-format="video" aria-pressed="true">
+        <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="8 6 18 12 8 18 8 6"></polygon></svg>
+        <span>Video</span>
+      </button>
+      <button type="button" class="c-tab" id="tb-audio" data-action="switch-view" data-format="audio" aria-pressed="false">
+        <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-2a2 2 0 0 1 2-2h2v6H6a2 2 0 0 1-2-2z"></path><path d="M20 13v-2a2 2 0 0 0-2-2h-2v6h2a2 2 0 0 0 2-2z"></path><path d="M8 9a4 4 0 0 1 8 0"></path></svg>
+        <span>Audio</span>
+      </button>
+      <button type="button" class="c-tab" id="tb-text" data-action="switch-view" data-format="text" aria-pressed="false">
+        <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12a1 1 0 0 1 1 1v14l-3-2-3 2-3-2-3 2V5a1 1 0 0 1 1-1z"></path></svg>
+        <span>Read</span>
+      </button>
+    </div>
+
+    <div class="content-stack">
+      <div class="view" id="view-video">
+        <div class="media-shell">
+          <div class="media-shell__inner">
+            <div class="avatar" aria-hidden="true">
+              <svg class="c-icon c-icon--lg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg>
+            </div>
+            <button type="button" class="play-toggle" id="video-play" data-action="toggle-play" aria-pressed="false" aria-label="Play video message">
+              <svg class="c-icon c-icon--lg icon-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="8 6 18 12 8 18 8 6"></polygon></svg>
+              <svg class="c-icon c-icon--lg icon-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9" y1="6" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="18"></line></svg>
+            </button>
+          </div>
+          <p class="media-caption">"I know how Accra feels when everything piles up."</p>
+        </div>
+
+        <div class="c-card c-card--solid">
+          <p class="detail-name">Kofi, 31, Tema</p>
+          <p class="detail-sub">When you are ready, a short check-in helps us understand who we are reaching so we can keep building this.</p>
+        </div>
+
+        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I watched it. What is next?</button>
+      </div>
+
+      <div class="view is-hidden" id="view-audio">
+        <div class="c-card c-card--solid audio-panel" id="audio-panel">
+          <div class="audio-wave" aria-hidden="true">
+            <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
+            <span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span>
+          </div>
+
+          <button type="button" class="audio-toggle" id="audio-toggle" data-action="toggle-audio" aria-pressed="false" aria-label="Play audio message">
+            <svg class="c-icon c-icon--lg icon-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="8 6 18 12 8 18 8 6"></polygon></svg>
+            <svg class="c-icon c-icon--lg icon-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9" y1="6" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="18"></line></svg>
+          </button>
+
+          <div>
+            <p class="detail-name">Kofi, 31, Tema</p>
+            <p class="detail-sub">1:32 - Stress and finding stillness</p>
+          </div>
+
+          <div class="c-card c-card--subtle">
+            <p class="body-sub">"Some days Accra takes too much from you. I used to think that was weakness. It is not."</p>
+          </div>
+        </div>
+
+        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I listened. What is next?</button>
+      </div>
+
+      <div class="view is-hidden" id="view-text">
+        <div class="c-card c-card--solid letter">
+          <p class="letter-head">A letter from Accra</p>
+          <div class="letter-body">
+            <p>Dear you,</p>
+            <p>I know how it feels when Accra asks too much of you.</p>
+            <p>The trotro. The deadline. The call from home you have not returned. The thing you cannot say out loud because no one seems to have time for it.</p>
+            <p>I have been there. In a crowded place, but completely alone with it.</p>
+            <p>What I want you to know is that feeling it does not mean you are falling apart. It means you are paying attention.</p>
+            <p>You do not have to fix it today. You only have to stay with it long enough to let something shift.</p>
+            <p>You are still here. That already says something.</p>
+          </div>
+          <p class="letter-sign">- Kofi, 31, Tema<br><span class="copy-soft">Shared anonymously with Accra Coded</span></p>
+        </div>
+
+        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I read it. What is next?</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="s-checkin" aria-label="Quick check-in">
+  <div class="screen__inner">
+    <div class="progress-dots" aria-hidden="true">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot is-active"></span>
+    </div>
+
+    <div class="info-grid">
+      <p class="section-label">Quick check-in</p>
+      <h2 class="title">How are you feeling now?</h2>
+      <p class="body-sub">No names and no personal account. This only helps us understand who this reaches.</p>
+    </div>
+
+    <div class="check-group">
+      <p class="check-label">After that experience:</p>
+      <div class="mood-options" role="group" aria-label="Mood selection">
+        <button type="button" class="mood-btn" data-action="select-mood" data-mood="heavy" aria-pressed="false">
+          <span class="mood-icon" aria-hidden="true"><svg class="c-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M8 15c1.1-1 2.4-1.5 4-1.5s2.9.5 4 1.5"></path><line x1="9" y1="10" x2="9.01" y2="10"></line><line x1="15" y1="10" x2="15.01" y2="10"></line></svg></span>
+          <span>Still heavy</span>
+        </button>
+
+        <button type="button" class="mood-btn" data-action="select-mood" data-mood="better" aria-pressed="false">
+          <span class="mood-icon" aria-hidden="true"><svg class="c-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M8 14c1 1.2 2.3 1.8 4 1.8s3-.6 4-1.8"></path><line x1="9" y1="10" x2="9.01" y2="10"></line><line x1="15" y1="10" x2="15.01" y2="10"></line></svg></span>
+          <span>A bit better</span>
+        </button>
+
+        <button type="button" class="mood-btn" data-action="select-mood" data-mood="needed" aria-pressed="false">
+          <span class="mood-icon" aria-hidden="true"><svg class="c-icon" viewBox="0 0 24 24"><path d="M12 21s-6.5-4.1-9-8.2C.7 9 .9 5.8 3.3 4.2c2.1-1.4 4.8-.9 6.7 1.1 1.9-2 4.6-2.5 6.7-1.1 2.4 1.6 2.6 4.8.3 8.6-2.5 4.1-9 8.2-9 8.2z"></path></svg></span>
+          <span>I needed this</span>
+        </button>
+      </div>
+    </div>
+    <div class="check-group">
+      <p class="check-label">About you (optional)</p>
+      <div class="input-grid">
+        <div class="field">
+          <label for="age-select">Age range</label>
+          <select class="c-select" id="age-select" name="age-range">
+            <option value="">Select age range</option>
+            <option value="under-18">Under 18</option>
+            <option value="18-24">18-24</option>
+            <option value="25-34">25-34</option>
+            <option value="35-44">35-44</option>
+            <option value="45-plus">45+</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="gender-select">Gender</label>
+          <select class="c-select" id="gender-select" name="gender">
+            <option value="">Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="non-binary">Non-binary</option>
+            <option value="prefer-not">Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer" aria-hidden="true"></div>
+
+    <div class="screen__footer">
+      <button type="button" class="c-button c-button--primary" data-action="submit-checkin">Submit and see support options</button>
+      <button type="button" class="c-button c-button--secondary" data-action="go-to" data-target="s-resources">Skip for now</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen screen--dark" id="s-resources" aria-label="Support resources">
+  <div class="screen__inner">
+    <div class="progress-dots" aria-hidden="true">
+      <span class="dot is-active"></span>
+      <span class="dot is-active"></span>
+      <span class="dot is-active"></span>
+      <span class="dot is-active"></span>
+    </div>
+
+    <div class="info-grid">
+      <h2 class="title">You are not doing this alone.</h2>
+      <p class="body-copy">If you need more than one moment, support is available in Accra right now.</p>
+    </div>
+
+    <div class="resources-list">
+      <article class="c-list-item">
+        <h3 class="resource-name">Mental Health Authority Ghana</h3>
+        <p class="resource-desc">National mental health line. Free and confidential.</p>
+        <div class="resource-row">
+          <a class="c-button c-button--primary" href="tel:0800111222">
+            <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.7 19.7 0 0 1 2.1 3.1 2 2 0 0 1 4.1 1h2a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L7.4 8.4a16 16 0 0 0 8.2 8.2l.9-.9a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7A2 2 0 0 1 22 16.9z"></path></svg>
+            <span>Call&nbsp;0800&#8209;111&#8209;222</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="c-list-item">
+        <h3 class="resource-name">BasicNeeds Ghana</h3>
+        <p class="resource-desc">Community-based mental health support across Accra and beyond.</p>
+        <div class="resource-row">
+          <a class="c-button c-button--primary" href="tel:+233302518861">
+            <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.7 19.7 0 0 1 2.1 3.1 2 2 0 0 1 4.1 1h2a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L7.4 8.4a16 16 0 0 0 8.2 8.2l.9-.9a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7A2 2 0 0 1 22 16.9z"></path></svg>
+            <span>Call&nbsp;+233&nbsp;302&nbsp;518&nbsp;861</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="c-list-item">
+        <h3 class="resource-name">Talk to someone you trust</h3>
+        <p class="resource-desc">A friend, pastor, or family member can be a strong first step.</p>
+        <div class="resource-row">
+          <a class="c-button c-button--secondary" href="sms:?body=Hi%2C%20I%20need%20someone%20to%20talk%20to.">
+            <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Send a message</span>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <div class="share-card">
+      <p class="resource-desc">Know someone who might need this? Share Accra Coded on WhatsApp. No extra explanation needed.</p>
+      <a href="https://wa.me/?text=I%20found%20something%20that%20helped%20me%20today.%20Might%20help%20you%20too%20-%20accracoded.com" class="c-button c-button--primary" target="_blank" rel="noopener noreferrer">
+        <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.6 6L0 24l6.4-1.7a12 12 0 0 0 5.7 1.5h.1c6.5 0 11.8-5.3 11.8-11.8A11.8 11.8 0 0 0 20.5 3.5z"></path><path d="M17.1 14.3c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1l-.9 1.1c-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.3-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.1c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"></path></svg>
+        <span>Share on WhatsApp</span>
+      </a>
+    </div>
+
+    <button type="button" class="c-button c-button--ghost" data-action="go-to" data-target="s-landing">Start over</button>
+  </div>
+</section>
+<div class="c-dialog-overlay" id="crisis-overlay" aria-hidden="true" hidden>
+  <div class="c-dialog" role="dialog" aria-modal="true" aria-labelledby="crisis-title" aria-describedby="crisis-note" tabindex="-1">
+    <h2 class="dialog-title" id="crisis-title">Get support now</h2>
+    <p class="body-sub" id="crisis-note">You do not have to be in crisis to call. If you need to talk to someone, these lines are open.</p>
+
+    <div class="dialog-list">
+      <article class="dialog-item">
+        <h3 class="dialog-item__title">Mental Health Authority</h3>
+        <p class="dialog-item__meta">Free and confidential</p>
+        <a href="tel:0800111222" class="c-button c-button--primary">Call&nbsp;0800&#8209;111&#8209;222</a>
+      </article>
+
+      <article class="dialog-item">
+        <h3 class="dialog-item__title">BasicNeeds Ghana</h3>
+        <p class="dialog-item__meta">+233 302 518 861</p>
+        <a href="tel:+233302518861" class="c-button c-button--primary">Call&nbsp;+233&nbsp;302&nbsp;518&nbsp;861</a>
+      </article>
+
+      <article class="dialog-item">
+        <h3 class="dialog-item__title">Emergency Services</h3>
+        <p class="dialog-item__meta">If there is immediate danger</p>
+        <a href="tel:999" class="c-button c-button--danger">Call&nbsp;999</a>
+      </article>
+    </div>
+
+    <button type="button" class="c-button c-button--secondary" data-action="hide-crisis">Close</button>
+  </div>
+</div>
+
+<script>
+  const SCREEN_TRANSITION_MS = 170;
+  const state = {
+    currentScreen: 's-landing',
+    selectedFormat: 'video',
+    selectedMood: null,
+    audioPlaying: false,
+    lastFocused: null
+  };
+
+  const overlay = document.getElementById('crisis-overlay');
+  const dialog = overlay.querySelector('.c-dialog');
+
+  function getFocusableInDialog() {
+    return dialog.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+  }
+
+  function goTo(id) {
+    const next = document.getElementById(id);
+    const current = document.getElementById(state.currentScreen);
+
+    if (!next || id === state.currentScreen) {
+      return;
+    }
+
+    current.classList.remove('is-active');
+    next.classList.add('is-active');
+
+    state.currentScreen = id;
+
+    window.setTimeout(() => {
+      next.scrollTop = 0;
+    }, SCREEN_TRANSITION_MS);
+
+    if (id === 's-content') {
+      syncToggle(state.selectedFormat);
+    }
+  }
+
+  function selectFormat(format) {
+    state.selectedFormat = format;
+
+    ['video', 'audio', 'text'].forEach((name) => {
+      const card = document.getElementById(`fmt-${name}`);
+      const isSelected = name === format;
+      card.classList.toggle('is-selected', isSelected);
+      card.setAttribute('aria-pressed', String(isSelected));
+    });
+
+    syncToggle(format);
+  }
+
+  function syncToggle(format) {
+    ['video', 'audio', 'text'].forEach((name) => {
+      const tab = document.getElementById(`tb-${name}`);
+      const view = document.getElementById(`view-${name}`);
+      const isActive = name === format;
+
+      tab.setAttribute('aria-pressed', String(isActive));
+      view.classList.toggle('is-hidden', !isActive);
+    });
+  }
+
+  function togglePlay(button) {
+    const isPlaying = button.classList.toggle('is-playing');
+    button.setAttribute('aria-pressed', String(isPlaying));
+    button.setAttribute('aria-label', isPlaying ? 'Pause video message' : 'Play video message');
+  }
+
+  function toggleAudio(button) {
+    state.audioPlaying = !state.audioPlaying;
+    button.classList.toggle('is-playing', state.audioPlaying);
+    button.setAttribute('aria-pressed', String(state.audioPlaying));
+    button.setAttribute('aria-label', state.audioPlaying ? 'Pause audio message' : 'Play audio message');
+    document.getElementById('audio-panel').classList.toggle('is-playing', state.audioPlaying);
+  }
+
+  function selectMood(button, mood) {
+    state.selectedMood = mood;
+    document.querySelectorAll('[data-action="select-mood"]').forEach((item) => {
+      item.classList.remove('is-selected');
+      item.setAttribute('aria-pressed', 'false');
+    });
+    button.classList.add('is-selected');
+    button.setAttribute('aria-pressed', 'true');
+  }
+
+  function submitCheckin() {
+    const payload = {
+      mood: state.selectedMood,
+      format: state.selectedFormat,
+      age: document.getElementById('age-select').value,
+      gender: document.getElementById('gender-select').value,
+      timestamp: new Date().toISOString()
+    };
+
+    window.__accracodedCheckin = payload;
+    goTo('s-resources');
+  }
+  function showCrisis(triggerElement) {
+    state.lastFocused = triggerElement || document.activeElement;
+    overlay.hidden = false;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+
+    window.setTimeout(() => {
+      const focusables = getFocusableInDialog();
+      if (focusables.length > 0) {
+        focusables[0].focus();
+      } else {
+        dialog.focus();
+      }
+    }, 0);
+  }
+
+  function hideCrisis() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.hidden = true;
+
+    if (state.lastFocused && typeof state.lastFocused.focus === 'function') {
+      state.lastFocused.focus();
+    }
+  }
+
+  function handleDialogTrap(event) {
+    if (!overlay.classList.contains('is-open')) {
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      hideCrisis();
+      return;
+    }
+
+    if (event.key !== 'Tab') {
+      return;
+    }
+
+    const focusables = Array.from(getFocusableInDialog());
+    if (focusables.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target.closest('[data-action]');
+    if (!target) {
+      return;
+    }
+
+    const action = target.dataset.action;
+
+    if (action === 'go-to') {
+      goTo(target.dataset.target);
+      return;
+    }
+
+    if (action === 'select-format') {
+      selectFormat(target.dataset.format);
+      return;
+    }
+
+    if (action === 'switch-view') {
+      state.selectedFormat = target.dataset.format;
+      syncToggle(state.selectedFormat);
+      return;
+    }
+
+    if (action === 'toggle-play') {
+      togglePlay(target);
+      return;
+    }
+
+    if (action === 'toggle-audio') {
+      toggleAudio(target);
+      return;
+    }
+
+    if (action === 'select-mood') {
+      selectMood(target, target.dataset.mood);
+      return;
+    }
+
+    if (action === 'submit-checkin') {
+      submitCheckin();
+      return;
+    }
+
+    if (action === 'show-crisis') {
+      showCrisis(target);
+      return;
+    }
+
+    if (action === 'hide-crisis') {
+      hideCrisis();
+    }
+  });
+
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+      hideCrisis();
+    }
+  });
+
+  document.addEventListener('keydown', handleDialogTrap);
+
+  if (navigator.connection && navigator.connection.effectiveType) {
+    const networkType = navigator.connection.effectiveType;
+    if (networkType === 'slow-2g' || networkType === '2g') {
+      selectFormat('text');
+    } else if (networkType === '3g') {
+      selectFormat('audio');
+    }
+  }
+
+  syncToggle(state.selectedFormat);
+</script>
+</body>
+</html>
