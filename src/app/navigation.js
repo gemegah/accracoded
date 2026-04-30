@@ -1,4 +1,5 @@
 import { SCREEN_TRANSITION_MS, state } from '../domain/appState.js';
+import { trackEvent } from '../data/telemetryRepository.js';
 
 export function syncToggle(format) {
   ['video', 'audio', 'text'].forEach((name) => {
@@ -28,6 +29,7 @@ export function goTo(id) {
   next.classList.add('is-active');
 
   state.currentScreen = id;
+  void trackEvent('screen_view', { screenId: id });
 
   window.setTimeout(() => {
     next.scrollTop = 0;

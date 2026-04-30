@@ -25,6 +25,8 @@
 - Conventions: [.planning/codebase/CONVENTIONS.md](C:/Users/LENOVO THINKPAD X1/Desktop/accracoded/.planning/codebase/CONVENTIONS.md)
 - Testing: [.planning/codebase/TESTING.md](C:/Users/LENOVO THINKPAD X1/Desktop/accracoded/.planning/codebase/TESTING.md)
 - Concerns: [.planning/codebase/CONCERNS.md](C:/Users/LENOVO THINKPAD X1/Desktop/accracoded/.planning/codebase/CONCERNS.md)
+- Design guardrails: [AGENTS.design.md](C:/Users/LENOVO THINKPAD X1/Desktop/accracoded/AGENTS.design.md)
+- Product requirements detail: [.planning/PRD.md](C:/Users/LENOVO THINKPAD X1/Desktop/accracoded/.planning/PRD.md)
 
 ## Guidance For Future Agents
 - Keep `data-action` contracts in sync between [index.html](C:/Users/LENOVO THINKPAD X1/Desktop/accracoded/index.html) and [src/main.js](C:/Users/LENOVO THINKPAD X1/Desktop/accracoded/src/main.js).

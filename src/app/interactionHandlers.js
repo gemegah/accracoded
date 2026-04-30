@@ -1,5 +1,6 @@
 import { state } from '../domain/appState.js';
 import { saveCheckin } from '../data/checkinRepository.js';
+import { trackEvent } from '../data/telemetryRepository.js';
 import { goTo } from './navigation.js';
 
 export function togglePlay(button) {
@@ -17,16 +18,18 @@ export function toggleAudio(button) {
 }
 
 export function selectMood(button, mood) {
+  if (state.selectedMoodButton && state.selectedMoodButton !== button) {
+    state.selectedMoodButton.classList.remove('is-selected');
+    state.selectedMoodButton.setAttribute('aria-pressed', 'false');
+  }
+
   state.selectedMood = mood;
-  document.querySelectorAll('[data-action="select-mood"]').forEach((item) => {
-    item.classList.remove('is-selected');
-    item.setAttribute('aria-pressed', 'false');
-  });
+  state.selectedMoodButton = button;
   button.classList.add('is-selected');
   button.setAttribute('aria-pressed', 'true');
 }
 
-export function submitCheckin() {
+export async function submitCheckin() {
   const payload = {
     mood: state.selectedMood,
     format: state.selectedFormat,
@@ -35,7 +38,14 @@ export function submitCheckin() {
     timestamp: new Date().toISOString()
   };
 
-  saveCheckin(payload);
+  const result = await saveCheckin(payload);
+  await trackEvent('submit_checkin', {
+    ok: result.ok,
+    screenId: state.currentScreen,
+    selectedFormat: state.selectedFormat,
+    selectedMood: state.selectedMood || 'unknown'
+  });
+
   goTo('s-resources');
 }
 

@@ -714,6 +714,28 @@
 
   .resources-list {
     display: grid;
+    gap: 18px;
+  }
+
+  .resource-group {
+    display: grid;
+    gap: 10px;
+  }
+
+  .resource-group__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-inverse);
+  }
+
+  .resource-group__intro {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(253, 253, 250, 0.78);
+  }
+
+  .resource-group__list {
+    display: grid;
     gap: 12px;
   }
 
@@ -732,10 +754,20 @@
     color: var(--text-inverse);
   }
 
+  .resource-name--dark {
+    color: var(--text);
+  }
+
   .resource-desc {
     font-size: 14px;
     line-height: 1.55;
     color: rgba(253, 253, 250, 0.86);
+  }
+
+  .resource-meta {
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(253, 253, 250, 0.72);
   }
 
   .resource-row {
@@ -746,6 +778,21 @@
   .resource-row .c-button {
     min-height: 44px;
     font-size: 15px;
+  }
+
+  .resources-about-btn {
+    width: fit-content;
+    color: var(--text-inverse);
+    border-color: rgba(253, 253, 250, 0.38);
+  }
+
+  .resources-about-btn:hover {
+    background: rgba(253, 253, 250, 0.12);
+  }
+
+  .about-card {
+    display: grid;
+    gap: 8px;
   }
 
   .share-card {
@@ -961,7 +1008,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .resources-list {
+    .resource-group__list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
