@@ -254,6 +254,34 @@
     color: var(--text-inverse);
   }
 
+  sl-button[data-ui='accracoded'] {
+    width: 100%;
+  }
+
+  sl-button[data-ui='accracoded']::part(base) {
+    min-height: 44px;
+    border-radius: 999px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  sl-button[data-ui='accracoded'][variant='default']::part(base) {
+    background: var(--text-inverse);
+    color: var(--text);
+    border-color: rgba(31, 27, 22, 0.14);
+  }
+
+  sl-button[data-ui='accracoded'][variant='text']::part(base) {
+    color: var(--text-inverse);
+    border-color: rgba(253, 253, 250, 0.35);
+  }
+
+  sl-button[data-ui='accracoded'][variant='danger']::part(base) {
+    background: var(--danger);
+    color: var(--text-inverse);
+  }
+
   .c-card {
     background: rgba(253, 253, 250, 0.82);
     border: 1px solid var(--border);
@@ -775,7 +803,8 @@
     gap: 8px;
   }
 
-  .resource-row .c-button {
+  .resource-row .c-button,
+  .resource-row sl-button[data-ui='accracoded']::part(base) {
     min-height: 44px;
     font-size: 15px;
   }
@@ -941,6 +970,10 @@
   .dialog-item__meta {
     font-size: 14px;
     color: var(--text-soft);
+  }
+
+  .dialog-item sl-button[data-ui='accracoded']::part(base) {
+    min-height: 42px;
   }
 
   .sr-only {

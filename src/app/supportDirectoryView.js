@@ -1,20 +1,24 @@
 import { getCrisisEntries, getResourcesByGroup } from '../data/supportDirectory.js';
+import { createButton, createHeading, createParagraph } from '../ui/primitives.js';
 
-function createButton(contact) {
-  const button = document.createElement('a');
-  const variant = contact.variant || 'primary';
-  button.className = `c-button c-button--${variant}`;
-  button.textContent = contact.label;
-
+function createContactButton(contact) {
   if (contact.kind === 'phone') {
-    button.href = `tel:${contact.value}`;
-    return button;
+    return createButton({
+      label: contact.label,
+      variant: contact.variant || 'primary',
+      href: `tel:${contact.value}`
+    });
   }
 
-  button.href = contact.href || '#';
+  const button = createButton({
+    label: contact.label,
+    variant: contact.variant || 'primary',
+    href: contact.href || '#'
+  });
+
   if (contact.kind === 'link') {
-    button.target = '_blank';
-    button.rel = 'noopener noreferrer';
+    button.setAttribute('target', '_blank');
+    button.setAttribute('rel', 'noopener noreferrer');
   }
 
   return button;
@@ -24,26 +28,15 @@ function createResourceCard(entry) {
   const card = document.createElement('article');
   card.className = 'c-list-item';
 
-  const title = document.createElement('h3');
-  title.className = 'resource-name';
-  title.textContent = entry.name;
-  card.appendChild(title);
-
-  const description = document.createElement('p');
-  description.className = 'resource-desc';
-  description.textContent = entry.summary;
-  card.appendChild(description);
-
-  const meta = document.createElement('p');
-  meta.className = 'resource-meta';
-  meta.textContent = `${entry.offerings} | Coverage: ${entry.coverage}`;
-  card.appendChild(meta);
+  card.appendChild(createHeading('h3', 'resource-name', entry.name));
+  card.appendChild(createParagraph('resource-desc', entry.summary));
+  card.appendChild(createParagraph('resource-meta', `${entry.offerings} | Coverage: ${entry.coverage}`));
 
   const row = document.createElement('div');
   row.className = 'resource-row';
 
   entry.contacts.forEach((contact) => {
-    row.appendChild(createButton(contact));
+    row.appendChild(createContactButton(contact));
   });
 
   card.appendChild(row);
@@ -64,15 +57,8 @@ function renderResourcesDirectory() {
     const wrapper = document.createElement('section');
     wrapper.className = 'resource-group';
 
-    const heading = document.createElement('h3');
-    heading.className = 'resource-group__title';
-    heading.textContent = group.title;
-    wrapper.appendChild(heading);
-
-    const intro = document.createElement('p');
-    intro.className = 'resource-group__intro';
-    intro.textContent = group.description;
-    wrapper.appendChild(intro);
+    wrapper.appendChild(createHeading('h3', 'resource-group__title', group.title));
+    wrapper.appendChild(createParagraph('resource-group__intro', group.description));
 
     const list = document.createElement('div');
     list.className = 'resource-group__list';
@@ -101,20 +87,13 @@ function renderCrisisDirectory() {
     const item = document.createElement('article');
     item.className = 'dialog-item';
 
-    const title = document.createElement('h3');
-    title.className = 'dialog-item__title';
-    title.textContent = entry.name;
-    item.appendChild(title);
-
-    const meta = document.createElement('p');
-    meta.className = 'dialog-item__meta';
-    meta.textContent = `${entry.offerings} | ${entry.coverage}`;
-    item.appendChild(meta);
+    item.appendChild(createHeading('h3', 'dialog-item__title', entry.name));
+    item.appendChild(createParagraph('dialog-item__meta', `${entry.offerings} | ${entry.coverage}`));
 
     entry.contacts
       .filter((contact) => contact.kind === 'phone')
       .forEach((contact) => {
-        item.appendChild(createButton(contact));
+        item.appendChild(createContactButton(contact));
       });
 
     fragment.appendChild(item);

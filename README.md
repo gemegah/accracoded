@@ -5,6 +5,7 @@ Static browser-first mental wellness flow targeted at Accra users.
 ## Architecture
 
 - Frontend: static SPA (`index.html` + `src/**`) served as Cloudflare assets.
+- Component primitives: Web Components via Shoelace CDN for compatible reusable UI in vanilla runtime.
 - Edge API: Cloudflare Worker entry at `worker/index.js`.
 - Persistence: Cloudflare D1 (`checkins`, `telemetry_events`, optional `resources_catalog`).
 - Edge controls: KV-backed rate limiting (`RATE_LIMIT_KV` binding).
