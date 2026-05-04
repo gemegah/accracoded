@@ -7,7 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css">
 <script src="https://code.iconify.design/iconify-icon/2.2.0/iconify-icon.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
 <link rel="stylesheet" href="./src/styles/app.css">
 
 </head>
@@ -28,6 +30,46 @@
       <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-format">I am ready. Take a breath with me</button>
       <button type="button" class="c-button c-button--ghost" data-action="show-crisis">In immediate danger? Get help now</button>
     </div>
+  </div>
+</section>
+
+<section class="screen explore-screen" id="s-explore" aria-label="Explore support in Ghana">
+  <div class="screen__inner explore-shell">
+    <header class="explore-header">
+      <button type="button" class="explore-back" data-action="go-to" data-target="s-landing" aria-label="Back to home">
+        <iconify-icon icon="tabler:arrow-left" aria-hidden="true"></iconify-icon>
+      </button>
+      <p class="brand brand--explore">Accra Coded</p>
+    </header>
+
+    <div class="explore-hero">
+      <div class="explore-hero__copy">
+        <p class="section-label">Explore Guide</p>
+        <h1 class="explore-title">Find support in Ghana</h1>
+        <p class="explore-intro">A calm guide to mental health, body reset, self-care, and trusted support across Accra.</p>
+      </div>
+    </div>
+
+    <div class="explore-search">
+      <label class="sr-only" for="explore-search">Search support resources</label>
+      <iconify-icon icon="tabler:search" aria-hidden="true"></iconify-icon>
+      <input id="explore-search" type="search" placeholder="Search therapy, care, reset, support..." autocomplete="off">
+    </div>
+
+    <div class="explore-chips" id="explore-categories" role="group" aria-label="Explore categories"></div>
+
+    <section class="explore-section" aria-labelledby="explore-needs-title">
+      <h2 class="explore-section__title" id="explore-needs-title">What do you need today?</h2>
+      <div class="need-grid" id="explore-needs"></div>
+    </section>
+
+    <section class="explore-section explore-section--resources" aria-labelledby="explore-resources-title">
+      <div class="explore-section__head">
+        <h2 class="explore-section__title" id="explore-resources-title">Featured resources</h2>
+      </div>
+      <div class="explore-resources" id="explore-resources"></div>
+      <p class="explore-empty" id="explore-empty" hidden>No matching resources yet. Try a broader search or view all.</p>
+    </section>
   </div>
 </section>
 
@@ -85,7 +127,6 @@
     <div class="spacer" aria-hidden="true"></div>
 
     <div class="screen__footer">
-      <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-content">Continue</button>
       <button type="button" class="c-button c-button--secondary" data-action="go-to" data-target="s-landing">Back</button>
     </div>
   </div>
@@ -127,7 +168,6 @@
           <p class="detail-sub">When you are ready, a short check-in helps us understand who we are reaching so we can keep building this.</p>
         </div>
 
-        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I watched it. What is next?</button>
       </div>
 
       <div class="view is-hidden" id="view-audio">
@@ -152,13 +192,12 @@
           </div>
         </div>
 
-        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I listened. What is next?</button>
       </div>
 
       <div class="view is-hidden" id="view-text">
         <div class="c-card c-card--solid letter">
           <p class="letter-head">A letter from Accra</p>
-          <div class="letter-body">
+          <div class="letter-body" id="letter-body">
             <p>Dear you,</p>
             <p>I know how it feels when Accra asks too much of you.</p>
             <p>The trotro. The deadline. The call from home you have not returned. The thing you cannot say out loud because no one seems to have time for it.</p>
@@ -167,10 +206,10 @@
             <p>You do not have to fix it today. You only have to stay with it long enough to let something shift.</p>
             <p>You are still here. That already says something.</p>
           </div>
-          <p class="letter-sign">- Kofi, 31, Tema<br><span class="copy-soft">Shared anonymously with Accra Coded</span></p>
+          <p class="letter-sign" id="letter-sign">- Kofi, 31, Tema<br><span class="copy-soft">Shared anonymously with Accra Coded</span></p>
         </div>
 
-        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I read it. What is next?</button>
+        <button type="button" class="c-button c-button--primary" data-action="cycle-message">See another message</button>
       </div>
     </div>
 
@@ -194,6 +233,7 @@
       <p class="section-label">Quick check-in</p>
       <h2 class="title">How are you feeling now?</h2>
       <p class="body-sub">No names and no personal account. This only helps us understand who this reaches.</p>
+      <p class="form-error" id="checkin-error" role="alert" hidden>Please choose a feeling, age range, and gender before continuing.</p>
     </div>
 
     <div class="check-group">
@@ -216,7 +256,7 @@
       </div>
     </div>
     <div class="check-group">
-      <p class="check-label">About you (optional)</p>
+      <p class="check-label">About you</p>
       <div class="input-grid">
         <div class="field">
           <label for="age-select">Age range</label>
@@ -247,7 +287,6 @@
 
     <div class="screen__footer">
       <button type="button" class="c-button c-button--primary" data-action="submit-checkin">Submit and see support options</button>
-      <button type="button" class="c-button c-button--secondary" data-action="go-to" data-target="s-resources">Skip for now</button>
       <button type="button" class="c-button c-button--ghost" data-action="go-to" data-target="s-content">Back</button>
     </div>
   </div>
@@ -265,42 +304,10 @@
     <div class="info-grid">
       <h2 class="title">You are not doing this alone.</h2>
       <p class="body-copy">If you need more than one moment, support is available in Accra right now.</p>
+      <button type="button" class="c-button c-button--ghost resources-about-btn" data-action="go-to" data-target="s-about">About Accra Coded</button>
     </div>
 
-    <div class="resources-list">
-      <article class="c-list-item">
-        <h3 class="resource-name">Mental Health Authority Ghana</h3>
-        <p class="resource-desc">National mental health line. Free and confidential.</p>
-        <div class="resource-row">
-          <a class="c-button c-button--primary" href="tel:0800111222">
-            <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.7 19.7 0 0 1 2.1 3.1 2 2 0 0 1 4.1 1h2a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L7.4 8.4a16 16 0 0 0 8.2 8.2l.9-.9a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7A2 2 0 0 1 22 16.9z"></path></svg>
-            <span>Call&nbsp;0800&#8209;111&#8209;222</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="c-list-item">
-        <h3 class="resource-name">BasicNeeds Ghana</h3>
-        <p class="resource-desc">Community-based mental health support across Accra and beyond.</p>
-        <div class="resource-row">
-          <a class="c-button c-button--primary" href="tel:+233302518861">
-            <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.7 19.7 0 0 1 2.1 3.1 2 2 0 0 1 4.1 1h2a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L7.4 8.4a16 16 0 0 0 8.2 8.2l.9-.9a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7A2 2 0 0 1 22 16.9z"></path></svg>
-            <span>Call&nbsp;+233&nbsp;302&nbsp;518&nbsp;861</span>
-          </a>
-        </div>
-      </article>
-
-      <article class="c-list-item">
-        <h3 class="resource-name">Talk to someone you trust</h3>
-        <p class="resource-desc">A friend, pastor, or family member can be a strong first step.</p>
-        <div class="resource-row">
-          <a class="c-button c-button--secondary" href="sms:?body=Hi%2C%20I%20need%20someone%20to%20talk%20to.">
-            <svg class="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            <span>Send a message</span>
-          </a>
-        </div>
-      </article>
-    </div>
+    <div class="resources-list" id="resources-directory"></div>
 
     <div class="share-card">
       <p class="resource-desc">Know someone who might need this? Share Accra Coded in one tap, or copy the link and send it your way.</p>
@@ -325,6 +332,10 @@
           <iconify-icon icon="tabler:link" aria-hidden="true"></iconify-icon>
           <span>Copy link</span>
         </button>
+        <button type="button" class="c-button c-button--ghost share-grid__wide" data-action="go-to" data-target="s-explore">
+          <iconify-icon icon="tabler:compass" aria-hidden="true"></iconify-icon>
+          <span>Explore support in Ghana</span>
+        </button>
       </div>
     </div>
 
@@ -348,30 +359,42 @@
     </div>
   </div>
 </section>
+
+<section class="screen" id="s-about" aria-label="About Accra Coded">
+  <div class="screen__inner">
+    <button type="button" class="explore-back about-back" data-action="go-to" data-target="s-resources" aria-label="Back to support options">
+      <iconify-icon icon="tabler:arrow-left" aria-hidden="true"></iconify-icon>
+    </button>
+
+    <div class="info-grid">
+      <p class="section-label">About this space</p>
+      <h2 class="title">A short private reset for difficult days</h2>
+      <p class="body-sub">Accra Coded is a free, browser-only support flow built for moments when your mind feels overloaded and you need immediate grounding.</p>
+    </div>
+
+    <article class="c-card c-card--solid about-card">
+      <h3 class="resource-name resource-name--dark">What this is</h3>
+      <p class="body-sub">A short video/audio/text moment followed by practical support options you can contact right away.</p>
+    </article>
+
+    <article class="c-card c-card--solid about-card">
+      <h3 class="resource-name resource-name--dark">What this is not</h3>
+      <p class="body-sub">It does not replace emergency or long-term clinical care. If you are in immediate danger, use emergency services now.</p>
+    </article>
+
+    <article class="c-card c-card--solid about-card">
+      <h3 class="resource-name resource-name--dark">Privacy stance</h3>
+      <p class="body-sub">No sign-in. No account required. Optional check-in responses are designed to be lightweight and non-identifying.</p>
+    </article>
+
+  </div>
+</section>
 <div class="c-dialog-overlay" id="crisis-overlay" aria-hidden="true" hidden>
   <div class="c-dialog" role="dialog" aria-modal="true" aria-labelledby="crisis-title" aria-describedby="crisis-note" tabindex="-1">
     <h2 class="dialog-title" id="crisis-title">Get support now</h2>
     <p class="body-sub" id="crisis-note">You do not have to be in crisis to call. If you need to talk to someone, these lines are open.</p>
 
-    <div class="dialog-list">
-      <article class="dialog-item">
-        <h3 class="dialog-item__title">Mental Health Authority</h3>
-        <p class="dialog-item__meta">Free and confidential</p>
-        <a href="tel:0800111222" class="c-button c-button--primary">Call&nbsp;0800&#8209;111&#8209;222</a>
-      </article>
-
-      <article class="dialog-item">
-        <h3 class="dialog-item__title">BasicNeeds Ghana</h3>
-        <p class="dialog-item__meta">+233 302 518 861</p>
-        <a href="tel:+233302518861" class="c-button c-button--primary">Call&nbsp;+233&nbsp;302&nbsp;518&nbsp;861</a>
-      </article>
-
-      <article class="dialog-item">
-        <h3 class="dialog-item__title">Emergency Services</h3>
-        <p class="dialog-item__meta">If there is immediate danger</p>
-        <a href="tel:999" class="c-button c-button--danger">Call&nbsp;999</a>
-      </article>
-    </div>
+    <div class="dialog-list" id="crisis-directory"></div>
 
     <button type="button" class="c-button c-button--secondary" data-action="hide-crisis">Close</button>
   </div>

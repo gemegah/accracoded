@@ -1,4 +1,5 @@
 import { SCREEN_TRANSITION_MS, state } from '../domain/appState.js';
+import { trackEvent } from '../data/telemetryRepository.js';
 
 export function syncToggle(format) {
   ['video', 'audio', 'text'].forEach((name) => {
@@ -28,6 +29,7 @@ export function goTo(id) {
   next.classList.add('is-active');
 
   state.currentScreen = id;
+  void trackEvent('screen_view', { screenId: id });
 
   window.setTimeout(() => {
     next.scrollTop = 0;
@@ -38,7 +40,7 @@ export function goTo(id) {
   }
 }
 
-export function selectFormat(format) {
+export function selectFormat(format, options = {}) {
   state.selectedFormat = format;
 
   ['video', 'audio', 'text'].forEach((name) => {
@@ -54,4 +56,8 @@ export function selectFormat(format) {
   });
 
   syncToggle(format);
+
+  if (options.advance) {
+    goTo('s-content');
+  }
 }
