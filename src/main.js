@@ -2,7 +2,7 @@ import { state } from './domain/appState.js';
 import { bindDialogOverlay, handleDialogTrap, hideCrisis, showCrisis } from './app/dialog.js';
 import { filterExplore, renderExploreDirectory, searchExplore } from './app/exploreDirectoryView.js';
 import { clearCheckinError, copyShareLink, cycleMessage, selectMood, submitCheckin, toggleAudio, togglePlay } from './app/interactionHandlers.js';
-import { goTo, selectFormat, syncToggle } from './app/navigation.js';
+import { closeSiteMenus, goTo, selectFormat, syncSiteNavigation, syncToggle, toggleSiteMenu } from './app/navigation.js';
 import { renderSupportDirectory } from './app/supportDirectoryView.js';
 import { runLandingTypewriter } from './app/typewriter.js';
 import { flushCheckins } from './data/checkinRepository.js';
@@ -23,6 +23,7 @@ const ACTIONS = {
     void submitCheckin();
   },
   'copy-link': (target) => copyShareLink(target),
+  'toggle-site-menu': (target) => toggleSiteMenu(target),
   'filter-explore': (target) => {
     if (target.dataset.resetSearch === 'true') {
       const searchInput = document.getElementById('explore-search');
@@ -65,12 +66,22 @@ function applyInitialScreenFromHash() {
   const initialScreen = initialId ? document.getElementById(initialId) : null;
 
   if (!initialScreen?.classList.contains('screen')) {
+    syncSiteNavigation();
     return;
   }
 
   document.getElementById(state.currentScreen)?.classList.remove('is-active');
   initialScreen.classList.add('is-active');
   state.currentScreen = initialId;
+  syncSiteNavigation(initialId);
+}
+
+function handleGlobalKeydown(event) {
+  handleDialogTrap(event);
+
+  if (event.key === 'Escape') {
+    closeSiteMenus();
+  }
 }
 
 function initApp() {
@@ -86,7 +97,7 @@ function initApp() {
   document.addEventListener('click', () => {
     void trackEvent('action_click', { screenId: state.currentScreen });
   }, { once: true });
-  document.addEventListener('keydown', handleDialogTrap);
+  document.addEventListener('keydown', handleGlobalKeydown);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
       flushCheckins();
@@ -97,6 +108,7 @@ function initApp() {
   bindDialogOverlay();
   applyNetworkAwareDefaultFormat();
   syncToggle(state.selectedFormat);
+  syncSiteNavigation();
   void flushCheckins();
   void flushTelemetry();
   void trackEvent('screen_view', { screenId: state.currentScreen });
