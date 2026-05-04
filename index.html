@@ -17,6 +17,26 @@
 
 <section class="screen screen--surface is-active" id="s-landing" aria-label="Welcome">
   <div class="screen__inner">
+    <header class="site-header site-header--inverse">
+      <div class="site-header__bar">
+        <p class="brand site-header__brand">Accra Coded</p>
+        <nav class="site-nav site-nav--desktop" aria-label="Primary">
+          <button type="button" class="site-nav__link is-active" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing" aria-current="page">Home</button>
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about" data-nav-screen="s-about">About Us</button>
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore">Explore</button>
+        </nav>
+        <button type="button" class="site-nav__toggle" data-action="toggle-site-menu" aria-controls="landing-site-menu" aria-expanded="false" aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav site-nav--mobile" id="landing-site-menu" aria-label="Mobile primary" hidden>
+        <button type="button" class="site-nav__link is-active" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing" aria-current="page">Home</button>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about" data-nav-screen="s-about">About Us</button>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore">Explore</button>
+      </nav>
+    </header>
     <div class="hero-stack">
       <p class="brand">Accra Coded</p>
       <h1 class="display">Feeling the pressure? You are not <em>alone.</em></h1>
@@ -35,11 +55,25 @@
 
 <section class="screen explore-screen" id="s-explore" aria-label="Explore support in Ghana">
   <div class="screen__inner explore-shell">
-    <header class="explore-header">
-      <button type="button" class="explore-back" data-action="go-to" data-target="s-landing" aria-label="Back to home">
-        <iconify-icon icon="tabler:arrow-left" aria-hidden="true"></iconify-icon>
-      </button>
-      <p class="brand brand--explore">Accra Coded</p>
+    <header class="site-header">
+      <div class="site-header__bar">
+        <p class="brand brand--explore site-header__brand">Accra Coded</p>
+        <nav class="site-nav site-nav--desktop" aria-label="Primary">
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing">Home</button>
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about" data-nav-screen="s-about">About Us</button>
+          <button type="button" class="site-nav__link is-active" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore" aria-current="page">Explore</button>
+        </nav>
+        <button type="button" class="site-nav__toggle" data-action="toggle-site-menu" aria-controls="explore-site-menu" aria-expanded="false" aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav site-nav--mobile" id="explore-site-menu" aria-label="Mobile primary" hidden>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing">Home</button>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about" data-nav-screen="s-about">About Us</button>
+        <button type="button" class="site-nav__link is-active" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore" aria-current="page">Explore</button>
+      </nav>
     </header>
 
     <div class="explore-hero">
@@ -294,6 +328,26 @@
 
 <section class="screen screen--dark" id="s-resources" aria-label="Support resources">
   <div class="screen__inner">
+    <header class="site-header site-header--inverse">
+      <div class="site-header__bar">
+        <p class="brand site-header__brand">Accra Coded</p>
+        <nav class="site-nav site-nav--desktop" aria-label="Primary">
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing">Home</button>
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about" data-nav-screen="s-about">About Us</button>
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore">Explore</button>
+        </nav>
+        <button type="button" class="site-nav__toggle" data-action="toggle-site-menu" aria-controls="resources-site-menu" aria-expanded="false" aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav site-nav--mobile" id="resources-site-menu" aria-label="Mobile primary" hidden>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing">Home</button>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about" data-nav-screen="s-about">About Us</button>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore">Explore</button>
+      </nav>
+    </header>
     <div class="progress-dots" aria-hidden="true">
       <span class="dot is-active"></span>
       <span class="dot is-active"></span>
@@ -304,7 +358,10 @@
     <div class="info-grid">
       <h2 class="title">You are not doing this alone.</h2>
       <p class="body-copy">If you need more than one moment, support is available in Accra right now.</p>
-      <button type="button" class="c-button c-button--ghost resources-about-btn" data-action="go-to" data-target="s-about">About Accra Coded</button>
+      <div class="resources-actions">
+        <button type="button" class="c-button c-button--ghost resources-about-btn" data-action="go-to" data-target="s-about">About Accra Coded</button>
+        <button type="button" class="c-button c-button--ghost resources-about-btn" data-action="go-to" data-target="s-explore">Explore support in Ghana</button>
+      </div>
     </div>
 
     <div class="resources-list" id="resources-directory"></div>
@@ -332,10 +389,6 @@
           <iconify-icon icon="tabler:link" aria-hidden="true"></iconify-icon>
           <span>Copy link</span>
         </button>
-        <button type="button" class="c-button c-button--ghost share-grid__wide" data-action="go-to" data-target="s-explore">
-          <iconify-icon icon="tabler:compass" aria-hidden="true"></iconify-icon>
-          <span>Explore support in Ghana</span>
-        </button>
       </div>
     </div>
 
@@ -353,7 +406,7 @@
       </div>
     </details>
 
-    <div class="screen__footer nav-row">
+    <div class="screen__footer nav-row resources-footer">
       <button type="button" class="c-button c-button--secondary" data-action="go-to" data-target="s-checkin">Back</button>
       <button type="button" class="c-button c-button--ghost" data-action="go-to" data-target="s-landing">Start over</button>
     </div>
@@ -362,9 +415,26 @@
 
 <section class="screen" id="s-about" aria-label="About Accra Coded">
   <div class="screen__inner">
-    <button type="button" class="explore-back about-back" data-action="go-to" data-target="s-resources" aria-label="Back to support options">
-      <iconify-icon icon="tabler:arrow-left" aria-hidden="true"></iconify-icon>
-    </button>
+    <header class="site-header">
+      <div class="site-header__bar">
+        <p class="brand brand--explore site-header__brand">Accra Coded</p>
+        <nav class="site-nav site-nav--desktop" aria-label="Primary">
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing">Home</button>
+          <button type="button" class="site-nav__link is-active" data-action="go-to" data-target="s-about" data-nav-screen="s-about" aria-current="page">About Us</button>
+          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore">Explore</button>
+        </nav>
+        <button type="button" class="site-nav__toggle" data-action="toggle-site-menu" aria-controls="about-site-menu" aria-expanded="false" aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav class="site-nav site-nav--mobile" id="about-site-menu" aria-label="Mobile primary" hidden>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing">Home</button>
+        <button type="button" class="site-nav__link is-active" data-action="go-to" data-target="s-about" data-nav-screen="s-about" aria-current="page">About Us</button>
+        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore">Explore</button>
+      </nav>
+    </header>
 
     <div class="info-grid">
       <p class="section-label">About this space</p>
