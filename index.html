@@ -33,6 +33,46 @@
   </div>
 </section>
 
+<section class="screen explore-screen" id="s-explore" aria-label="Explore support in Ghana">
+  <div class="screen__inner explore-shell">
+    <header class="explore-header">
+      <button type="button" class="explore-back" data-action="go-to" data-target="s-landing" aria-label="Back to home">
+        <iconify-icon icon="tabler:arrow-left" aria-hidden="true"></iconify-icon>
+      </button>
+      <p class="brand brand--explore">Accra Coded</p>
+    </header>
+
+    <div class="explore-hero">
+      <div class="explore-hero__copy">
+        <p class="section-label">Explore Guide</p>
+        <h1 class="explore-title">Find support in Ghana</h1>
+        <p class="explore-intro">A calm guide to mental health, body reset, self-care, and trusted support across Accra.</p>
+      </div>
+    </div>
+
+    <div class="explore-search">
+      <label class="sr-only" for="explore-search">Search support resources</label>
+      <iconify-icon icon="tabler:search" aria-hidden="true"></iconify-icon>
+      <input id="explore-search" type="search" placeholder="Search therapy, care, reset, support..." autocomplete="off">
+    </div>
+
+    <div class="explore-chips" id="explore-categories" role="group" aria-label="Explore categories"></div>
+
+    <section class="explore-section" aria-labelledby="explore-needs-title">
+      <h2 class="explore-section__title" id="explore-needs-title">What do you need today?</h2>
+      <div class="need-grid" id="explore-needs"></div>
+    </section>
+
+    <section class="explore-section explore-section--resources" aria-labelledby="explore-resources-title">
+      <div class="explore-section__head">
+        <h2 class="explore-section__title" id="explore-resources-title">Featured resources</h2>
+      </div>
+      <div class="explore-resources" id="explore-resources"></div>
+      <p class="explore-empty" id="explore-empty" hidden>No matching resources yet. Try a broader search or view all.</p>
+    </section>
+  </div>
+</section>
+
 <section class="screen" id="s-format" aria-label="Choose format">
   <div class="screen__inner">
     <div class="progress-dots" aria-hidden="true">
@@ -87,7 +127,6 @@
     <div class="spacer" aria-hidden="true"></div>
 
     <div class="screen__footer">
-      <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-content">Continue</button>
       <button type="button" class="c-button c-button--secondary" data-action="go-to" data-target="s-landing">Back</button>
     </div>
   </div>
@@ -129,7 +168,6 @@
           <p class="detail-sub">When you are ready, a short check-in helps us understand who we are reaching so we can keep building this.</p>
         </div>
 
-        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I watched it. What is next?</button>
       </div>
 
       <div class="view is-hidden" id="view-audio">
@@ -154,13 +192,12 @@
           </div>
         </div>
 
-        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I listened. What is next?</button>
       </div>
 
       <div class="view is-hidden" id="view-text">
         <div class="c-card c-card--solid letter">
           <p class="letter-head">A letter from Accra</p>
-          <div class="letter-body">
+          <div class="letter-body" id="letter-body">
             <p>Dear you,</p>
             <p>I know how it feels when Accra asks too much of you.</p>
             <p>The trotro. The deadline. The call from home you have not returned. The thing you cannot say out loud because no one seems to have time for it.</p>
@@ -169,10 +206,10 @@
             <p>You do not have to fix it today. You only have to stay with it long enough to let something shift.</p>
             <p>You are still here. That already says something.</p>
           </div>
-          <p class="letter-sign">- Kofi, 31, Tema<br><span class="copy-soft">Shared anonymously with Accra Coded</span></p>
+          <p class="letter-sign" id="letter-sign">- Kofi, 31, Tema<br><span class="copy-soft">Shared anonymously with Accra Coded</span></p>
         </div>
 
-        <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-checkin">I read it. What is next?</button>
+        <button type="button" class="c-button c-button--primary" data-action="cycle-message">See another message</button>
       </div>
     </div>
 
@@ -196,6 +233,7 @@
       <p class="section-label">Quick check-in</p>
       <h2 class="title">How are you feeling now?</h2>
       <p class="body-sub">No names and no personal account. This only helps us understand who this reaches.</p>
+      <p class="form-error" id="checkin-error" role="alert" hidden>Please choose a feeling, age range, and gender before continuing.</p>
     </div>
 
     <div class="check-group">
@@ -218,7 +256,7 @@
       </div>
     </div>
     <div class="check-group">
-      <p class="check-label">About you (optional)</p>
+      <p class="check-label">About you</p>
       <div class="input-grid">
         <div class="field">
           <label for="age-select">Age range</label>
@@ -249,7 +287,6 @@
 
     <div class="screen__footer">
       <button type="button" class="c-button c-button--primary" data-action="submit-checkin">Submit and see support options</button>
-      <button type="button" class="c-button c-button--secondary" data-action="go-to" data-target="s-resources">Skip for now</button>
       <button type="button" class="c-button c-button--ghost" data-action="go-to" data-target="s-content">Back</button>
     </div>
   </div>
@@ -295,6 +332,10 @@
           <iconify-icon icon="tabler:link" aria-hidden="true"></iconify-icon>
           <span>Copy link</span>
         </button>
+        <button type="button" class="c-button c-button--ghost share-grid__wide" data-action="go-to" data-target="s-explore">
+          <iconify-icon icon="tabler:compass" aria-hidden="true"></iconify-icon>
+          <span>Explore support in Ghana</span>
+        </button>
       </div>
     </div>
 
@@ -321,6 +362,10 @@
 
 <section class="screen" id="s-about" aria-label="About Accra Coded">
   <div class="screen__inner">
+    <button type="button" class="explore-back about-back" data-action="go-to" data-target="s-resources" aria-label="Back to support options">
+      <iconify-icon icon="tabler:arrow-left" aria-hidden="true"></iconify-icon>
+    </button>
+
     <div class="info-grid">
       <p class="section-label">About this space</p>
       <h2 class="title">A short private reset for difficult days</h2>
@@ -342,13 +387,6 @@
       <p class="body-sub">No sign-in. No account required. Optional check-in responses are designed to be lightweight and non-identifying.</p>
     </article>
 
-    <div class="spacer" aria-hidden="true"></div>
-
-    <div class="screen__footer">
-      <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-resources">Back to support options</button>
-      <button type="button" class="c-button c-button--secondary" data-action="go-to" data-target="s-landing">Back to home</button>
-      <button type="button" class="c-button c-button--ghost" data-action="show-crisis">In immediate danger? Get help now</button>
-    </div>
   </div>
 </section>
 <div class="c-dialog-overlay" id="crisis-overlay" aria-hidden="true" hidden>

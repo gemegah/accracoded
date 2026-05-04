@@ -7,6 +7,7 @@ export const state = {
   selectedFormat: 'video',
   selectedMood: null,
   selectedMoodButton: null,
+  messageIndex: 0,
   audioPlaying: false,
   lastFocused: null
 };

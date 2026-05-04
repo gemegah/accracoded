@@ -40,7 +40,7 @@ export function goTo(id) {
   }
 }
 
-export function selectFormat(format) {
+export function selectFormat(format, options = {}) {
   state.selectedFormat = format;
 
   ['video', 'audio', 'text'].forEach((name) => {
@@ -56,4 +56,8 @@ export function selectFormat(format) {
   });
 
   syncToggle(format);
+
+  if (options.advance) {
+    goTo('s-content');
+  }
 }
