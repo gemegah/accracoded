@@ -9,13 +9,13 @@
     {
       "binding": "DB",
       "database_name": "accracoded-db",
-      "database_id": "00000000-0000-0000-0000-000000000000"
+      "database_id": "bebb6327-03ae-4ca3-a7bf-9e80689a9ac5"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "RATE_LIMIT_KV",
-      "id": "00000000000000000000000000000000"
+      "id": "c9b0cfd3301d4ac2886773f5a3ca683b"
     }
   ]
 }
