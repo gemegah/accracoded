@@ -1,6 +1,6 @@
 import { state } from './domain/appState.js';
 import { bindDialogOverlay, handleDialogTrap, hideCrisis, showCrisis } from './app/dialog.js';
-import { filterExplore, renderExploreDirectory, searchExplore } from './app/exploreDirectoryView.js';
+import { filterExplore, renderExploreDirectory, searchExplore, viewResource } from './app/exploreDirectoryView.js';
 import { clearCheckinError, copyShareLink, cycleMessage, selectMood, submitCheckin, toggleAudio, togglePlay } from './app/interactionHandlers.js';
 import { closeSiteMenus, goTo, selectFormat, syncSiteNavigation, syncToggle, toggleSiteMenu } from './app/navigation.js';
 import { renderSupportDirectory } from './app/supportDirectoryView.js';
@@ -34,6 +34,7 @@ const ACTIONS = {
     }
     filterExplore(target.dataset.category);
   },
+  'view-resource': (target) => viewResource(target.dataset.resourceId),
   'show-crisis': (target) => showCrisis(target),
   'hide-crisis': () => hideCrisis()
 };
