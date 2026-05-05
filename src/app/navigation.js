@@ -2,8 +2,12 @@ import { SCREEN_TRANSITION_MS, state } from '../domain/appState.js';
 import { trackEvent } from '../data/telemetryRepository.js';
 
 function getTopLevelScreen(screenId) {
-  if (screenId === 's-landing' || screenId === 's-about' || screenId === 's-explore') {
+  if (screenId === 's-landing' || screenId === 's-about') {
     return screenId;
+  }
+
+  if (screenId === 's-explore' || screenId === 's-explore-detail') {
+    return 's-explore';
   }
 
   return null;
