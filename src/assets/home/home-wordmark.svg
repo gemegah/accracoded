@@ -1,0 +1,8 @@
+<svg width="520" height="80" viewBox="0 0 520 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="80" fill="transparent"/>
+  <text x="0" y="56" font-family="Arial Black, Helvetica, Arial, sans-serif" font-size="38" font-weight="900" letter-spacing="-1" fill="#09090A">ACCRA</text>
+  <rect x="172" y="17" width="44" height="44" rx="1" fill="#09090A"/>
+  <path d="M181 50V33h13c6 0 10 4 10 9s-4 8-10 8h-13z" stroke="#F3F0EA" stroke-width="2" fill="none" opacity=".9"/>
+  <path d="M210 30h18v6h-11v8h9v6h-9v1h12v6h-19V30z" fill="#F3F0EA" opacity=".9" transform="translate(-3 0)"/>
+  <text x="236" y="56" font-family="Arial Black, Helvetica, Arial, sans-serif" font-size="38" font-weight="900" letter-spacing="-1" fill="#09090A">CODED</text>
+</svg>

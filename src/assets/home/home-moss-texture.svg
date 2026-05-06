@@ -1,0 +1,21 @@
+<svg width="1400" height="700" viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="700" fill="#5F735E"/>
+  <filter id="noise" x="0" y="0" width="100%" height="100%">
+    <feTurbulence baseFrequency="0.72" numOctaves="2" seed="7" type="fractalNoise"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer>
+      <feFuncA type="table" tableValues="0 0.08"/>
+    </feComponentTransfer>
+  </filter>
+  <rect width="1400" height="700" filter="url(#noise)" opacity=".55"/>
+  <g fill="none" stroke="#D8D1C6" stroke-opacity=".13" stroke-width="1">
+    <path d="M120 550 C260 430 390 430 530 520 S820 640 1000 510 S1260 330 1420 410"/>
+    <path d="M60 440 C250 300 420 310 600 430 S900 570 1110 390 S1310 220 1450 300"/>
+    <path d="M180 675 C350 540 520 545 690 650 S1000 780 1210 610"/>
+    <path d="M760 80 C910 -20 1080 20 1210 150 S1430 310 1550 220"/>
+    <path d="M840 160 C960 80 1090 100 1190 205 S1390 360 1510 295"/>
+    <path d="M900 250 C1040 160 1190 190 1300 300 S1480 450 1600 370"/>
+    <path d="M-120 160 C60 60 260 70 400 200 S640 330 840 210"/>
+    <path d="M-80 260 C95 145 280 160 440 290 S690 420 885 300"/>
+  </g>
+</svg>

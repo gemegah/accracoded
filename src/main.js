@@ -1,9 +1,10 @@
 import { state } from './domain/appState.js';
 import { bindDialogOverlay, handleDialogTrap, hideCrisis, showCrisis } from './app/dialog.js';
-import { filterExplore, renderExploreDirectory, searchExplore, viewResource } from './app/exploreDirectoryView.js';
+import { filterExplore, filterHomeFeatured, renderExploreDirectory, searchExplore, viewResource } from './app/exploreDirectoryView.js';
 import { clearCheckinError, copyShareLink, cycleMessage, selectMood, submitCheckin, toggleAudio, togglePlay } from './app/interactionHandlers.js';
 import { closeSiteMenus, goTo, selectFormat, syncSiteNavigation, syncToggle, toggleSiteMenu } from './app/navigation.js';
 import { renderSupportDirectory } from './app/supportDirectoryView.js';
+import { WAITLIST_FORM_URL } from './data/siteConfig.js';
 import { runLandingTypewriter } from './app/typewriter.js';
 import { flushCheckins } from './data/checkinRepository.js';
 import { flushTelemetry, trackEvent } from './data/telemetryRepository.js';
@@ -33,6 +34,27 @@ const ACTIONS = {
       searchExplore('');
     }
     filterExplore(target.dataset.category);
+  },
+  'go-to-filter-explore': (target) => {
+    const searchInput = document.getElementById('explore-search');
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    searchExplore('');
+    goTo(target.dataset.target || 's-explore');
+    filterExplore(target.dataset.category || 'all');
+  },
+  'filter-home-featured': (target) => {
+    filterHomeFeatured(target.dataset.category);
+  },
+  'open-waitlist': () => {
+    const waitlistWindow = window.open(WAITLIST_FORM_URL, '_blank', 'noopener,noreferrer');
+    if (!waitlistWindow) {
+      window.location.assign(WAITLIST_FORM_URL);
+    }
+    void trackEvent('open_waitlist', {
+      screenId: state.currentScreen
+    });
   },
   'view-resource': (target) => viewResource(target.dataset.resourceId),
   'show-crisis': (target) => showCrisis(target),

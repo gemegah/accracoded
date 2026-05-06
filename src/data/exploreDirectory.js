@@ -8,6 +8,14 @@ export const EXPLORE_CATEGORIES = [
   { id: 'wellness', label: 'Wellness', icon: 'tabler:flower' }
 ];
 
+export const HOME_FEATURED_FILTERS = [
+  { id: 'all', label: 'All Categories' },
+  { id: 'vitality', label: 'Movement & Vitality' },
+  { id: 'wellness', label: 'Wellness Spaces' },
+  { id: 'mental-health', label: 'Therapists & Support' },
+  { id: 'beauty', label: 'Beauty & Spa' }
+];
+
 export const EXPLORE_NEEDS = [
   { label: 'Talk to someone', category: 'mental-health', icon: 'tabler:messages' },
   { label: 'Reset your body', category: 'vitality', icon: 'tabler:stretching' },
@@ -30,6 +38,12 @@ export const EXPLORE_RESOURCES = [
     href: 'tel:0800678678',
     logoText: 'MHA',
     featured: true,
+    featuredRank: 4,
+    cardImage: asset('../assets/listings/listing-office.png'),
+    cardType: 'Mental health support',
+    cardLocation: 'Accra Central',
+    cardDescription: 'Trusted public guidance, referrals and mental health support pathways for people seeking care in Accra.',
+    cardBadges: ['Verified', 'Support line', 'Public'],
     gallery: [
       {
         src: asset('../assets/explore-detail/mha-building.webp'),
@@ -74,6 +88,12 @@ export const EXPLORE_RESOURCES = [
     href: 'tel:+233244572733',
     logoText: 'BNG',
     featured: true,
+    featuredRank: 3,
+    cardImage: asset('../assets/listings/listing-community.png'),
+    cardType: 'Community support',
+    cardLocation: 'Abelenkpe',
+    cardDescription: 'Community-rooted psychosocial support, advocacy and care pathways for individuals, families, and carers.',
+    cardBadges: ['Verified', 'In-person', 'Community'],
     gallery: [],
     about: [
       'BasicNeeds Ghana presents itself as a mental health and development advocacy organisation working with people with mental illness or epilepsy, their families, and communities.',
@@ -105,6 +125,12 @@ export const EXPLORE_RESOURCES = [
     href: 'tel:+233302228688',
     logoText: 'APH',
     featured: true,
+    featuredRank: 5,
+    cardImage: asset('../assets/listings/listing-hospital.png'),
+    cardType: 'Psychiatric hospital',
+    cardLocation: 'Castle Road',
+    cardDescription: '24-hour psychiatric assessment, outpatient follow-up and specialist clinical care in central Accra.',
+    cardBadges: ['Verified', '24/7 care', 'Public'],
     gallery: [
       {
         src: asset('../assets/explore-detail/aph-building.webp'),
@@ -144,6 +170,12 @@ export const EXPLORE_RESOURCES = [
     href: 'https://www.google.com/maps/search/?api=1&query=Pantang+Hospital',
     logoText: 'PH',
     featured: false,
+    featuredRank: 6,
+    cardImage: asset('../assets/listings/listing-therapist.png'),
+    cardType: 'Specialist clinic',
+    cardLocation: 'Pantang',
+    cardDescription: 'Ongoing psychiatric treatment and referral-led mental health care within a major public hospital setting.',
+    cardBadges: ['Verified', 'Referral care', 'Public'],
     gallery: [],
     about: [
       'Pantang Hospital is widely referenced as one of the country’s principal psychiatric hospitals and a place people turn to for ongoing public mental health treatment.',
@@ -174,6 +206,12 @@ export const EXPLORE_RESOURCES = [
     href: 'tel:+233203009627',
     logoText: 'SM',
     featured: true,
+    featuredRank: 2,
+    cardImage: asset('../assets/listings/listing-skincare.png'),
+    cardType: 'Aesthetic clinic',
+    cardLocation: 'Osu',
+    cardDescription: 'Consultation-led skincare, facials, and aesthetic treatments in a polished appointment-based setting.',
+    cardBadges: ['Verified', 'In-person', 'Premium'],
     gallery: [],
     about: [
       'Skinmedics presents itself as an aesthetic centre in Accra with a broad menu of facial, body, laser, and beauty services available by booking.',
@@ -206,6 +244,12 @@ export const EXPLORE_RESOURCES = [
     href: 'https://www.fulfilledmedspaclinic.com',
     logoText: 'FM',
     featured: true,
+    featuredRank: 1,
+    cardImage: asset('../assets/listings/listing-spa-house.png'),
+    cardType: 'Med spa clinic',
+    cardLocation: 'Osu',
+    cardDescription: 'Medical-grade beauty, skin, and spa rituals paired with tailored wellness care and premium treatment plans.',
+    cardBadges: ['Verified', 'In-person', 'Premium'],
     gallery: [
       {
         src: asset('../assets/explore-detail/fulfilled-logo.webp'),

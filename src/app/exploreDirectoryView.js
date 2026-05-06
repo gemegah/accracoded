@@ -1,8 +1,9 @@
-import { EXPLORE_CATEGORIES, EXPLORE_NEEDS, EXPLORE_RESOURCES } from '../data/exploreDirectory.js';
+import { EXPLORE_CATEGORIES, EXPLORE_NEEDS, EXPLORE_RESOURCES, HOME_FEATURED_FILTERS } from '../data/exploreDirectory.js';
 import { goTo } from './navigation.js';
 
 let activeCategory = 'all';
 let activeQuery = '';
+let activeHomeFeaturedCategory = 'all';
 
 function matchesCategory(resource) {
   return activeCategory === 'all' || resource.categories.includes(activeCategory);
@@ -62,55 +63,102 @@ function createNeedButton(need) {
   return button;
 }
 
-function createTag(tag) {
+function createListingBadge(label) {
   const element = document.createElement('span');
-  element.className = 'explore-tag';
-  element.textContent = tag;
+  element.className = 'listing-card__badge-pill';
+  element.textContent = label;
   return element;
 }
 
-function createResourceCard(resource) {
+function createListingCard(resource, options = {}) {
+  const context = options.context || 'directory';
   const article = document.createElement('article');
-  article.className = 'explore-resource';
+  article.className = `listing-card listing-card--${context}`;
+  article.dataset.resourceId = resource.id;
 
-  const logo = document.createElement('div');
-  logo.className = 'explore-resource__logo';
-  logo.textContent = resource.logoText;
-  logo.setAttribute('aria-hidden', 'true');
+  const media = document.createElement('div');
+  media.className = 'listing-card__media';
 
-  const body = document.createElement('div');
-  body.className = 'explore-resource__body';
+  const image = document.createElement('img');
+  image.className = 'listing-card__image';
+  image.src = resource.cardImage || resource.gallery?.[0]?.src || '';
+  image.alt = resource.name;
+  image.loading = context === 'featured' ? 'eager' : 'lazy';
+  image.decoding = 'async';
+  image.fetchPriority = context === 'featured' ? 'high' : 'low';
+  media.append(image);
+
+  const content = document.createElement('div');
+  content.className = 'listing-card__content';
+
+  const header = document.createElement('div');
+  header.className = 'listing-card__header';
+
+  const headingGroup = document.createElement('div');
+  headingGroup.className = 'listing-card__heading-group';
 
   const title = document.createElement('h3');
-  title.className = 'explore-resource__title';
+  title.className = 'listing-card__title';
   title.textContent = resource.name;
 
-  const tags = document.createElement('div');
-  tags.className = 'explore-resource__tags';
-  resource.tags.forEach((tag) => {
-    tags.appendChild(createTag(tag));
-  });
+  const subtitle = document.createElement('p');
+  subtitle.className = 'listing-card__subtitle';
+  subtitle.textContent = resource.cardType || resource.tags?.[0] || resource.resourceType || '';
 
-  const summary = document.createElement('p');
-  summary.className = 'explore-resource__summary';
-  summary.textContent = resource.summary;
+  headingGroup.append(title, subtitle);
 
   const location = document.createElement('p');
-  location.className = 'explore-resource__location';
+  location.className = 'listing-card__location';
   location.appendChild(createIcon('tabler:map-pin'));
-  location.append(resource.location);
+  location.append(resource.cardLocation || resource.location);
 
-  body.append(title, tags, summary, location);
+  header.append(headingGroup, location);
 
-  const action = document.createElement('button');
-  action.className = 'explore-resource__action';
-  action.type = 'button';
-  action.dataset.action = 'view-resource';
-  action.dataset.resourceId = resource.id;
-  action.textContent = resource.actionLabel;
+  const divider = document.createElement('span');
+  divider.className = 'listing-card__divider';
+  divider.setAttribute('aria-hidden', 'true');
 
-  article.append(logo, body, action);
+  const description = document.createElement('p');
+  description.className = 'listing-card__description';
+  description.textContent = resource.cardDescription || resource.summary;
+
+  const footer = document.createElement('div');
+  footer.className = 'listing-card__footer';
+
+  const badges = document.createElement('div');
+  badges.className = 'listing-card__badges';
+  (resource.cardBadges || []).forEach((badge) => {
+    badges.appendChild(createListingBadge(badge));
+  });
+
+  const action = document.createElement('span');
+  action.className = 'listing-card__action';
+  action.textContent = 'View Profile';
+  action.appendChild(document.createTextNode(' '));
+  action.appendChild(createIcon('tabler:arrow-right'));
+
+  const hitArea = document.createElement('button');
+  hitArea.type = 'button';
+  hitArea.className = 'listing-card__hit-area';
+  hitArea.dataset.action = 'view-resource';
+  hitArea.dataset.resourceId = resource.id;
+  hitArea.setAttribute('aria-label', `View profile for ${resource.name}`);
+
+  footer.append(badges, action);
+  content.append(header, divider, description, footer);
+  article.append(media, content, hitArea);
   return article;
+}
+
+function createHomeFeaturedFilterButton(filter) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'home-featured__pill';
+  button.dataset.action = 'filter-home-featured';
+  button.dataset.category = filter.id;
+  button.setAttribute('aria-pressed', String(filter.id === activeHomeFeaturedCategory));
+  button.textContent = filter.label;
+  return button;
 }
 
 function createDetailTag(tag) {
@@ -358,16 +406,62 @@ function renderExploreResources() {
   const resources = EXPLORE_RESOURCES.filter((resource) => matchesCategory(resource) && matchesQuery(resource));
   root.textContent = '';
   resources.forEach((resource) => {
-    root.appendChild(createResourceCard(resource));
+    root.appendChild(createListingCard(resource, { context: 'directory' }));
   });
 
   empty.hidden = resources.length > 0;
+}
+
+function renderHomeFeaturedFilters() {
+  const root = document.getElementById('home-featured-filters');
+
+  if (!root) {
+    return;
+  }
+
+  root.textContent = '';
+  HOME_FEATURED_FILTERS.forEach((filter) => {
+    root.appendChild(createHomeFeaturedFilterButton(filter));
+  });
+}
+
+function renderHomeFeaturedCards() {
+  const root = document.getElementById('home-featured-cards');
+
+  if (!root) {
+    return;
+  }
+
+  const featuredResources = EXPLORE_RESOURCES
+    .filter((resource) => resource.featured)
+    .filter((resource) => activeHomeFeaturedCategory === 'all' || resource.categories.includes(activeHomeFeaturedCategory))
+    .sort((a, b) => (a.featuredRank || 999) - (b.featuredRank || 999))
+    .slice(0, 3);
+
+  root.textContent = '';
+
+  featuredResources.forEach((resource) => {
+    root.appendChild(createListingCard(resource, { context: 'featured' }));
+  });
+
+  if (featuredResources.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'home-featured__empty';
+    empty.textContent = 'No featured listings in this category yet.';
+    root.appendChild(empty);
+  }
 }
 
 export function filterExplore(category) {
   activeCategory = category || 'all';
   renderExploreCategories();
   renderExploreResources();
+}
+
+export function filterHomeFeatured(category) {
+  activeHomeFeaturedCategory = category || 'all';
+  renderHomeFeaturedFilters();
+  renderHomeFeaturedCards();
 }
 
 export function searchExplore(query) {
@@ -379,6 +473,8 @@ export function renderExploreDirectory() {
   renderExploreCategories();
   renderExploreNeeds();
   renderExploreResources();
+  renderHomeFeaturedFilters();
+  renderHomeFeaturedCards();
 }
 
 export function viewResource(resourceId) {

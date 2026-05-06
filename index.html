@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css">
 <script src="https://code.iconify.design/iconify-icon/2.2.0/iconify-icon.min.js"></script>
 <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
@@ -16,43 +17,267 @@
 <body>
 
 <section class="screen screen--surface is-active" id="s-landing" aria-label="Welcome">
-  <div class="screen__inner">
-    <header class="site-header site-header--inverse">
-      <div class="site-header__bar">
-        <p class="brand site-header__brand">Accra Coded</p>
-        <nav class="site-nav site-nav--desktop" aria-label="Primary">
-          <button type="button" class="site-nav__link is-active" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing" aria-current="page">Home</button>
-          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about" data-nav-screen="s-about">About Us</button>
-          <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore">Explore</button>
-        </nav>
-        <button type="button" class="site-nav__toggle" data-action="toggle-site-menu" aria-controls="landing-site-menu" aria-expanded="false" aria-label="Open navigation menu">
-          <span></span>
-          <span></span>
-          <span></span>
+  <div class="home-shell">
+    <div class="home-topbar">
+      <button type="button" class="home-wordmark" data-action="go-to" data-target="s-landing" aria-label="Go to homepage">
+        <img src="./src/assets/home/home-wordmark.svg" alt="Accra Coded">
+      </button>
+      <nav class="home-nav" aria-label="Primary">
+        <button type="button" class="home-nav__link" data-action="go-to" data-target="s-explore">Explore</button>
+        <button type="button" class="home-nav__link" data-action="go-to" data-target="s-resources">Events</button>
+        <button type="button" class="home-nav__link" data-action="go-to" data-target="s-about">Membership</button>
+        <button type="button" class="home-nav__link" data-action="go-to" data-target="s-about">About</button>
+        <button type="button" class="home-nav__link" data-action="go-to" data-target="s-format">Campaign</button>
+      </nav>
+      <button type="button" class="home-menu-btn site-nav__toggle" data-action="toggle-site-menu" aria-controls="home-site-menu" aria-expanded="false" aria-label="Open navigation menu">
+        <img src="./src/assets/home/home-menu-icon.svg" alt="">
+      </button>
+    </div>
+    <nav class="site-nav site-nav--mobile home-nav--mobile" id="home-site-menu" aria-label="Mobile primary" hidden>
+      <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore">Explore</button>
+      <button type="button" class="site-nav__link" data-action="go-to" data-target="s-resources">Events</button>
+      <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about">Membership</button>
+      <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about">About</button>
+      <button type="button" class="site-nav__link" data-action="go-to" data-target="s-format">Campaign</button>
+    </nav>
+    <div class="home-divider" aria-hidden="true"></div>
+
+    <div class="home-hero">
+      <div class="home-hero__content">
+        <h1 class="home-title">Wellness,<br>Rooted in Accra</h1>
+        <span class="home-title-rule" aria-hidden="true"></span>
+        <p class="home-copy">Discover trusted wellness spaces, practitioners and experiences in Accra. Or join our community for curated picks, events and exclusive benefits.</p>
+        <div class="home-cta-row">
+          <button type="button" class="home-cta home-cta--primary" data-action="go-to" data-target="s-explore"><span>Explore Resources</span><span class="home-cta__arrow" aria-hidden="true">&rarr;</span></button>
+          <button type="button" class="home-cta home-cta--secondary" data-action="go-to" data-target="s-about"><span>Join the Wellness List</span><span class="home-cta__arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="home-hero__visual">
+        <div class="home-main-card">
+          <picture class="home-main-card__media">
+            <source media="(max-width: 767px)" srcset="./src/assets/home/home-hero-main-mobile.png">
+            <img src="./src/assets/home/home-hero-main-desktop.png" alt="Woman meditating in a wellness space">
+          </picture>
+        </div>
+        <div class="home-texture-panel">
+          <div class="home-caption">
+            <span class="home-caption__rule" aria-hidden="true"></span>
+            <p>Reclaim balance.<br>Connect locally.<br>Live well.</p>
+          </div>
+          <img class="home-caption__sun" src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true">
+        </div>
+        <div class="home-vase-card">
+          <img src="./src/assets/home/home-hero-still-life.png" alt="Ceramic vase with leaf arrangement">
+        </div>
+      </div>
+    </div>
+
+    <section class="home-partners" aria-label="Trusted partners">
+      <p class="home-partners__label">Trusted Partners</p>
+      <div class="home-partners__list">
+        <div class="home-partner">
+          <img class="home-partner__logo" src="./src/assets/partners/partner-skin-medics.png" alt="Skin Medics" loading="lazy" decoding="async">
+        </div>
+        <div class="home-partner">
+          <img class="home-partner__logo" src="./src/assets/partners/partner-fulfilled.png" alt="Fulfilled Medspa Clinic" loading="lazy" decoding="async">
+        </div>
+        <div class="home-partner">
+          <img class="home-partner__logo" src="./src/assets/partners/partner-growth.png" alt="Growth Wellness Spa" loading="lazy" decoding="async">
+        </div>
+        <div class="home-partner">
+          <img class="home-partner__logo" src="./src/assets/partners/partner-kukun.png" alt="Kukun" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </section>
+
+    <div class="home-divider" aria-hidden="true"></div>
+
+    <section class="home-discover" aria-labelledby="home-discover-title">
+      <div class="home-discover__header">
+        <div class="home-discover__intro">
+          <p class="home-discover__eyebrow"><img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true"><span>Discover. Connect. Thrive.</span></p>
+          <h2 class="home-discover__title" id="home-discover-title">Explore Wellness in Accra</h2>
+          <span class="home-discover__rule" aria-hidden="true"></span>
+          <p class="home-discover__copy">Find trusted practitioners, spaces and experiences that support your well-being, mind, body and soul.</p>
+        </div>
+        <button type="button" class="home-discover__link" data-action="go-to" data-target="s-explore">
+          <span>View All Categories</span>
+          <span aria-hidden="true">&rarr;</span>
         </button>
       </div>
-      <nav class="site-nav site-nav--mobile" id="landing-site-menu" aria-label="Mobile primary" hidden>
-        <button type="button" class="site-nav__link is-active" data-action="go-to" data-target="s-landing" data-nav-screen="s-landing" aria-current="page">Home</button>
-        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-about" data-nav-screen="s-about">About Us</button>
-        <button type="button" class="site-nav__link" data-action="go-to" data-target="s-explore" data-nav-screen="s-explore">Explore</button>
-      </nav>
-    </header>
-    <div class="hero-stack">
-      <h1 class="display">Feeling the pressure? You are not <em>alone.</em></h1>
-      <p class="body-copy">Accra is intense. Sometimes your mind needs a pause. This space gives you one short moment to reset.</p>
-      <p class="meta-note landing-kicker">"Wo ho te sen?" How are you, really?</p>
-    </div>
 
-    <div class="spacer" aria-hidden="true"></div>
+      <div class="home-discover__grid">
+        <button type="button" class="discover-card discover-card--mental-health" data-action="go-to-filter-explore" data-target="s-explore" data-category="mental-health">
+          <span class="discover-card__icon"><iconify-icon icon="tabler:brain"></iconify-icon></span>
+          <span class="discover-card__body">
+            <span class="discover-card__title">Mental Health</span>
+            <span class="discover-card__meta">42 spaces</span>
+          </span>
+          <span class="discover-card__arrow" aria-hidden="true">&rarr;</span>
+        </button>
 
-    <div class="screen__footer">
-      <button type="button" class="c-button c-button--primary" data-action="go-to" data-target="s-format">I am ready. Take a breath with me</button>
-      <button type="button" class="c-button c-button--ghost" data-action="show-crisis">In immediate danger? Get help now</button>
-    </div>
-    <footer class="site-credit" aria-label="Site credits">
-      <p class="site-credit__line">Powered by Spearbytes</p>
-      <p class="site-credit__line">Making Space Foundation</p>
-    </footer>
+        <button type="button" class="discover-card discover-card--fitness" data-action="go-to-filter-explore" data-target="s-explore" data-category="vitality">
+          <span class="discover-card__icon"><iconify-icon icon="tabler:stretching"></iconify-icon></span>
+          <span class="discover-card__body">
+            <span class="discover-card__title">Fitness &amp; Movement</span>
+            <span class="discover-card__meta">68 spaces</span>
+          </span>
+          <span class="discover-card__arrow" aria-hidden="true">&rarr;</span>
+        </button>
+
+        <button type="button" class="discover-card discover-card--beauty" data-action="go-to-filter-explore" data-target="s-explore" data-category="beauty">
+          <span class="discover-card__icon"><iconify-icon icon="tabler:brush"></iconify-icon></span>
+          <span class="discover-card__body">
+            <span class="discover-card__title">Beauty &amp; Self-Care</span>
+            <span class="discover-card__meta">57 spaces</span>
+          </span>
+          <span class="discover-card__arrow" aria-hidden="true">&rarr;</span>
+        </button>
+
+        <button type="button" class="discover-card discover-card--nutrition" data-action="go-to-filter-explore" data-target="s-explore" data-category="vitality">
+          <span class="discover-card__icon"><iconify-icon icon="tabler:salad"></iconify-icon></span>
+          <span class="discover-card__body">
+            <span class="discover-card__title">Nutrition</span>
+            <span class="discover-card__meta">49 spaces</span>
+          </span>
+          <span class="discover-card__arrow" aria-hidden="true">&rarr;</span>
+        </button>
+
+        <button type="button" class="discover-card discover-card--holistic" data-action="go-to-filter-explore" data-target="s-explore" data-category="wellness">
+          <span class="discover-card__icon"><iconify-icon icon="tabler:flower"></iconify-icon></span>
+          <span class="discover-card__body">
+            <span class="discover-card__title">Holistic Wellness</span>
+            <span class="discover-card__meta">64 spaces</span>
+          </span>
+          <span class="discover-card__arrow" aria-hidden="true">&rarr;</span>
+        </button>
+
+        <button type="button" class="discover-card discover-card--community" data-action="go-to-filter-explore" data-target="s-explore" data-category="wellness">
+          <span class="discover-card__icon"><iconify-icon icon="tabler:users"></iconify-icon></span>
+          <span class="discover-card__body">
+            <span class="discover-card__title">Community Support</span>
+            <span class="discover-card__meta">38 spaces</span>
+          </span>
+          <span class="discover-card__arrow" aria-hidden="true">&rarr;</span>
+        </button>
+
+        <button type="button" class="discover-card discover-card--retreats" data-action="go-to-filter-explore" data-target="s-explore" data-category="wellness">
+          <span class="discover-card__icon"><iconify-icon icon="tabler:sun"></iconify-icon></span>
+          <span class="discover-card__body">
+            <span class="discover-card__title">Retreats &amp; Experiences</span>
+            <span class="discover-card__meta">31 spaces</span>
+          </span>
+          <span class="discover-card__arrow" aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="home-featured" aria-labelledby="home-featured-title">
+      <div class="home-featured__header">
+        <div class="home-featured__intro">
+          <p class="home-featured__eyebrow"><img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true"><span>Featured Listings</span></p>
+          <h2 class="home-featured__title" id="home-featured-title">Featured Wellness Spots</h2>
+          <span class="home-featured__rule" aria-hidden="true"></span>
+          <p class="home-featured__copy">Handpicked wellness spaces, practitioners and experiences in Accra. Curated for quality, community and impact.</p>
+        </div>
+        <button type="button" class="home-featured__link" data-action="go-to" data-target="s-explore">
+          <span>View All Listings</span>
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+
+      <div class="home-featured__controls">
+        <div class="home-featured__filters" id="home-featured-filters" role="group" aria-label="Featured listing categories"></div>
+        <button type="button" class="home-featured__filter-cta" data-action="go-to" data-target="s-explore">
+          <span>Filter</span>
+          <iconify-icon icon="tabler:adjustments-horizontal" aria-hidden="true"></iconify-icon>
+        </button>
+      </div>
+
+      <div class="home-featured__cards" id="home-featured-cards"></div>
+    </section>
+
+    <section class="home-membership" aria-labelledby="home-membership-title">
+      <div class="home-membership__trust">
+        <div class="home-membership__intro">
+          <p class="home-membership__eyebrow">Why Accra Coded</p>
+          <span class="home-membership__rule" aria-hidden="true"></span>
+          <h2 class="home-membership__title" id="home-membership-title">Wellness that’s local, trusted, and made for you.</h2>
+        </div>
+
+        <div class="home-membership__values">
+          <article class="trust-tile">
+            <span class="trust-tile__icon"><img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true"></span>
+            <div class="trust-tile__body">
+              <h3 class="trust-tile__title">Curated</h3>
+              <span class="trust-tile__rule" aria-hidden="true"></span>
+              <p class="trust-tile__copy">Handpicked wellness spaces, practitioners and events you can trust.</p>
+            </div>
+          </article>
+
+          <article class="trust-tile">
+            <span class="trust-tile__icon"><iconify-icon icon="tabler:map-pin" aria-hidden="true"></iconify-icon></span>
+            <div class="trust-tile__body">
+              <h3 class="trust-tile__title">Local</h3>
+              <span class="trust-tile__rule" aria-hidden="true"></span>
+              <p class="trust-tile__copy">Rooted in Accra and powered by people who know the city.</p>
+            </div>
+          </article>
+
+          <article class="trust-tile">
+            <span class="trust-tile__icon"><iconify-icon icon="tabler:search" aria-hidden="true"></iconify-icon></span>
+            <div class="trust-tile__body">
+              <h3 class="trust-tile__title">Easy to Explore</h3>
+              <span class="trust-tile__rule" aria-hidden="true"></span>
+              <p class="trust-tile__copy">Search, discover and explore wellness experiences with ease.</p>
+            </div>
+          </article>
+
+          <article class="trust-tile">
+            <span class="trust-tile__icon"><iconify-icon icon="tabler:users-group" aria-hidden="true"></iconify-icon></span>
+            <div class="trust-tile__body">
+              <h3 class="trust-tile__title">Built for Ghana</h3>
+              <span class="trust-tile__rule" aria-hidden="true"></span>
+              <p class="trust-tile__copy">Created for our community, our culture and our wellbeing.</p>
+            </div>
+          </article>
+        </div>
+
+        <img class="home-membership__botanical" src="./src/assets/home/home-membership-botanical.png" alt="" aria-hidden="true">
+      </div>
+
+      <div class="membership-teaser">
+        <div class="membership-teaser__copy">
+          <p class="membership-teaser__eyebrow"><img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true"><span>Membership Teaser</span></p>
+          <h3 class="membership-teaser__title">More access.<br>More benefits.</h3>
+          <p class="membership-teaser__coming">Coming soon.</p>
+          <p class="membership-teaser__body">Accra Coded Membership unlocks exclusive perks designed to support your wellness journey.</p>
+        </div>
+
+        <div class="membership-teaser__visual">
+          <img src="./src/assets/home/home-membership-still-life.png" alt="Ceramic vase with olive branch">
+        </div>
+
+        <ul class="membership-teaser__list">
+          <li class="membership-teaser__item"><iconify-icon icon="tabler:calendar-event" aria-hidden="true"></iconify-icon><span>Member-only wellness events</span></li>
+          <li class="membership-teaser__item"><iconify-icon icon="tabler:book-2" aria-hidden="true"></iconify-icon><span>Private guides &amp; expert content</span></li>
+          <li class="membership-teaser__item"><iconify-icon icon="tabler:tag" aria-hidden="true"></iconify-icon><span>Partner discounts &amp; offers</span></li>
+          <li class="membership-teaser__item"><iconify-icon icon="tabler:star" aria-hidden="true"></iconify-icon><span>Curated experiences</span></li>
+          <li class="membership-teaser__item"><iconify-icon icon="tabler:users-group" aria-hidden="true"></iconify-icon><span>Community access &amp; connections</span></li>
+        </ul>
+
+        <button type="button" class="membership-teaser__cta" data-action="open-waitlist">
+          <span>Join the Waitlist</span>
+          <span class="membership-teaser__cta-arrow" aria-hidden="true">&rarr;</span>
+        </button>
+
+        <div class="membership-teaser__closing">
+          <span class="membership-teaser__closing-rule" aria-hidden="true"></span>
+          <p>Better choices.<br>Deeper connections.<br>Real wellness.</p>
+        </div>
+      </div>
+    </section>
   </div>
 </section>
 
