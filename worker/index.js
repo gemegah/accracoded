@@ -10,7 +10,49 @@ function withCors(response) {
   return response;
 }
 
-function routeRequest(request, env) {
+function isApiRequest(path) {
+  return path.startsWith('/api/');
+}
+
+function isAppNavigationRequest(request, path) {
+  const method = request.method.toUpperCase();
+  const accept = request.headers.get('Accept') || '';
+
+  if (method !== 'GET' && method !== 'HEAD') {
+    return false;
+  }
+
+  if (path.includes('.') || path.startsWith('/assets/')) {
+    return false;
+  }
+
+  return accept.includes('text/html') || accept.includes('*/*');
+}
+
+async function serveStaticAsset(request, env) {
+  if (!env.ASSETS) {
+    return json({ error: 'asset_binding_not_configured' }, 500);
+  }
+
+  return env.ASSETS.fetch(request);
+}
+
+async function serveReactApp(request, env) {
+  const url = new URL(request.url);
+  const assetResponse = await serveStaticAsset(request, env);
+
+  if (assetResponse.status !== 404 || !isAppNavigationRequest(request, url.pathname)) {
+    return assetResponse;
+  }
+
+  const indexUrl = new URL(request.url);
+  indexUrl.pathname = '/index.html';
+  indexUrl.search = '';
+
+  return env.ASSETS.fetch(new Request(indexUrl, request));
+}
+
+function routeApiRequest(request, env) {
   const url = new URL(request.url);
   const path = url.pathname;
   const method = request.method.toUpperCase();
@@ -36,13 +78,19 @@ function routeRequest(request, env) {
 
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
+
     if (request.method.toUpperCase() === 'OPTIONS') {
       return withCors(new Response(null, { status: 204 }));
     }
 
     try {
-      const response = await routeRequest(request, env);
-      return withCors(response);
+      if (isApiRequest(url.pathname)) {
+        const response = await routeApiRequest(request, env);
+        return withCors(response);
+      }
+
+      return serveReactApp(request, env);
     } catch (error) {
       return withCors(json({ error: 'internal_error', detail: String(error?.message || error) }, 500));
     }
