@@ -1,0 +1,873 @@
+
+  @media (min-width: 640px) {
+    .home-shell {
+      padding: 26px 26px max(24px, env(safe-area-inset-bottom));
+      gap: 24px;
+    }
+
+    .home-partners__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px 28px;
+    }
+
+    .home-partner {
+      min-height: 94px;
+      padding: 10px 20px;
+      position: relative;
+    }
+
+    .home-discover {
+      gap: 30px;
+      padding-top: 26px;
+      padding-bottom: 44px;
+    }
+
+    .home-discover__header {
+      gap: 22px;
+    }
+
+    .home-discover__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .home-hero__content {
+      max-width: 42rem;
+    }
+
+    .home-cta-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      max-width: 44rem;
+      gap: 16px;
+    }
+
+    .home-copy {
+      font-size: clamp(14px, 1.7vw, 17px);
+    }
+
+    .home-title {
+      font-size: clamp(58px, 9.2vw, 92px);
+    }
+
+    .home-hero__visual {
+      width: min(100%, 44rem);
+      min-height: 34rem;
+      aspect-ratio: 12 / 11.5;
+    }
+
+    .home-main-card {
+      margin-bottom: clamp(92px, 14vw, 136px);
+      border-radius: 28px 28px 0 180px;
+    }
+
+    .home-texture-panel {
+      min-height: clamp(210px, 23vw, 260px);
+    }
+
+    .home-vase-card {
+      width: clamp(210px, 34%, 300px);
+    }
+
+    .home-partner:nth-child(odd)::after {
+      content: '';
+      position: absolute;
+      right: -14px;
+      top: 12px;
+      bottom: 12px;
+      width: 1px;
+      background: rgba(185, 183, 176, 0.72);
+    }
+
+    .home-partner:nth-child(-n + 2)::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -12px;
+      height: 1px;
+      background: rgba(185, 183, 176, 0.72);
+    }
+
+    .home-partner__logo {
+      width: min(100%, 176px);
+      height: 80px;
+      transform: scale(1.14);
+    }
+
+    .home-partner:nth-child(2) .home-partner__logo,
+    .home-partner:nth-child(3) .home-partner__logo {
+      height: 86px;
+      transform: scale(1.1);
+    }
+
+    .home-partner:nth-child(4) .home-partner__logo {
+      height: 68px;
+      transform: scale(1.3);
+    }
+
+    .discover-card {
+      min-height: 248px;
+      padding: 20px;
+    }
+
+    .discover-card--retreats {
+      min-height: 420px;
+      grid-column: 1 / -1;
+    }
+
+    .home-featured__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-membership {
+      gap: 30px;
+      padding-top: 38px;
+      padding-bottom: 60px;
+    }
+
+    .membership-teaser {
+      padding: 28px 24px 26px;
+    }
+
+    .membership-teaser__visual {
+      width: min(100%, 22rem);
+      justify-self: start;
+    }
+
+    .listing-card--featured:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .screen__inner {
+      max-width: 700px;
+      padding: 32px 28px max(28px, env(safe-area-inset-bottom));
+      gap: 28px;
+    }
+
+    .hero-stack {
+      gap: 18px;
+    }
+
+    .site-header {
+      gap: 1rem;
+    }
+
+    .site-nav--mobile {
+      max-width: 22rem;
+      margin-left: auto;
+    }
+
+    .body-copy {
+      max-width: 52ch;
+    }
+
+    .format-options {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .format-card {
+      align-items: flex-start;
+      min-height: 170px;
+      flex-direction: column;
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .content-stack {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .media-shell {
+      min-height: 380px;
+    }
+
+    .media-shell__inner {
+      min-height: 380px;
+      padding: 28px;
+    }
+
+    .mood-options {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .input-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .resource-group__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .share-card {
+      max-width: 620px;
+    }
+
+    .screen__footer {
+      position: static;
+      background: transparent;
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+
+    .nav-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .site-credit {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 12.5px;
+    }
+
+    .explore-shell {
+      max-width: 760px;
+      gap: 26px;
+    }
+
+    .explore-title {
+      font-size: clamp(52px, 7.2vw, 72px);
+    }
+
+    .explore-chips {
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+
+    .need-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .explore-resources {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .explore-detail-shell {
+      max-width: 760px;
+      gap: 22px;
+    }
+
+    .explore-detail-gallery--carousel {
+      grid-auto-columns: minmax(440px, 520px);
+    }
+
+    .explore-detail-actions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .explore-detail-copy {
+      max-width: 58ch;
+    }
+
+    .explore-detail-section--card {
+      padding: 20px;
+    }
+
+    .about-shell {
+      max-width: 760px;
+      gap: 30px;
+    }
+
+    .about-overview {
+      width: 100%;
+      margin-inline: 0;
+      padding-bottom: 214px;
+    }
+
+    .about-copy {
+      gap: 20px;
+      max-width: 24rem;
+    }
+
+    .about-illustration {
+      right: -56px;
+      bottom: -36px;
+      width: 470px;
+      opacity: 0.56;
+    }
+
+    .about-card {
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 20px;
+      padding: 24px 22px;
+    }
+
+    .about-card__icon {
+      width: 72px;
+      height: 72px;
+    }
+
+    .about-card__icon iconify-icon {
+      font-size: 36px;
+      width: 36px;
+      height: 36px;
+    }
+
+    .about-card__content {
+      padding-left: 22px;
+    }
+
+    .about-card__text {
+      font-size: 16px;
+    }
+
+    .about-cards {
+      width: 100%;
+      margin-inline: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .home-shell {
+      padding: 32px 34px max(24px, env(safe-area-inset-bottom));
+      gap: 26px;
+    }
+
+    .home-partners__list {
+      gap: 28px 32px;
+    }
+
+    .home-discover__header {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+
+    .home-discover__link {
+      align-self: end;
+      margin-bottom: 6px;
+    }
+
+    .home-discover__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .home-hero__content {
+      max-width: 44rem;
+    }
+
+    .home-title {
+      font-size: clamp(64px, 8.8vw, 92px);
+    }
+
+    .home-copy {
+      font-size: clamp(14px, 1.55vw, 18px);
+    }
+
+    .home-cta-row {
+      gap: 18px;
+    }
+
+    .home-hero__visual {
+      width: min(100%, 45rem);
+      min-height: 36rem;
+      aspect-ratio: 11.5 / 10.8;
+    }
+
+    .home-main-card {
+      border-radius: 28px 28px 0 194px;
+    }
+
+    .home-vase-card {
+      width: clamp(220px, 34%, 300px);
+    }
+
+    .discover-card--retreats {
+      grid-column: span 2;
+    }
+
+    .listing-card--featured:first-child {
+      grid-column: auto;
+    }
+
+    .home-membership__title {
+      font-size: clamp(58px, 8.1vw, 82px);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .home-shell {
+      padding: 28px 44px 28px;
+      gap: 28px;
+    }
+
+    .home-partners {
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 28px;
+      padding-block: 34px 42px;
+    }
+
+    .home-partners__list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      align-items: center;
+    }
+
+    .home-partner {
+      min-height: 100px;
+      padding: 0 20px;
+      justify-content: center;
+    }
+
+    .home-partner::before {
+      display: none;
+    }
+
+    .home-partner::after {
+      display: none;
+    }
+
+    .home-partner + .home-partner {
+      border-left: 1px solid rgba(185, 183, 176, 0.72);
+    }
+
+    .home-partner__logo {
+      width: min(100%, 220px);
+      height: 100px;
+      transform: scale(1.12);
+    }
+
+    .home-partner:nth-child(2) .home-partner__logo,
+    .home-partner:nth-child(3) .home-partner__logo {
+      height: 104px;
+      transform: scale(1.08);
+    }
+
+    .home-partner:nth-child(4) .home-partner__logo {
+      height: 84px;
+      transform: scale(1.26);
+    }
+
+    .home-discover {
+      gap: 34px;
+      padding-top: 42px;
+      padding-bottom: 60px;
+    }
+
+    .home-discover__intro {
+      gap: 16px;
+    }
+
+    .home-discover__copy {
+      font-size: 17px;
+      max-width: 30ch;
+    }
+
+    .home-discover__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(200px, 0.78fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .home-featured__header {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+    }
+
+    .home-featured__link {
+      justify-self: end;
+      margin-top: 4px;
+    }
+
+    .home-featured__controls {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+    }
+
+    .home-featured__cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .home-membership {
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.02fr);
+      gap: clamp(42px, 5vw, 72px);
+      padding-top: 44px;
+      padding-bottom: 68px;
+    }
+
+    .home-membership__title {
+      font-size: clamp(66px, 5.6vw, 90px);
+      max-width: 9.5ch;
+    }
+
+    .home-membership__botanical {
+      left: -28px;
+      bottom: -42px;
+      width: min(22vw, 320px);
+      opacity: 0.3;
+    }
+
+    .membership-teaser {
+      gap: 24px;
+      padding: 30px 28px 26px;
+      min-height: 100%;
+      grid-template-columns: minmax(0, 1fr) minmax(270px, 0.64fr);
+      grid-template-areas:
+        'copy visual'
+        'list visual'
+        'cta closing';
+      column-gap: 28px;
+      row-gap: 22px;
+    }
+
+    .membership-teaser__copy {
+      grid-area: copy;
+      max-width: 28rem;
+    }
+
+    .membership-teaser__title {
+      font-size: clamp(62px, 4.8vw, 82px);
+      max-width: 7ch;
+    }
+
+    .membership-teaser__coming {
+      font-size: clamp(36px, 2.9vw, 56px);
+    }
+
+    .membership-teaser__list {
+      grid-area: list;
+      align-self: start;
+      padding-top: 6px;
+    }
+
+    .membership-teaser__visual {
+      grid-area: visual;
+      width: 100%;
+      max-width: 24rem;
+      justify-self: end;
+      align-self: start;
+      margin-top: 4px;
+    }
+
+    .membership-teaser__visual img {
+      aspect-ratio: 0.73;
+    }
+
+    .membership-teaser__cta {
+      grid-area: cta;
+      width: min(100%, 25rem);
+    }
+
+    .membership-teaser__closing {
+      grid-area: closing;
+      justify-self: start;
+      align-self: end;
+      margin-bottom: 6px;
+    }
+
+    .home-nav {
+      display: flex;
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .home-hero {
+      grid-template-columns: minmax(0, 0.98fr) minmax(0, 0.92fr);
+      gap: clamp(56px, 6vw, 96px);
+      align-items: start;
+      padding-top: 10px;
+    }
+
+    .home-hero__content {
+      padding-top: 10px;
+      max-width: 42rem;
+    }
+
+    .home-hero__visual {
+      width: min(100%, 43rem);
+      min-height: clamp(32rem, 42vw, 42rem);
+      aspect-ratio: 10.4 / 10;
+      justify-self: end;
+    }
+
+    .home-main-card {
+      margin-left: clamp(18px, 2.6vw, 38px);
+      margin-bottom: clamp(104px, 7vw, 126px);
+      border-radius: 30px 30px 0 240px;
+    }
+
+    .home-texture-panel {
+      width: 80%;
+      min-height: clamp(188px, 16vw, 224px);
+      padding: 24px 24px 22px;
+    }
+
+    .home-vase-card {
+      width: clamp(210px, 31%, 280px);
+      margin-right: clamp(10px, 2vw, 20px);
+      margin-bottom: clamp(34px, 6vw, 56px);
+    }
+
+    .home-cta {
+      min-height: 58px;
+      width: auto;
+      padding: 16px 28px;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      box-shadow: none;
+    }
+
+    .home-eyebrow {
+      font-size: clamp(14px, 1vw, 17px);
+      letter-spacing: 0.06em;
+    }
+
+    .home-eyebrow img {
+      width: 38px;
+      height: 38px;
+    }
+
+    .home-title {
+      font-size: clamp(66px, 5.9vw, 104px);
+      max-width: 13ch;
+    }
+
+    .home-copy {
+      font-size: clamp(14px, 1vw, 17px);
+      max-width: 39ch;
+      line-height: 1.72;
+    }
+
+    .home-cta-row {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 22px;
+      max-width: none;
+      width: fit-content;
+    }
+
+    .home-caption__rule {
+      height: 78px;
+    }
+
+    .home-caption p {
+      font-size: clamp(14px, 0.9vw, 18px);
+      line-height: 1.52;
+    }
+
+    .home-caption__sun {
+      width: 26px;
+      height: 26px;
+      right: -30px;
+    }
+
+    .discover-card {
+      min-height: 230px;
+      border-radius: 20px;
+      padding: 18px 18px 16px;
+    }
+
+    .discover-card__body {
+      max-width: 12ch;
+    }
+
+    .discover-card__title {
+      font-size: clamp(16px, 1.45vw, 20px);
+    }
+
+    .discover-card--retreats {
+      grid-column: 4;
+      grid-row: 1 / span 2;
+      min-height: 100%;
+    }
+
+    .discover-card--retreats .discover-card__body {
+      max-width: 10ch;
+    }
+
+    .listing-card__header {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+
+    .listing-card--directory .listing-card__title {
+      font-size: 22px;
+    }
+
+    .site-nav--desktop {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .site-nav__toggle {
+      display: none;
+    }
+
+    .site-nav--mobile {
+      display: none !important;
+    }
+
+    .site-nav__link {
+      position: relative;
+      min-height: 2.5rem;
+      padding-inline: 0.25rem;
+      border-radius: 0;
+    }
+
+    .site-nav__link.is-active {
+      background: transparent;
+    }
+
+    .site-header--inverse .site-nav__link.is-active::after,
+    .site-header:not(.site-header--inverse) .site-nav__link.is-active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.35rem;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .explore-shell {
+      max-width: 1080px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      align-content: start;
+    }
+
+    .explore-shell > .site-header,
+    .explore-hero,
+    .explore-search,
+    .explore-chips {
+      grid-column: 1 / -1;
+    }
+
+    .explore-section--resources {
+      grid-column: 1 / -1;
+    }
+
+    .explore-section:not(.explore-section--resources) {
+      grid-column: 1 / 2;
+    }
+
+    .need-tile {
+      min-height: 92px;
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+
+    .need-tile__icon iconify-icon {
+      width: 34px;
+      height: 34px;
+      font-size: 34px;
+    }
+
+    .explore-resources {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .explore-detail-shell {
+      max-width: 960px;
+    }
+
+    .explore-detail {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+      gap: 20px;
+    }
+
+    .explore-shell > .site-credit {
+      grid-column: 1 / -1;
+    }
+
+    .about-shell {
+      max-width: 1240px;
+      gap: 36px;
+      padding-inline: 32px;
+    }
+
+    .about-shell::after {
+      right: -100px;
+      bottom: -24px;
+      width: 480px;
+      height: 330px;
+      opacity: 0.52;
+    }
+
+    .about-layout {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 54px;
+      align-items: start;
+    }
+
+    .about-overview {
+      min-height: 640px;
+      padding-bottom: 0;
+    }
+
+    .about-copy {
+      max-width: 38rem;
+      gap: 24px;
+    }
+
+    .about-title {
+      font-size: clamp(64px, 6vw, 82px);
+      max-width: 11ch;
+    }
+
+    .about-copy__body {
+      max-width: 34ch;
+      font-size: 18px;
+    }
+
+    .about-illustration {
+      left: -42px;
+      right: auto;
+      bottom: -22px;
+      width: min(96%, 680px);
+      opacity: 0.98;
+    }
+
+    .about-cards {
+      gap: 24px;
+      padding-top: 34px;
+    }
+
+    .about-card {
+      grid-template-columns: 108px minmax(0, 1fr);
+      gap: 26px;
+      padding: 32px 28px;
+      min-height: 182px;
+    }
+
+    .about-card__icon {
+      width: 84px;
+      height: 84px;
+    }
+
+    .about-card__content {
+      padding-left: 28px;
+      gap: 12px;
+    }
+
+    .about-card__title {
+      font-size: 21px;
+    }
+
+    .about-card__text {
+      max-width: 34ch;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+

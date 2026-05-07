@@ -4,9 +4,27 @@
   "private": true,
   "description": "Static mental wellness flow for Accra users.",
   "scripts": {
-    "dev": "node scripts/dev-server.mjs",
-    "dev:lan": "node scripts/dev-server.mjs --host 0.0.0.0 --port 4173",
+    "dev": "vite --host 127.0.0.1 --port 4173",
+    "dev:lan": "vite --host 0.0.0.0 --port 4173",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
     "db:migrate": "wrangler d1 execute accracoded-db --local --file=worker/db/schema.sql",
-    "deploy": "wrangler deploy"
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@formspree/react": "^3.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.15.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.4",
+    "@types/node": "^22.15.21",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "tailwindcss": "^4.2.4"
   }
 }

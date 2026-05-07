@@ -1,0 +1,127 @@
+  .resources-list {
+    display: grid;
+    gap: 18px;
+  }
+
+  .resource-group {
+    display: grid;
+    gap: 10px;
+  }
+
+  .resource-group__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .resource-group__intro {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-soft);
+  }
+
+  .resource-group__list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .c-list-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: rgba(253, 253, 250, 0.68);
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .resource-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .resource-name--dark {
+    color: var(--text);
+  }
+
+  .resource-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .resource-meta {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-soft);
+  }
+
+  .resource-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .resource-row .c-button,
+  .resource-row sl-button[data-ui='accracoded']::part(base) {
+    min-height: 44px;
+    font-size: 15px;
+  }
+
+  .resources-about-btn {
+    width: fit-content;
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+
+  .resources-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .events-shell {
+    display: grid;
+    place-items: center;
+    text-align: center;
+  }
+
+  .events-content {
+    width: min(100%, 46rem);
+    justify-items: center;
+  }
+
+  .events-content .body-copy {
+    max-width: 52ch;
+  }
+
+  .events-content .resources-actions {
+    justify-content: center;
+  }
+
+  .resources-about-btn:hover {
+    background: rgba(253, 253, 250, 0.56);
+  }
+
+  .resources-footer {
+    position: static;
+    background: transparent;
+    padding-top: 0;
+  }
+
+  .site-credit {
+    margin-top: 14px;
+    padding-bottom: max(4px, env(safe-area-inset-bottom));
+    display: grid;
+    gap: 2px;
+    justify-items: center;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--text-soft) 84%, white 16%);
+  }
+
+  .site-credit__line {
+    margin: 0;
+  }
+
+

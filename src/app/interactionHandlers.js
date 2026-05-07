@@ -98,7 +98,7 @@ export async function submitCheckin() {
       missingAge: !age,
       missingGender: !gender
     });
-    return;
+    return false;
   }
 
   const payload = {
@@ -118,6 +118,7 @@ export async function submitCheckin() {
   });
 
   goTo('s-resources');
+  return true;
 }
 
 export function cycleMessage() {

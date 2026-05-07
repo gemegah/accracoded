@@ -126,6 +126,6 @@
 - Keep directory data in one source boundary to enable future backend migration.
 
 ## Implementation Handshake
-- If a UI interaction is driven by `data-action`, update both `index.html` and `src/main.js`.
+- If a UI interaction is driven by `data-action`, update the relevant React page component and `src/hooks/useAccraCodedApp.ts`.
 - If a new screen is added, update navigation and progress indicators consistently.
 - If resource content changes, keep crisis modal and resources screen aligned.
