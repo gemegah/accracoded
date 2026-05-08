@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { closeSiteMenus } from '../app/navigation.js';
 
 const footerLinks = [
+  { label: 'Home', path: '/' },
   { label: 'Explore', path: '/explore' },
   { label: 'Events', path: '/events' },
   { label: 'Membership', path: '/membership' },
-  { label: 'About', path: '/about' },
-  { label: 'Contact', path: 'mailto:hello@accracoded.com', external: true }
+  { label: 'About', path: '/about' }
 ];
 
 const socialLinks = [
@@ -28,17 +28,11 @@ export function Footer() {
         </Link>
 
         <nav className="footer-links" aria-label="Footer links">
-          {footerLinks.map((item) =>
-            item.external ? (
-              <a key={item.label} href={item.path} className="footer-link">
-                {item.label}
-              </a>
-            ) : (
-              <Link key={item.path} to={item.path} className="footer-link" onClick={closeSiteMenus}>
-                {item.label}
-              </Link>
-            )
-          )}
+          {footerLinks.map((item) => (
+            <Link key={item.path} to={item.path} className="footer-link" onClick={closeSiteMenus}>
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="footer-socials" aria-label="Social links">

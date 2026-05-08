@@ -656,6 +656,8 @@
       width: 26px;
       height: 26px;
       right: -30px;
+      bottom: -3px;
+      max-width: none;
     }
 
     .discover-card {

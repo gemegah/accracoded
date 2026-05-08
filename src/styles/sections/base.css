@@ -39,6 +39,7 @@
   body {
     height: 100%;
     margin: 0;
+    max-width: 100%;
   }
 
   body {
@@ -97,6 +98,11 @@
     overscroll-behavior: auto;
   }
 
+  #root {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
   .screen__inner {
     min-height: 100dvh;
     max-width: 430px;
@@ -109,12 +115,14 @@
 
   .home-shell {
     min-height: 100dvh;
+    width: 100%;
     max-width: 1440px;
     margin: 0 auto;
     padding: 20px 18px max(20px, env(safe-area-inset-bottom));
     display: grid;
     gap: 22px;
     align-content: start;
+    overflow-x: clip;
   }
 
   .page-shell {
@@ -176,33 +184,37 @@
   }
 
   .home-menu-btn {
-    border: 0;
-    background: transparent;
+    border: 1px solid rgba(71, 83, 62, 0.22);
+    border-radius: 999px;
+    background: rgba(251, 250, 247, 0.72);
     padding: 0;
     width: 48px;
     height: 48px;
     display: inline-grid;
     place-items: center;
     flex: 0 0 auto;
+    color: var(--home-ink);
+    box-shadow: 0 12px 30px rgba(31, 27, 22, 0.08);
   }
 
-  .home-menu-btn img {
-    width: 40px;
-    height: 40px;
+  .home-menu-btn:hover,
+  .home-menu-btn:focus-visible {
+    background: rgba(247, 245, 239, 0.96);
+    border-color: rgba(71, 83, 62, 0.34);
   }
 
   .home-menu-btn.site-nav__toggle {
     min-width: 48px;
     min-height: 48px;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    padding: 0;
-    gap: 0;
+    gap: 5px;
   }
 
   .home-menu-btn.site-nav__toggle span {
-    display: none;
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
   }
 
   .home-nav--mobile {
@@ -210,6 +222,30 @@
     width: min(21rem, 100%);
     border-color: var(--home-line);
     background: #f7f5ef;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    visibility: hidden;
+    transition:
+      max-height 320ms var(--ease-standard),
+      opacity var(--motion-medium) var(--ease-standard),
+      transform var(--motion-medium) var(--ease-standard),
+      visibility 0ms linear 320ms;
+  }
+
+  .home-nav--mobile.is-open {
+    max-height: 24rem;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    visibility: visible;
+    transition:
+      max-height 360ms var(--ease-standard),
+      opacity var(--motion-medium) var(--ease-standard),
+      transform var(--motion-medium) var(--ease-standard),
+      visibility 0ms;
   }
 
   .home-nav--mobile .site-nav__link {

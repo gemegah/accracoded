@@ -6,6 +6,7 @@
   padding: 56px 18px 0;
   background: var(--home-ivory);
   color: var(--home-ink);
+  overflow-x: clip;
 }
 
 .app-footer {
@@ -29,12 +30,19 @@
   display: grid;
   gap: 34px;
   padding-bottom: 48px;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+.footer-waitlist > * {
+  min-width: 0;
 }
 
 .footer-waitlist__copy {
   display: grid;
   align-content: start;
   gap: 24px;
+  min-width: 0;
 }
 
 .footer-waitlist__eyebrow,
@@ -57,6 +65,7 @@
   font-size: 13px;
   line-height: 1.55;
   font-weight: 600;
+  min-width: 0;
 }
 
 .footer-waitlist__eyebrow img {
@@ -72,6 +81,7 @@
   line-height: 0.98;
   letter-spacing: 0;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .footer-waitlist__rule {
@@ -84,6 +94,7 @@
   max-width: 36rem;
   font-size: clamp(14px, 1.8vw, 18px);
   line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .footer-privacy {
@@ -95,6 +106,7 @@
   font-size: 12px;
   line-height: 1.55;
   font-weight: 600;
+  min-width: 0;
 }
 
 .footer-privacy__icon {
@@ -111,12 +123,14 @@
   display: grid;
   align-content: start;
   gap: 18px;
+  min-width: 0;
 }
 
 .footer-field {
   display: grid;
   gap: 8px;
   position: relative;
+  min-width: 0;
 }
 
 .footer-field span {
@@ -174,6 +188,8 @@
 }
 
 .footer-submit {
+  width: 100%;
+  min-width: 0;
   min-height: 60px;
   border: 0;
   border-radius: 6px;
@@ -194,6 +210,11 @@
   transition:
     transform var(--motion-fast) var(--ease-standard),
     box-shadow var(--motion-fast) var(--ease-standard);
+}
+
+.footer-submit span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .footer-submit:hover {
@@ -244,6 +265,8 @@
   position: relative;
   margin: 0;
   min-height: 380px;
+  max-width: 100%;
+  min-width: 0;
   overflow: visible;
   background: var(--home-ivory);
   isolation: isolate;
@@ -390,6 +413,31 @@
 
 .footer-site-credit__line {
   margin: 0;
+}
+
+@media (max-width: 759px) {
+  .footer-waitlist__eyebrow,
+  .footer-privacy {
+    align-items: flex-start;
+  }
+
+  .footer-submit {
+    gap: 12px;
+    padding-inline: 18px;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-still-life {
+    overflow-x: clip;
+  }
+
+  .footer-still-life img:first-child {
+    width: min(86%, 100%);
+  }
+
+  .footer-still-life__sun {
+    right: 18px;
+  }
 }
 
 @media (min-width: 760px) {
