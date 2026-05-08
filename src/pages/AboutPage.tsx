@@ -5,10 +5,10 @@ export function AboutPage() {
         <div className="about-layout">
               <section className="about-overview" aria-labelledby="about-title">
                 <div className="about-copy">
-                  <p className="section-label about-label">About this space</p>
-                  <h2 className="title about-title" id="about-title">A short private reset for difficult days</h2>
+                  <p className="section-label about-label">About Accra Coded</p>
+                  <h2 className="title about-title" id="about-title">A calmer way to find wellness in Accra</h2>
                   <span className="about-rule" aria-hidden="true"></span>
-                  <p className="body-copy about-copy__body">Accra Coded is a free, browser-only support flow built for moments when your mind feels overloaded and you need immediate grounding.</p>
+                  <p className="body-copy about-copy__body">Accra Coded is a care-centered wellness guide built for real life in the city, helping you reconnect through trusted spaces, grounded resources, and gentle moments of support.</p>
                 </div>
         
                 <figure className="about-illustration" aria-hidden="true">
@@ -22,8 +22,8 @@ export function AboutPage() {
                     <iconify-icon icon="tabler:heart"></iconify-icon>
                   </div>
                   <div className="about-card__content">
-                    <h3 className="about-card__title">What this is</h3>
-                    <p className="about-card__text">A short video/audio/text moment followed by practical support options you can contact right away.</p>
+                    <h3 className="about-card__title">What you'll find</h3>
+                    <p className="about-card__text">Curated wellness spaces, practitioners, events, and simple tools you can return to when you need steadiness.</p>
                   </div>
                 </article>
         
@@ -32,8 +32,8 @@ export function AboutPage() {
                     <iconify-icon icon="tabler:x"></iconify-icon>
                   </div>
                   <div className="about-card__content">
-                    <h3 className="about-card__title">What this is not</h3>
-                    <p className="about-card__text">It does not replace emergency or long-term clinical care. If you are in immediate danger, use emergency services now.</p>
+                    <h3 className="about-card__title">Why it exists</h3>
+                    <p className="about-card__text">Accra can be full, fast, and demanding. This space is for the moments when you want support that feels local, practical, and close to home.</p>
                   </div>
                 </article>
         
@@ -42,8 +42,8 @@ export function AboutPage() {
                     <iconify-icon icon="tabler:lock"></iconify-icon>
                   </div>
                   <div className="about-card__content">
-                    <h3 className="about-card__title">Privacy stance</h3>
-                    <p className="about-card__text">No sign-in. No account required. Optional check-in responses are designed to be lightweight and non-identifying.</p>
+                    <h3 className="about-card__title">Privacy and care</h3>
+                    <p className="about-card__text">Use it without an account and move at your own pace. If you are in immediate danger, seek emergency or crisis support right away.</p>
                   </div>
                 </article>
               </div>
