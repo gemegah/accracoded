@@ -323,21 +323,10 @@
   justify-self: start;
 }
 
-.footer-brand span {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Archivo Black', 'Arial Black', sans-serif;
-  font-size: clamp(26px, 4vw, 36px);
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.footer-brand img {
-  width: 30px;
-  height: 30px;
-  padding: 4px;
-  background: var(--home-ink);
+.footer-brand__logo {
+  width: min(100%, 260px);
+  height: auto;
+  display: block;
 }
 
 .footer-brand small {

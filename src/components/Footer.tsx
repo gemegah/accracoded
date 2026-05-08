@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import logo from '../assets/branding/logo.png';
+import { useTransparentPng } from '../hooks/useTransparentPng';
 
 import { closeSiteMenus } from '../app/navigation.js';
 
@@ -17,13 +19,13 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const footerLogo = useTransparentPng(logo);
+
   return (
     <footer className="app-footer">
       <section className="footer-bottom" aria-label="Footer navigation">
         <Link to="/" className="footer-brand" onClick={closeSiteMenus} aria-label="Accra Coded home">
-          <span>
-            Accra <img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true" /> Coded
-          </span>
+          <img className="footer-brand__logo" src={footerLogo} alt="Accra Coded" />
           <small>Wellness. Rooted in Accra.</small>
         </Link>
 

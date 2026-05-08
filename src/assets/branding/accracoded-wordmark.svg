@@ -1,0 +1,16 @@
+<svg width="1200" height="190" viewBox="0 0 1200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="190" fill="none" />
+  <text x="8" y="138" fill="#09090A" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="118" font-weight="900" letter-spacing="1.6">
+    ACCRA
+  </text>
+  <g transform="translate(540 15)">
+    <rect width="152" height="152" fill="#09090A" rx="2" />
+    <rect x="0" y="64" width="46" height="24" fill="#FBFAF7" />
+    <rect x="0" y="96" width="26" height="16" fill="#FBFAF7" />
+    <rect x="106" y="64" width="46" height="24" fill="#FBFAF7" />
+    <rect x="126" y="96" width="26" height="16" fill="#FBFAF7" />
+  </g>
+  <text x="750" y="138" fill="#09090A" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="118" font-weight="900" letter-spacing="1.6">
+    CODED
+  </text>
+</svg>

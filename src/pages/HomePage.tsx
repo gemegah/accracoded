@@ -178,10 +178,6 @@ export function HomePage() {
 
           <div className="home-featured__controls grid min-w-0 gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
             <div className="home-featured__filters min-w-0 max-w-full overflow-x-auto" id="home-featured-filters" role="group" aria-label="Featured listing categories" />
-            <button type="button" className="home-featured__filter-cta w-full min-w-0 md:w-fit" data-action="go-to" data-target="s-explore">
-              <span className="min-w-0 wrap-break-word">Filter</span>
-              <iconify-icon icon="tabler:adjustments-horizontal" aria-hidden="true"></iconify-icon>
-            </button>
           </div>
 
           <div className="home-featured__cards min-w-0 max-w-full overflow-x-auto sm:grid sm:grid-cols-2 md:grid-cols-3" id="home-featured-cards" />
