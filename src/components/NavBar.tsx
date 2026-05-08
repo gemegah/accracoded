@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import logo from '../assets/branding/logo.png';
 
 const navItems = [
   { label: 'Explore', path: '/explore', screen: 's-explore' },
@@ -11,6 +12,7 @@ const navItems = [
 
 export function NavBar() {
   const menuId = 'app-site-menu';
+  const backdropId = 'app-site-menu-backdrop';
   const location = useLocation();
   const navRef = useRef<HTMLElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,7 +52,7 @@ export function NavBar() {
       <div className="app-nav-inner">
         <div className="home-topbar">
           <Link to="/" className="home-wordmark" onClick={() => setIsMenuOpen(false)} aria-label="Go to homepage">
-            <img src="./src/assets/home/home-wordmark.svg" alt="Accra Coded" />
+            <img src={logo} alt="Accra Coded" />
           </Link>
           <nav className="home-nav" aria-label="Primary">
             {navItems.map((item) => (
@@ -78,6 +80,15 @@ export function NavBar() {
             <span aria-hidden="true" />
           </button>
         </div>
+        <button
+          type="button"
+          className={`app-nav-backdrop${isMenuOpen ? ' is-visible' : ''}`}
+          id={backdropId}
+          aria-hidden="true"
+          tabIndex={-1}
+          hidden={!isMenuOpen}
+          onClick={() => setIsMenuOpen(false)}
+        />
         <nav
           className={`site-nav site-nav--mobile home-nav--mobile${isMenuOpen ? ' is-open' : ''}`}
           id={menuId}
@@ -97,7 +108,6 @@ export function NavBar() {
             </NavLink>
           ))}
         </nav>
-        <div className="home-divider" aria-hidden="true" />
       </div>
     </header>
   );

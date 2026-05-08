@@ -229,7 +229,7 @@
     }
 
     .explore-title {
-      font-size: clamp(52px, 7.2vw, 72px);
+      font-size: clamp(48px, 7vw, 72px);
     }
 
     .explore-chips {
@@ -242,7 +242,7 @@
     }
 
     .explore-resources {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 18px;
     }
 
@@ -691,6 +691,16 @@
 
     .listing-card--directory .listing-card__title {
       font-size: 22px;
+    }
+
+    .explore-shell {
+      max-width: 1180px;
+      gap: 28px;
+    }
+
+    .explore-resources {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
 
     .site-nav--desktop {

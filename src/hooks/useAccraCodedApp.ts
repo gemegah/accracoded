@@ -44,6 +44,7 @@ type AccraCodedRouteConfig = {
 
 const DEFAULT_ROUTE_CONFIG: AccraCodedRouteConfig = {
   internalScreenRoutes: {
+    's-campaign-format': '/campaign',
     's-content': '/campaign',
     's-checkin': '/campaign',
     's-explore-detail': '/explore'
@@ -156,6 +157,16 @@ export function useAccraCodedApp({
         navigateToScreen(target.dataset.target || 's-explore');
         window.setTimeout(() => filterExplore(target.dataset.category || 'all'), 0);
       },
+      'campaign-back': (target) => {
+        const fallbackScreen = target.dataset.fallback || 's-campaign';
+
+        if (target.dataset.scope === 'route' && state.campaignOriginPath && state.campaignOriginPath !== location.pathname) {
+          navigate(state.campaignOriginPath);
+          return;
+        }
+
+        navigateToScreen(fallbackScreen);
+      },
       'filter-home-featured': (target) => {
         filterHomeFeatured(target.dataset.category);
       },
@@ -241,6 +252,18 @@ export function useAccraCodedApp({
   }, [internalScreenRoutes, location.pathname, navigate, screenRoutes]);
 
   useEffect(() => {
+    const previousPathname = state.currentPathname;
+
+    if (location.pathname === '/campaign') {
+      if (previousPathname && previousPathname !== '/campaign') {
+        state.campaignOriginPath = previousPathname;
+      }
+    } else if (previousPathname && previousPathname !== location.pathname) {
+      state.campaignOriginPath = null;
+    }
+
+    state.currentPathname = location.pathname;
+
     const screenId = getScreenForRoute(routeScreens, location.pathname);
 
     state.currentScreen = screenId;

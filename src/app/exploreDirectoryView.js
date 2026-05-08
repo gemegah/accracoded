@@ -406,7 +406,7 @@ function renderExploreResources() {
   const resources = EXPLORE_RESOURCES.filter((resource) => matchesCategory(resource) && matchesQuery(resource));
   root.textContent = '';
   resources.forEach((resource) => {
-    root.appendChild(createListingCard(resource, { context: 'directory' }));
+    root.appendChild(createListingCard(resource, { context: 'featured' }));
   });
 
   empty.hidden = resources.length > 0;

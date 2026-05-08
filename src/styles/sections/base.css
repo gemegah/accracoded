@@ -135,6 +135,7 @@
     justify-content: space-between;
     gap: 16px;
     min-width: 0;
+    min-height: 44px;
   }
 
   .home-wordmark {
@@ -147,13 +148,25 @@
     align-items: center;
     min-width: 0;
     flex: 1 1 auto;
+    height: 34px;
+    overflow: hidden;
     text-decoration: none;
   }
 
   .home-wordmark img {
-    width: min(252px, 58vw);
+    width: clamp(142px, 24vw, 176px);
     height: auto;
     display: block;
+  }
+
+  @media (min-width: 760px) {
+    .home-wordmark {
+      height: 38px;
+    }
+
+    .home-wordmark img {
+      width: clamp(168px, 15vw, 220px);
+    }
   }
 
   .home-nav {
@@ -166,12 +179,12 @@
     border: 0;
     background: transparent;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--home-ink);
-    padding: 6px 0;
+    padding: 4px 0;
     cursor: pointer;
     line-height: 1.1;
     text-decoration: none;
@@ -188,8 +201,8 @@
     border-radius: 999px;
     background: rgba(251, 250, 247, 0.72);
     padding: 0;
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     display: inline-grid;
     place-items: center;
     flex: 0 0 auto;
@@ -204,20 +217,24 @@
   }
 
   .home-menu-btn.site-nav__toggle {
-    min-width: 48px;
-    min-height: 48px;
-    gap: 5px;
+    min-width: 42px;
+    min-height: 42px;
+    gap: 4px;
   }
 
   .home-menu-btn.site-nav__toggle span {
     display: block;
-    width: 20px;
+    width: 18px;
     height: 2px;
     border-radius: 999px;
     background: currentColor;
   }
 
   .home-nav--mobile {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 50;
     margin-left: auto;
     width: min(21rem, 100%);
     border-color: var(--home-line);
@@ -236,6 +253,7 @@
   }
 
   .home-nav--mobile.is-open {
+    overflow: visible;
     max-height: 24rem;
     opacity: 1;
     pointer-events: auto;
@@ -253,11 +271,6 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--home-olive);
-  }
-
-  .home-divider {
-    height: 1px;
-    background: var(--home-line);
   }
 
 

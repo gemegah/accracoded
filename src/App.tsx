@@ -34,6 +34,7 @@ const screenRoutes = Object.fromEntries(appRoutes.map(({ screenId, path }) => [s
 const routeScreens = Object.fromEntries(appRoutes.map(({ path, screenId }) => [path, screenId]));
 
 const internalScreenRoutes = {
+  's-campaign-format': '/campaign',
   's-content': '/campaign',
   's-checkin': '/campaign',
   's-explore-detail': '/explore'

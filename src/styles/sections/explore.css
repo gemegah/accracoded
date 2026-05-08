@@ -41,27 +41,31 @@
 
   .explore-hero {
     display: grid;
-    gap: 18px;
-    padding-top: 10px;
+    gap: 14px;
+    padding-top: 6px;
   }
 
   .explore-hero__copy {
     display: grid;
-    gap: 10px;
+    gap: 14px;
   }
 
   .explore-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(38px, 13vw, 63px);
-    line-height: 0.98;
-    font-weight: 500;
+    font-family: 'Archivo Black', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(36px, 10.4vw, 74px);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: var(--home-ink);
+    max-width: 10ch;
   }
 
   .explore-intro {
-    max-width: 38ch;
+    max-width: 34ch;
     color: var(--text-muted);
-    font-size: 17px;
-    line-height: 1.55;
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: clamp(15px, 3vw, 18px);
+    line-height: 1.62;
   }
 
   .explore-search {
@@ -158,7 +162,8 @@
   }
 
   .explore-section__title {
-    font-size: 22px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
     line-height: 1.2;
     font-weight: 600;
   }
