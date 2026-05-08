@@ -1,9 +1,13 @@
 import { EXPLORE_CATEGORIES, EXPLORE_NEEDS, EXPLORE_RESOURCES, HOME_FEATURED_FILTERS } from '../data/exploreDirectory.js';
+import { fetchDirectoryResources } from '../data/contentRepository.js';
 import { goTo } from './navigation.js';
 
 let activeCategory = 'all';
 let activeQuery = '';
 let activeHomeFeaturedCategory = 'all';
+let directoryResources = EXPLORE_RESOURCES;
+let hasRequestedRemoteResources = false;
+let activeDetailResourceId = '';
 
 function matchesCategory(resource) {
   return activeCategory === 'all' || resource.categories.includes(activeCategory);
@@ -148,6 +152,32 @@ function createListingCard(resource, options = {}) {
   content.append(header, divider, description, footer);
   article.append(media, content, hitArea);
   return article;
+}
+
+function renderMissingResourceDetail(resourceId) {
+  const root = document.getElementById('explore-detail');
+
+  if (!root) {
+    return;
+  }
+
+  root.textContent = '';
+
+  const section = document.createElement('section');
+  section.className = 'explore-detail-section explore-detail-section--card';
+
+  const heading = document.createElement('h1');
+  heading.className = 'explore-detail-title';
+  heading.textContent = 'Resource not found';
+
+  const copy = document.createElement('p');
+  copy.className = 'explore-detail-summary';
+  copy.textContent = resourceId
+    ? 'This listing is not available yet. Return to Explore to view the current directory.'
+    : 'Choose a resource from Explore to view its profile.';
+
+  section.append(heading, copy);
+  root.appendChild(section);
 }
 
 function createHomeFeaturedFilterButton(filter) {
@@ -403,7 +433,7 @@ function renderExploreResources() {
     return;
   }
 
-  const resources = EXPLORE_RESOURCES.filter((resource) => matchesCategory(resource) && matchesQuery(resource));
+  const resources = directoryResources.filter((resource) => matchesCategory(resource) && matchesQuery(resource));
   root.textContent = '';
   resources.forEach((resource) => {
     root.appendChild(createListingCard(resource, { context: 'directory' }));
@@ -432,7 +462,7 @@ function renderHomeFeaturedCards() {
     return;
   }
 
-  const featuredResources = EXPLORE_RESOURCES
+  const featuredResources = directoryResources
     .filter((resource) => resource.featured)
     .filter((resource) => activeHomeFeaturedCategory === 'all' || resource.categories.includes(activeHomeFeaturedCategory))
     .sort((a, b) => (a.featuredRank || 999) - (b.featuredRank || 999))
@@ -475,15 +505,37 @@ export function renderExploreDirectory() {
   renderExploreResources();
   renderHomeFeaturedFilters();
   renderHomeFeaturedCards();
+
+  if (!hasRequestedRemoteResources) {
+    hasRequestedRemoteResources = true;
+    void fetchDirectoryResources().then((resources) => {
+      directoryResources = resources;
+      renderExploreResources();
+      renderHomeFeaturedCards();
+      if (activeDetailResourceId) {
+        renderResourceDetailById(activeDetailResourceId);
+      }
+    });
+  }
 }
 
-export function viewResource(resourceId) {
-  const resource = EXPLORE_RESOURCES.find((entry) => entry.id === resourceId);
+export function renderResourceDetailById(resourceId) {
+  activeDetailResourceId = resourceId || '';
+  const resource = directoryResources.find((entry) => entry.id === resourceId);
 
   if (!resource) {
+    renderMissingResourceDetail(resourceId);
     return;
   }
 
   renderResourceDetail(resource);
+}
+
+export function viewResource(resourceId) {
+  if (!resourceId) {
+    return;
+  }
+
+  renderResourceDetailById(resourceId);
   goTo('s-explore-detail');
 }

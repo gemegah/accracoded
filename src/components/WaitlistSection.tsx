@@ -1,7 +1,34 @@
-import { useForm, ValidationError } from '@formspree/react';
+import { useState, type FormEvent } from 'react';
+
+import { postJson } from '../lib/apiClient.js';
 
 export function WaitlistSection() {
-  const [state, handleSubmit] = useForm('xqendlve');
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'succeeded' | 'failed'>('idle');
+  const [formError, setFormError] = useState('');
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    setFormState('submitting');
+    setFormError('');
+
+    try {
+      await postJson('/waitlist', {
+        name: String(data.get('name') || ''),
+        email: String(data.get('email') || ''),
+        interest: String(data.get('interest') || ''),
+        location: String(data.get('location') || ''),
+        source: 'homepage'
+      });
+      form.reset();
+      setFormState('succeeded');
+    } catch {
+      setFormState('failed');
+      setFormError('We could not add you to the list just now. Please try again.');
+    }
+  }
 
   return (
     <section className="app-waitlist-section w-full overflow-x-clip px-[18px] sm:px-6 md:px-7 lg:px-[26px]" aria-labelledby="waitlist-title">
@@ -36,12 +63,10 @@ export function WaitlistSection() {
           <label className="footer-field min-w-0">
             <span>Name</span>
             <input className="w-full min-w-0" type="text" name="name" placeholder="Your full name" autoComplete="name" required />
-            <ValidationError field="name" errors={state.errors} className="footer-form-error" />
           </label>
           <label className="footer-field min-w-0">
             <span>Email</span>
             <input className="w-full min-w-0" type="email" name="email" placeholder="you@example.com" autoComplete="email" required />
-            <ValidationError field="email" errors={state.errors} className="footer-form-error" />
           </label>
           <label className="footer-field min-w-0">
             <span>Wellness interest</span>
@@ -54,20 +79,18 @@ export function WaitlistSection() {
               <option value="beauty">Beauty and self-care</option>
               <option value="community">Community support</option>
             </select>
-            <ValidationError field="interest" errors={state.errors} className="footer-form-error" />
           </label>
           <label className="footer-field footer-field--icon min-w-0">
             <span>Location</span>
             <input className="w-full min-w-0" type="text" name="location" placeholder="Where are you based?" autoComplete="address-level2" />
             <iconify-icon icon="tabler:map-pin" aria-hidden="true" />
-            <ValidationError field="location" errors={state.errors} className="footer-form-error" />
           </label>
-          <button type="submit" className="footer-submit w-full min-w-0" disabled={state.submitting || state.succeeded}>
-            <span className="min-w-0 break-words">{state.submitting ? 'Joining...' : state.succeeded ? 'You are on the list' : 'Join the wellness list'}</span>
+          <button type="submit" className="footer-submit w-full min-w-0" disabled={formState === 'submitting' || formState === 'succeeded'}>
+            <span className="min-w-0 break-words">{formState === 'submitting' ? 'Joining...' : formState === 'succeeded' ? 'You are on the list' : 'Join the wellness list'}</span>
             <span aria-hidden="true">&rarr;</span>
           </button>
-          <ValidationError errors={state.errors} className="footer-form-error footer-form-error--form" />
-          {state.succeeded ? (
+          {formError ? <p className="footer-form-error footer-form-error--form">{formError}</p> : null}
+          {formState === 'succeeded' ? (
             <p className="footer-form-success" role="status">
               Thanks. You are on the Accra Coded wellness list.
             </p>

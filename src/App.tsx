@@ -6,6 +6,7 @@ import { Footer } from './components/Footer';
 import { NavBar } from './components/NavBar';
 import { WaitlistSection } from './components/WaitlistSection';
 import { useAccraCodedApp } from './hooks/useAccraCodedApp';
+import { AdminPage } from './pages/AdminPage';
 import { AboutPage } from './pages/AboutPage';
 import { CampaignPage } from './pages/CampaignPage';
 import { EventsPage } from './pages/EventsPage';
@@ -23,14 +24,24 @@ type AppRoute = {
 const appRoutes: AppRoute[] = [
   { path: '/', screenId: 's-landing', element: <HomePage /> },
   { path: '/explore', screenId: 's-explore', element: <ExplorePage /> },
+  { path: '/explore/:resourceSlug', screenId: 's-explore-detail', element: <ExplorePage /> },
   { path: '/events', screenId: 's-events', element: <EventsPage /> },
   { path: '/membership', screenId: 's-membership', element: <MembershipPage /> },
   { path: '/about', screenId: 's-about', element: <AboutPage /> },
   { path: '/campaign', screenId: 's-campaign', element: <CampaignPage /> },
-  { path: '/resources', screenId: 's-resources', element: <SupportResourcesPage /> }
+  { path: '/resources', screenId: 's-resources', element: <SupportResourcesPage /> },
+  { path: '/admin', screenId: 's-admin', element: <AdminPage /> },
+  { path: '/admin/login', screenId: 's-admin', element: <AdminPage /> },
+  { path: '/admin/metrics', screenId: 's-admin', element: <AdminPage /> },
+  { path: '/admin/directory', screenId: 's-admin', element: <AdminPage /> },
+  { path: '/admin/membership', screenId: 's-admin', element: <AdminPage /> },
+  { path: '/admin/qr-analytics', screenId: 's-admin', element: <AdminPage /> }
 ];
 
-const screenRoutes = Object.fromEntries(appRoutes.map(({ screenId, path }) => [screenId, path]));
+const screenRoutes = {
+  ...Object.fromEntries(appRoutes.map(({ screenId, path }) => [screenId, path])),
+  's-explore-detail': '/explore'
+};
 const routeScreens = Object.fromEntries(appRoutes.map(({ path, screenId }) => [path, screenId]));
 
 const internalScreenRoutes = {
@@ -73,14 +84,15 @@ function ScrollToTop() {
 function AppChrome() {
   const { pathname } = useLocation();
   const showWaitlist = pathname === '/';
+  const showSiteChrome = !pathname.startsWith('/admin');
 
   return (
     <div className="app-shell flex flex-col min-h-screen">
       <ScrollToTop />
-      <NavBar />
+      {showSiteChrome ? <NavBar /> : null}
       <AnimatedRoutes />
       {showWaitlist ? <WaitlistSection /> : null}
-      <Footer />
+      {showSiteChrome ? <Footer /> : null}
       <CrisisDialog />
     </div>
   );

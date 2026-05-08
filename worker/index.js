@@ -1,6 +1,9 @@
 import { handleCheckins } from './routes/checkins.js';
+import { handleAdmin } from './routes/admin.js';
+import { handlePublicDirectoryResources, handlePublicHomeMetrics } from './routes/content.js';
 import { handleTelemetry } from './routes/telemetry.js';
 import { handleResources } from './routes/resources.js';
+import { handleWaitlistSubmit } from './routes/waitlist.js';
 import { json } from './utils/response.js';
 
 function withCors(response) {
@@ -65,12 +68,28 @@ function routeApiRequest(request, env) {
     return handleResources(request, env);
   }
 
+  if (path === '/api/v1/home-metrics' && method === 'GET') {
+    return handlePublicHomeMetrics(request, env);
+  }
+
+  if (path === '/api/v1/directory-resources' && method === 'GET') {
+    return handlePublicDirectoryResources(request, env);
+  }
+
   if (path === '/api/v1/checkins' && method === 'POST') {
     return handleCheckins(request, env);
   }
 
+  if (path === '/api/v1/waitlist' && method === 'POST') {
+    return handleWaitlistSubmit(request, env);
+  }
+
   if (path === '/api/v1/telemetry' && method === 'POST') {
     return handleTelemetry(request, env);
+  }
+
+  if (path.startsWith('/api/v1/admin/')) {
+    return handleAdmin(request, env);
   }
 
   return json({ error: 'not_found' }, 404);

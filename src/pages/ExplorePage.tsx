@@ -1,7 +1,12 @@
+import { Link, useParams } from 'react-router-dom';
+
 export function ExplorePage() {
+  const { resourceSlug } = useParams();
+  const isDetailPage = Boolean(resourceSlug);
+
   return (
     <>
-      <section className="screen explore-screen is-active" id="s-explore" aria-label="Explore support in Ghana">
+      <section className={`screen explore-screen${isDetailPage ? '' : ' is-active'}`} id="s-explore" aria-label="Explore support in Ghana">
         <div className="screen__inner page-shell explore-shell">
           <div className="explore-hero">
                 <div className="explore-hero__copy">
@@ -32,12 +37,12 @@ export function ExplorePage() {
               </section>
         </div>
       </section>
-      <section className="screen explore-detail-screen" id="s-explore-detail" aria-label="Resource profile">
+      <section className={`screen explore-detail-screen${isDetailPage ? ' is-active' : ''}`} id="s-explore-detail" aria-label="Resource profile">
         <div className="screen__inner page-shell explore-detail-shell">
-          <button type="button" className="explore-detail-back" data-action="go-to" data-target="s-explore">
+          <Link className="explore-detail-back" to="/explore">
                 <iconify-icon icon="tabler:arrow-left" aria-hidden="true"></iconify-icon>
                 <span>Back to Explore</span>
-              </button>
+              </Link>
           
               <div className="explore-detail" id="explore-detail"></div>
         </div>

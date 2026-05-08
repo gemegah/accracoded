@@ -5,6 +5,7 @@
   .explore-shell {
     max-width: 520px;
     gap: 22px;
+    width: 100%;
   }
 
   .brand--explore {
@@ -148,6 +149,7 @@
   .explore-section {
     display: grid;
     gap: 14px;
+    min-width: 0;
   }
 
   .explore-section__head {
@@ -211,12 +213,43 @@
   .explore-resources {
     display: grid;
     gap: 18px;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .explore-resources .listing-card--directory .listing-card__title {
+    font-size: clamp(26px, 2.5vw, 34px);
+  }
+
+  .explore-resources .listing-card--directory .listing-card__description {
+    font-size: 16px;
   }
 
   .explore-empty {
     color: var(--text-muted);
     font-size: 14px;
     line-height: 1.45;
+  }
+
+  @media (max-width: 639px) {
+    .explore-resources {
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(min(272px, 86vw), 84%);
+      grid-template-columns: none;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity;
+      padding: 2px 0 10px;
+      scrollbar-width: none;
+    }
+
+    .explore-resources::-webkit-scrollbar {
+      display: none;
+    }
+
+    .explore-resources .listing-card {
+      scroll-snap-align: start;
+    }
   }
 
   .explore-detail-screen {

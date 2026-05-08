@@ -6,8 +6,8 @@ import {
   filterExplore,
   filterHomeFeatured,
   renderExploreDirectory,
+  renderResourceDetailById,
   searchExplore,
-  viewResource
 } from '../app/exploreDirectoryView.js';
 import {
   clearCheckinError,
@@ -73,6 +73,10 @@ function getRouteForScreen(screenRoutes: Record<string, string>, screenId?: stri
 }
 
 function getScreenForRoute(routeScreens: Record<string, string>, pathname: string) {
+  if (pathname.startsWith('/explore/')) {
+    return 's-explore-detail';
+  }
+
   return routeScreens[pathname] || 's-landing';
 }
 
@@ -168,7 +172,12 @@ export function useAccraCodedApp({
           screenId: state.currentScreen
         });
       },
-      'view-resource': (target) => viewResource(target.dataset.resourceId),
+      'view-resource': (target) => {
+        const resourceId = target.dataset.resourceId;
+        if (resourceId) {
+          navigate(`/explore/${resourceId}`);
+        }
+      },
       'show-crisis': (target) => showCrisis(target),
       'hide-crisis': () => hideCrisis()
     };
@@ -247,6 +256,9 @@ export function useAccraCodedApp({
     closeSiteMenus();
     renderSupportDirectory();
     renderExploreDirectory();
+    if (location.pathname.startsWith('/explore/')) {
+      renderResourceDetailById(decodeURIComponent(location.pathname.replace('/explore/', '')));
+    }
     syncToggle(state.selectedFormat);
     void trackEvent('screen_view', { screenId });
 
