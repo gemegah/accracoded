@@ -740,7 +740,7 @@
     }
 
     .explore-shell {
-      max-width: 1080px;
+      max-width: 1440px;
       display: grid;
       grid-template-columns: minmax(0, 1fr) 360px;
       align-content: start;

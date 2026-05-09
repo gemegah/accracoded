@@ -10,6 +10,7 @@
 @import "./sections/about.css";
 @import "./sections/dialog.css";
 @import "./sections/footer.css";
+@import "./sections/admin.css";
 @import "./sections/responsive.css";
 
 .app-shell {

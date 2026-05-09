@@ -6,6 +6,10 @@ import partnerSkinMedics from '../assets/partners/partner-skin-medics.png';
 import partnerFulfilled from '../assets/partners/partner-fulfilled.png';
 import partnerGrowth from '../assets/partners/partner-growth.png';
 import partnerKukun from '../assets/partners/partner-kukun.png';
+import { useEffect, useState } from 'react';
+
+import { fetchHomeCategoryMetrics } from '../data/contentRepository.js';
+import { FALLBACK_HOME_CATEGORY_METRICS, type HomeCategoryMetric } from '../data/homeCategories';
 
 const partnerLogos = [
   {
@@ -26,59 +30,21 @@ const partnerLogos = [
   }
 ];
 
-const discoverCards = [
-  {
-    className: 'discover-card--mental-health',
-    category: 'mental-health',
-    icon: 'tabler:brain',
-    title: 'Mental Health',
-    meta: '42 spaces'
-  },
-  {
-    className: 'discover-card--fitness',
-    category: 'vitality',
-    icon: 'tabler:stretching',
-    title: 'Fitness & Movement',
-    meta: '68 spaces'
-  },
-  {
-    className: 'discover-card--beauty',
-    category: 'beauty',
-    icon: 'tabler:brush',
-    title: 'Beauty & Self-Care',
-    meta: '57 spaces'
-  },
-  {
-    className: 'discover-card--nutrition',
-    category: 'vitality',
-    icon: 'tabler:salad',
-    title: 'Nutrition',
-    meta: '49 spaces'
-  },
-  {
-    className: 'discover-card--holistic',
-    category: 'wellness',
-    icon: 'tabler:flower',
-    title: 'Holistic Wellness',
-    meta: '64 spaces'
-  },
-  {
-    className: 'discover-card--community',
-    category: 'wellness',
-    icon: 'tabler:users',
-    title: 'Community Support',
-    meta: '38 spaces'
-  },
-  {
-    className: 'discover-card--retreats',
-    category: 'wellness',
-    icon: 'tabler:sun',
-    title: 'Retreats & Experiences',
-    meta: '31 spaces'
-  }
-];
-
 export function HomePage() {
+  const [discoverCards, setDiscoverCards] = useState<HomeCategoryMetric[]>(FALLBACK_HOME_CATEGORY_METRICS);
+
+  useEffect(() => {
+    let active = true;
+    void fetchHomeCategoryMetrics().then((metrics) => {
+      if (active) {
+        setDiscoverCards(metrics);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section className="screen screen--surface is-active overflow-x-clip" id="s-landing" aria-label="Welcome">
       <div className="home-shell w-full max-w-360 overflow-x-clip px-4 sm:px-6 md:px-7 lg:px-6.5">
@@ -179,13 +145,13 @@ export function HomePage() {
                 data-action="go-to-filter-explore"
                 data-target="s-explore"
                 data-category={card.category}
-                key={card.title}
+                key={card.id}
               >
                 <span className="discover-card__icon">
                   <iconify-icon icon={card.icon}></iconify-icon>
                 </span>
                 <span className="discover-card__body min-w-0">
-                  <span className="discover-card__title wrap-break-word">{card.title}</span>
+                  <span className="discover-card__title wrap-break-word">{card.label}</span>
                   <span className="discover-card__meta">{card.meta}</span>
                 </span>
                 <span className="discover-card__arrow" aria-hidden="true">
@@ -228,4 +194,3 @@ export function HomePage() {
     </section>
   );
 }
-
