@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<body>
+<iframe id="app" src="file:///C:/Users/LENOVO%20THINKPAD%20X1/Desktop/accracoded/index.html" style="width:430px;height:932px;border:0;"></iframe>
+<pre id="out" style="font:16px/1.5 monospace; white-space:pre-wrap;"></pre>
+<script>
+const iframe = document.getElementById('app');
+iframe.addEventListener('load', async () => {
+  const doc = iframe.contentDocument;
+  const win = iframe.contentWindow;
+  const click = (sel) => doc.querySelector(sel)?.click();
+  const result = [];
+  result.push({ step: 'initial', active: doc.querySelector('.screen.is-active')?.id, menuExpanded: doc.querySelector('.home-menu-btn')?.getAttribute('aria-expanded') });
+  click('.home-menu-btn');
+  result.push({ step: 'menu-open', menuExpanded: doc.querySelector('.home-menu-btn')?.getAttribute('aria-expanded'), menuHidden: doc.getElementById('home-site-menu')?.hidden });
+  click('.home-cta--primary');
+  result.push({ step: 'after-primary-cta', active: doc.querySelector('.screen.is-active')?.id, hash: win.location.hash });
+  click('.home-wordmark');
+  result.push({ step: 'after-wordmark', active: doc.querySelector('.screen.is-active')?.id, hash: win.location.hash });
+  document.getElementById('out').textContent = JSON.stringify(result, null, 2);
+});
+</script>
+</body>
+</html>

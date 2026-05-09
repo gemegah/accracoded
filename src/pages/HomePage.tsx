@@ -1,18 +1,27 @@
+import heroMainMobile from '../assets/home/home-hero-main-mobile.png';
+import heroMainDesktop from '../assets/home/home-hero-main-desktop.png';
+import heroStillLife from '../assets/home/home-hero-still-life.png';
+import sunIcon from '../assets/home/home-sun-icon.svg';
+import partnerSkinMedics from '../assets/partners/partner-skin-medics.png';
+import partnerFulfilled from '../assets/partners/partner-fulfilled.png';
+import partnerGrowth from '../assets/partners/partner-growth.png';
+import partnerKukun from '../assets/partners/partner-kukun.png';
+
 const partnerLogos = [
   {
-    src: './src/assets/partners/partner-skin-medics.png',
+    src: partnerSkinMedics,
     alt: 'Skin Medics'
   },
   {
-    src: './src/assets/partners/partner-fulfilled.png',
+    src: partnerFulfilled,
     alt: 'Fulfilled Medspa Clinic'
   },
   {
-    src: './src/assets/partners/partner-growth.png',
+    src: partnerGrowth,
     alt: 'Growth Wellness Spa'
   },
   {
-    src: './src/assets/partners/partner-kukun.png',
+    src: partnerKukun,
     alt: 'Kukun'
   }
 ];
@@ -105,8 +114,8 @@ export function HomePage() {
           <div className="home-hero__visual min-w-0 max-w-full justify-self-center md:w-full lg:justify-self-end">
             <div className="home-main-card max-w-full overflow-hidden">
               <picture className="home-main-card__media">
-                <source media="(max-width: 767px)" srcSet="./src/assets/home/home-hero-main-mobile.png" />
-                <img className="h-full w-full object-cover" src="./src/assets/home/home-hero-main-desktop.png" alt="Woman meditating in a wellness space" />
+                <source media="(max-width: 767px)" srcSet={heroMainMobile} />
+                <img className="h-full w-full object-cover" src={heroMainDesktop} alt="Woman meditating in a wellness space" />
               </picture>
             </div>
             <div className="home-texture-panel max-w-full overflow-hidden">
@@ -120,10 +129,10 @@ export function HomePage() {
                   Live well.
                 </p>
               </div>
-              <img className="home-caption__sun" src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true" />
+              <img className="home-caption__sun" src={sunIcon} alt="" aria-hidden="true" />
             </div>
             <div className="home-vase-card max-w-full overflow-hidden">
-              <img className="h-full w-full object-cover" src="./src/assets/home/home-hero-still-life.png" alt="Ceramic vase with leaf arrangement" />
+              <img className="h-full w-full object-cover" src={heroStillLife} alt="Ceramic vase with leaf arrangement" />
             </div>
           </div>
         </div>
@@ -145,7 +154,7 @@ export function HomePage() {
           <div className="home-discover__header grid min-w-0 gap-4 md:gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="home-discover__intro min-w-0 max-w-full">
               <p className="home-discover__eyebrow min-w-0">
-                <img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true" />
+                <img src={sunIcon} alt="" aria-hidden="true" />
                 <span className="min-w-0 wrap-break-word">Discover. Connect. Thrive.</span>
               </p>
               <h2 className="home-discover__title" id="home-discover-title">
@@ -191,7 +200,7 @@ export function HomePage() {
           <div className="home-featured__header grid min-w-0 gap-4 md:gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div className="home-featured__intro min-w-0 max-w-full">
               <p className="home-featured__eyebrow min-w-0">
-                <img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true" />
+                <img src={sunIcon} alt="" aria-hidden="true" />
                 <span className="min-w-0 wrap-break-word">Featured Listings</span>
               </p>
               <h2 className="home-featured__title" id="home-featured-title">

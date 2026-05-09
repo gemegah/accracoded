@@ -1,3 +1,5 @@
+import aboutIllustration from '../assets/about/about-illustration.svg';
+
 export function AboutPage() {
   return (
     <section className="screen is-active" id="s-about" aria-label="About Accra Coded">
@@ -12,7 +14,7 @@ export function AboutPage() {
                 </div>
         
                 <figure className="about-illustration" aria-hidden="true">
-                  <img src="./src/assets/about/about-illustration.svg" alt="" loading="lazy" decoding="async" />
+                  <img src={aboutIllustration} alt="" loading="lazy" decoding="async" />
                 </figure>
               </section>
         

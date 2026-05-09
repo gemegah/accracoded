@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<body>
+<iframe id="app" src="file:///C:/Users/LENOVO%20THINKPAD%20X1/Desktop/accracoded/index.html" style="width:430px;height:932px;border:0;"></iframe>
+<pre id="out"></pre>
+<script>
+const iframe = document.getElementById('app');
+iframe.addEventListener('load', () => {
+  const doc = iframe.contentDocument;
+  const win = iframe.contentWindow;
+  const qs = (sel) => doc.querySelector(sel);
+  const data = {
+    innerWidth: win.innerWidth,
+    docScrollWidth: doc.documentElement.scrollWidth,
+    bodyScrollWidth: doc.body.scrollWidth,
+    shell: qs('.home-shell')?.getBoundingClientRect().width,
+    topbar: qs('.home-topbar')?.getBoundingClientRect().width,
+    wordmark: qs('.home-wordmark')?.getBoundingClientRect().width,
+    menu: qs('.home-menu-btn')?.getBoundingClientRect().width,
+    title: qs('.home-title')?.getBoundingClientRect().width,
+    copy: qs('.home-copy')?.getBoundingClientRect().width,
+    ctaRow: qs('.home-cta-row')?.getBoundingClientRect().width,
+    searchRow: qs('.home-search-row')?.getBoundingClientRect().width,
+    hero: qs('.home-hero')?.getBoundingClientRect().width
+  };
+  document.getElementById('out').textContent = JSON.stringify(data, null, 2);
+});
+</script>
+</body>
+</html>

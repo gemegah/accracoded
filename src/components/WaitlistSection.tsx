@@ -1,4 +1,6 @@
 import { useForm, ValidationError } from '@formspree/react';
+import homeMembershipStillLife from '../assets/home/home-membership-still-life.png';
+import homeSunIcon from '../assets/home/home-sun-icon.svg';
 
 export function WaitlistSection() {
   const [state, handleSubmit] = useForm('xqendlve');
@@ -8,7 +10,7 @@ export function WaitlistSection() {
       <div className="footer-waitlist grid min-w-0 max-w-[1440px] overflow-x-clip gap-8 md:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.75fr)] lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,0.92fr)_minmax(320px,0.9fr)] lg:gap-14">
         <div className="footer-waitlist__copy order-1 min-w-0">
           <p className="footer-waitlist__eyebrow min-w-0">
-            <img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true" />
+            <img src={homeSunIcon} alt="" aria-hidden="true" />
             <span className="min-w-0 break-words">Accra's wellness directory & membership community</span>
           </p>
           <h2 className="footer-waitlist__title break-words" id="waitlist-title">
@@ -78,8 +80,8 @@ export function WaitlistSection() {
         </form>
 
         <figure className="footer-still-life order-2 min-w-0 max-w-full overflow-x-clip md:col-span-2 md:justify-self-center lg:order-3 lg:col-span-1 lg:overflow-visible" aria-hidden="true">
-          <img className="max-w-full" src="./src/assets/home/home-membership-still-life.png" alt="" loading="lazy" decoding="async" />
-          <img className="footer-still-life__sun" src="./src/assets/home/home-sun-icon.svg" alt="" />
+          <img className="max-w-full" src={homeMembershipStillLife} alt="" loading="lazy" decoding="async" />
+          <img className="footer-still-life__sun" src={homeSunIcon} alt="" />
         </figure>
       </div>
     </section>

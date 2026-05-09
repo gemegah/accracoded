@@ -1,3 +1,7 @@
+import homeMembershipBotanical from '../assets/home/home-membership-botanical.png';
+import homeMembershipStillLife from '../assets/home/home-membership-still-life.png';
+import homeSunIcon from '../assets/home/home-sun-icon.svg';
+
 export function MembershipPage() {
   return (
     <section className="screen screen--surface is-active" id="s-membership" aria-label="Membership">
@@ -12,7 +16,7 @@ export function MembershipPage() {
         
                 <div className="home-membership__values">
                   <article className="trust-tile">
-                    <span className="trust-tile__icon"><img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true" /></span>
+                    <span className="trust-tile__icon"><img src={homeSunIcon} alt="" aria-hidden="true" /></span>
                     <div className="trust-tile__body">
                       <h3 className="trust-tile__title">Curated</h3>
                       <span className="trust-tile__rule" aria-hidden="true"></span>
@@ -48,19 +52,19 @@ export function MembershipPage() {
                   </article>
                 </div>
         
-                <img className="home-membership__botanical" src="./src/assets/home/home-membership-botanical.png" alt="" aria-hidden="true" />
+                <img className="home-membership__botanical" src={homeMembershipBotanical} alt="" aria-hidden="true" />
               </div>
         
               <div className="membership-teaser">
                 <div className="membership-teaser__copy">
-                  <p className="membership-teaser__eyebrow"><img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true" /><span>Membership Teaser</span></p>
+                  <p className="membership-teaser__eyebrow"><img src={homeSunIcon} alt="" aria-hidden="true" /><span>Membership Teaser</span></p>
                   <h3 className="membership-teaser__title">More access.<br />More benefits.</h3>
                   <p className="membership-teaser__coming">Coming soon.</p>
                   <p className="membership-teaser__body">Accra Coded Membership unlocks exclusive perks designed to support your wellness journey.</p>
                 </div>
         
                 <div className="membership-teaser__visual">
-                  <img src="./src/assets/home/home-membership-still-life.png" alt="Ceramic vase with olive branch" />
+                  <img src={homeMembershipStillLife} alt="Ceramic vase with olive branch" />
                 </div>
         
                 <ul className="membership-teaser__list">
