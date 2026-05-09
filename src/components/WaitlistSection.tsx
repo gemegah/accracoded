@@ -1,41 +1,16 @@
-import { useState, type FormEvent } from 'react';
-
-import { postJson } from '../lib/apiClient.js';
+import { useForm, ValidationError } from '@formspree/react';
+import homeMembershipStillLife from '../assets/home/home-membership-still-life.png';
+import homeSunIcon from '../assets/home/home-sun-icon.svg';
 
 export function WaitlistSection() {
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'succeeded' | 'failed'>('idle');
-  const [formError, setFormError] = useState('');
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-
-    setFormState('submitting');
-    setFormError('');
-
-    try {
-      await postJson('/waitlist', {
-        name: String(data.get('name') || ''),
-        email: String(data.get('email') || ''),
-        interest: String(data.get('interest') || ''),
-        location: String(data.get('location') || ''),
-        source: 'homepage'
-      });
-      form.reset();
-      setFormState('succeeded');
-    } catch {
-      setFormState('failed');
-      setFormError('We could not add you to the list just now. Please try again.');
-    }
-  }
+  const [state, handleSubmit] = useForm('xqendlve');
 
   return (
     <section className="app-waitlist-section w-full overflow-x-clip px-[18px] sm:px-6 md:px-7 lg:px-[26px]" aria-labelledby="waitlist-title">
       <div className="footer-waitlist grid min-w-0 max-w-[1440px] overflow-x-clip gap-8 md:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.75fr)] lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,0.92fr)_minmax(320px,0.9fr)] lg:gap-14">
         <div className="footer-waitlist__copy order-1 min-w-0">
           <p className="footer-waitlist__eyebrow min-w-0">
-            <img src="./src/assets/home/home-sun-icon.svg" alt="" aria-hidden="true" />
+            <img src={homeSunIcon} alt="" aria-hidden="true" />
             <span className="min-w-0 break-words">Accra's wellness directory & membership community</span>
           </p>
           <h2 className="footer-waitlist__title break-words" id="waitlist-title">
@@ -63,10 +38,12 @@ export function WaitlistSection() {
           <label className="footer-field min-w-0">
             <span>Name</span>
             <input className="w-full min-w-0" type="text" name="name" placeholder="Your full name" autoComplete="name" required />
+            <ValidationError field="name" errors={state.errors} className="footer-form-error" />
           </label>
           <label className="footer-field min-w-0">
             <span>Email</span>
             <input className="w-full min-w-0" type="email" name="email" placeholder="you@example.com" autoComplete="email" required />
+            <ValidationError field="email" errors={state.errors} className="footer-form-error" />
           </label>
           <label className="footer-field min-w-0">
             <span>Wellness interest</span>
@@ -79,18 +56,20 @@ export function WaitlistSection() {
               <option value="beauty">Beauty and self-care</option>
               <option value="community">Community support</option>
             </select>
+            <ValidationError field="interest" errors={state.errors} className="footer-form-error" />
           </label>
           <label className="footer-field footer-field--icon min-w-0">
             <span>Location</span>
             <input className="w-full min-w-0" type="text" name="location" placeholder="Where are you based?" autoComplete="address-level2" />
             <iconify-icon icon="tabler:map-pin" aria-hidden="true" />
+            <ValidationError field="location" errors={state.errors} className="footer-form-error" />
           </label>
-          <button type="submit" className="footer-submit w-full min-w-0" disabled={formState === 'submitting' || formState === 'succeeded'}>
-            <span className="min-w-0 break-words">{formState === 'submitting' ? 'Joining...' : formState === 'succeeded' ? 'You are on the list' : 'Join the wellness list'}</span>
+          <button type="submit" className="footer-submit w-full min-w-0" disabled={state.submitting || state.succeeded}>
+            <span className="min-w-0 break-words">{state.submitting ? 'Joining...' : state.succeeded ? 'You are on the list' : 'Join the wellness list'}</span>
             <span aria-hidden="true">&rarr;</span>
           </button>
-          {formError ? <p className="footer-form-error footer-form-error--form">{formError}</p> : null}
-          {formState === 'succeeded' ? (
+          <ValidationError errors={state.errors} className="footer-form-error footer-form-error--form" />
+          {state.succeeded ? (
             <p className="footer-form-success" role="status">
               Thanks. You are on the Accra Coded wellness list.
             </p>
@@ -101,8 +80,8 @@ export function WaitlistSection() {
         </form>
 
         <figure className="footer-still-life order-2 min-w-0 max-w-full overflow-x-clip md:col-span-2 md:justify-self-center lg:order-3 lg:col-span-1 lg:overflow-visible" aria-hidden="true">
-          <img className="max-w-full" src="./src/assets/home/home-membership-still-life.png" alt="" loading="lazy" decoding="async" />
-          <img className="footer-still-life__sun" src="./src/assets/home/home-sun-icon.svg" alt="" />
+          <img className="max-w-full" src={homeMembershipStillLife} alt="" loading="lazy" decoding="async" />
+          <img className="footer-still-life__sun" src={homeSunIcon} alt="" />
         </figure>
       </div>
     </section>

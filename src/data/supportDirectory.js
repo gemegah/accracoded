@@ -57,6 +57,29 @@ export const SUPPORT_DIRECTORY = [
     ]
   },
   {
+    id: 'growth-wellness-place',
+    name: 'Growth Wellness Place',
+    group: 'community',
+    offerings: 'Holistic wellness and recovery sessions',
+    coverage: 'Accra (appointment and membership)',
+    summary: 'Wellness-focused space for restorative routines, guided self-care, and community support.',
+    showInCrisis: false,
+    contacts: [
+      {
+        kind: 'link',
+        href: 'https://www.randrwellness.co/',
+        label: 'Visit website',
+        variant: 'secondary'
+      },
+      {
+        kind: 'link',
+        href: 'https://www.google.com/maps/search/?api=1&query=Growth+Wellness+Place+Accra',
+        label: 'Open map',
+        variant: 'secondary'
+      }
+    ]
+  },
+  {
     id: 'accra-psychiatric-hospital',
     name: 'Accra Psychiatric Hospital',
     group: 'clinical',
@@ -139,4 +162,3 @@ export function getCrisisEntries() {
     .filter((entry) => entry.showInCrisis)
     .sort((a, b) => (a.crisisPriority || 99) - (b.crisisPriority || 99));
 }
-

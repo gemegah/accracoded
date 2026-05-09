@@ -273,5 +273,48 @@ export const EXPLORE_RESOURCES = [
     contactHref: 'https://www.fulfilledmedspaclinic.com',
     email: 'info@fulfilledmedspaclinic.com',
     mapHref: 'https://www.google.com/maps/search/?api=1&query=18+Abebrese+Street+Osu+Accra+Ghana'
+  },
+  {
+    id: 'growth-wellness-place',
+    resourceType: 'wellness-center',
+    name: 'Growth Wellness Place',
+    categories: ['wellness', 'vitality', 'beauty'],
+    tags: ['Wellness club', 'Recovery', 'Holistic care'],
+    location: 'Airport Residential Area, Accra',
+    summary: 'Members-first wellness space for recovery, movement, and restorative self-care experiences.',
+    description:
+      'Growth Wellness Place is a curated wellness destination in Accra that blends recovery therapies, mindful movement, and spa-style treatments in a calm appointment-led environment.',
+    actionLabel: 'View',
+    href: 'https://www.randrwellness.co/',
+    logoText: 'GWP',
+    featured: false,
+    featuredRank: 7,
+    cardImage: asset('../assets/listings/listing-spa-house.png'),
+    cardType: 'Wellness club',
+    cardLocation: 'Airport Residential',
+    cardDescription: 'Recovery-focused wellness sessions, restorative therapies, and premium self-care rituals in Accra.',
+    cardBadges: ['Verified', 'In-person', 'Membership'],
+    gallery: [
+      {
+        src: asset('../assets/partners/partner-growth.png'),
+        alt: 'Growth Wellness Place partner mark',
+        width: 960,
+        height: 720
+      }
+    ],
+    about: [
+      'Growth Wellness Place is positioned as an elevated wellness setting designed for people seeking structured reset routines and long-term lifestyle care.',
+      'Its model combines guided therapies and recovery-forward experiences with a community-driven environment that supports consistent wellbeing habits.'
+    ],
+    services: [
+      'Recovery and restorative wellness sessions',
+      'Therapeutic body treatments and spa rituals',
+      'Movement and guided wellbeing classes',
+      'Wellness concierge and membership experiences'
+    ],
+    contactLabel: 'Visit website',
+    contactHref: 'https://www.randrwellness.co/',
+    email: 'info@randrwellness.co',
+    mapHref: 'https://www.google.com/maps/search/?api=1&query=Growth+Wellness+Place+Accra'
   }
 ];
