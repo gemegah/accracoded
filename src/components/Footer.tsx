@@ -9,7 +9,8 @@ const footerLinks = [
   { label: 'Explore', path: '/explore' },
   { label: 'Events', path: '/events' },
   { label: 'Membership', path: '/membership' },
-  { label: 'About', path: '/about' }
+  { label: 'About', path: '/about' },
+  { label: 'Privacy', path: '/privacy' }
 ];
 
 const socialLinks = [

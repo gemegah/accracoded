@@ -12,6 +12,7 @@ const ExplorePage = lazy(() => import('./pages/ExplorePage').then((module) => ({
 const EventsPage = lazy(() => import('./pages/EventsPage').then((module) => ({ default: module.EventsPage })));
 const MembershipPage = lazy(() => import('./pages/MembershipPage').then((module) => ({ default: module.MembershipPage })));
 const AboutPage = lazy(() => import('./pages/AboutPage').then((module) => ({ default: module.AboutPage })));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((module) => ({ default: module.PrivacyPage })));
 const CampaignPage = lazy(() => import('./pages/CampaignPage').then((module) => ({ default: module.CampaignPage })));
 const SupportResourcesPage = lazy(() =>
   import('./pages/SupportResourcesPage').then((module) => ({ default: module.SupportResourcesPage }))
@@ -31,6 +32,7 @@ const appRoutes: AppRoute[] = [
   { path: '/events', screenId: 's-events', element: <EventsPage /> },
   { path: '/membership', screenId: 's-membership', element: <MembershipPage /> },
   { path: '/about', screenId: 's-about', element: <AboutPage /> },
+  { path: '/privacy', screenId: 's-privacy', element: <PrivacyPage /> },
   { path: '/campaign', screenId: 's-campaign', element: <CampaignPage /> },
   { path: '/resources', screenId: 's-resources', element: <SupportResourcesPage /> },
   { path: '/admin', screenId: 's-admin', element: <AdminPage /> },
