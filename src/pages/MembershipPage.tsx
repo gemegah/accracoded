@@ -1,6 +1,7 @@
 import homeMembershipBotanical from '../assets/home/home-membership-botanical.png';
 import homeMembershipStillLife from '../assets/home/home-membership-still-life.png';
 import homeSunIcon from '../assets/home/home-sun-icon.svg';
+import { WAITLIST_FORM_URL } from '../data/siteConfig.js';
 
 export function MembershipPage() {
   return (
@@ -75,10 +76,10 @@ export function MembershipPage() {
                   <li className="membership-teaser__item"><iconify-icon icon="tabler:users-group" aria-hidden="true"></iconify-icon><span>Community access &amp; connections</span></li>
                 </ul>
         
-                <button type="button" className="membership-teaser__cta" data-action="open-waitlist">
+                <a className="membership-teaser__cta" href={WAITLIST_FORM_URL} target="_blank" rel="noopener noreferrer">
                   <span>Join the Waitlist</span>
                   <span className="membership-teaser__cta-arrow" aria-hidden="true">&rarr;</span>
-                </button>
+                </a>
         
                 <div className="membership-teaser__closing">
                   <span className="membership-teaser__closing-rule" aria-hidden="true"></span>
