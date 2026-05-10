@@ -90,18 +90,34 @@ function matchesCategory(resource) {
 }
 
 function matchesQuery(resource) {
-  const query = activeQuery.trim().toLowerCase();
+  const normalize = (value) =>
+    String(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+
+  const query = normalize(activeQuery);
 
   if (!query) {
     return true;
   }
 
-  return [
+  const searchableText = [
     resource.name,
     resource.location,
     resource.summary,
-    ...resource.tags
-  ].some((value) => value.toLowerCase().includes(query));
+    resource.description,
+    resource.cardDescription,
+    resource.resourceType,
+    ...(resource.tags || []),
+    ...(resource.cardBadges || []),
+    ...(resource.about || []),
+    ...(resource.services || [])
+  ]
+    .map((value) => normalize(value))
+    .join(' ');
+
+  return searchableText.includes(query);
 }
 
 function createIcon(icon) {
@@ -446,15 +462,24 @@ function renderResourceDetail(resource) {
     actions.appendChild(primaryAction);
   }
 
-  if (resource.mapHref) {
-    const map = document.createElement('a');
-    map.className = 'explore-detail-action explore-detail-action--secondary';
-    map.href = resource.mapHref;
-    map.target = '_blank';
-    map.rel = 'noopener noreferrer';
-    map.appendChild(createIcon('tabler:map-2'));
-    map.append('Get directions');
-    actions.appendChild(map);
+  if (!resource.phone && resource.mapHref) {
+    const directions = document.createElement('a');
+    directions.className = 'explore-detail-action explore-detail-action--secondary';
+    directions.href = resource.mapHref;
+    directions.target = '_blank';
+    directions.rel = 'noopener noreferrer';
+    directions.appendChild(createIcon('tabler:map-2'));
+    directions.append('Get directions');
+    actions.appendChild(directions);
+  }
+
+  if (resource.phone) {
+    const call = document.createElement('a');
+    call.className = 'explore-detail-action explore-detail-action--secondary';
+    call.href = `tel:${resource.phone}`;
+    call.appendChild(createIcon('tabler:phone-call'));
+    call.append(resource.phoneLabel || 'Call');
+    actions.appendChild(call);
   }
 
   if (resource.email) {

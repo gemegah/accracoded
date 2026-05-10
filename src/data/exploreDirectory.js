@@ -228,6 +228,8 @@ export const EXPLORE_RESOURCES = [
     ],
     contactLabel: 'Open map',
     contactHref: 'https://www.google.com/maps/search/?api=1&query=Pantang+Hospital',
+    phone: '+233302408237',
+    phoneLabel: 'Call hospital',
     mapHref: 'https://www.google.com/maps/search/?api=1&query=Pantang+Hospital'
   },
   {
@@ -340,50 +342,61 @@ export const EXPLORE_RESOURCES = [
   {
     id: 'growth-wellness-place',
     resourceType: 'wellness-center',
-    name: 'Growth Wellness Place',
-    categories: ['wellness', 'vitality', 'beauty'],
-    tags: ['Wellness club', 'Recovery', 'Holistic care'],
-    location: 'Airport Residential Area, Accra',
-    summary: 'Members-first wellness space for recovery, movement, and restorative self-care experiences.',
+    name: 'GrowthPlaceWellness',
+    categories: ['wellness', 'vitality', 'mental-health'],
+    tags: ['Nurse-led support', 'Mental wellbeing', 'Psychoeducation'],
+    location: 'United Kingdom (online sessions)',
+    summary: 'Nurse-led mental health education and wellbeing support through confidential online sessions and self-care tools.',
     description:
-      'Growth Wellness Place is a curated wellness destination in Accra that blends recovery therapies, mindful movement, and spa-style treatments in a calm appointment-led environment.',
+      'GrowthPlaceWellness offers stigma-free, confidential mental wellbeing support led by a qualified mental health nurse, with non-clinical 1:1 sessions, practical self-care tools, and psychoeducational resources.',
     actionLabel: 'View',
-    href: 'https://www.randrwellness.co/',
-    logoText: 'GWP',
+    href: 'https://growthplacewellness.co.uk/',
+    logoText: 'GPW',
     featured: false,
     featuredRank: 7,
-    cardImage: asset('../assets/listings/growth-wellness-place-card.webp'),
-    cardType: 'Wellness club',
-    cardLocation: 'Airport Residential',
-    cardDescription: 'Recovery-focused wellness sessions, restorative therapies, and premium self-care rituals in Accra.',
-    cardBadges: ['Verified', 'In-person', 'Membership'],
+    cardImage: 'https://growthplacewellness.co.uk/assets/hero-image-Cx-MwOcI.jpg',
+    cardType: 'Nurse-led wellbeing support',
+    cardLocation: 'Online (UK)',
+    cardDescription: 'Confidential online 1:1 wellbeing sessions and practical mental health education tools you can explore at your own pace.',
+    cardBadges: ['Verified', 'Online sessions', 'Confidential'],
     gallery: [
       {
-        src: asset('../assets/explore-detail/growth-wellness-place-1.png'),
-        alt: 'Growth Wellness Place by R&R primary logo',
+        src: 'https://growthplacewellness.co.uk/assets/hero-image-Cx-MwOcI.jpg',
+        alt: 'GrowthPlaceWellness hero image',
         width: 960,
         height: 720
       },
       {
-        src: asset('../assets/explore-detail/growth-wellness-place-2.webp'),
-        alt: 'Growth Wellness Place facility image',
+        src: 'https://growthplacewellness.co.uk/assets/pathway-support-K9bFTaOA.jpg',
+        alt: 'GrowthPlaceWellness support pathway visual',
+        width: 960,
+        height: 720
+      },
+      {
+        src: 'https://growthplacewellness.co.uk/assets/pathway-selfcare-DS7rGP2K.jpg',
+        alt: 'GrowthPlaceWellness self-care pathway visual',
+        width: 960,
+        height: 720
+      },
+      {
+        src: 'https://growthplacewellness.co.uk/assets/logo-B6f-R_6m.png',
+        alt: 'GrowthPlaceWellness logo',
         width: 960,
         height: 720
       }
     ],
     about: [
-      'Growth Wellness Place is positioned as an elevated wellness setting designed for people seeking structured reset routines and long-term lifestyle care.',
-      'Its model combines guided therapies and recovery-forward experiences with a community-driven environment that supports consistent wellbeing habits.'
+      'GrowthPlaceWellness is a nurse-led platform focused on mental health education, emotional wellbeing, and practical support in a stigma-free environment.',
+      'The service emphasizes gentle, confidential support through online sessions and self-guided wellbeing tools, and states that its support is non-clinical and not a replacement for medical or mental health treatment.'
     ],
     services: [
-      'Recovery and restorative wellness sessions',
-      'Therapeutic body treatments and spa rituals',
-      'Movement and guided wellbeing classes',
-      'Wellness concierge and membership experiences'
+      '1:1 nurse-led wellbeing sessions (video or phone)',
+      'Mental health signposting and support navigation',
+      'Psychoeducation resources for symptoms, options, and coping skills',
+      'Private self-care tools such as mood tracking, breathing exercises, and guided reflection'
     ],
     contactLabel: 'Visit website',
-    contactHref: 'https://www.randrwellness.co/',
-    email: 'info@randrwellness.co',
-    mapHref: 'https://www.google.com/maps/search/?api=1&query=Growth+Wellness+Place+Accra'
+    contactHref: 'https://growthplacewellness.co.uk/',
+    email: 'welcome@growthplacewellness.co.uk'
   }
 ];
