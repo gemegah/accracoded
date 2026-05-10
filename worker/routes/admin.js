@@ -244,6 +244,55 @@ async function handleWaitlist(_request, env) {
   });
 }
 
+async function handleQrAnalytics(_request, env) {
+  const tableInfo = await env.DB.prepare('PRAGMA table_info("qr_scan_events")').all();
+  const columns = new Set((tableInfo.results || []).map((row) => String(row.name)));
+  const hasAreaBucket = columns.has('area_bucket');
+  const hasLatitude = columns.has('latitude');
+  const hasLongitude = columns.has('longitude');
+
+  const areaQuery = hasAreaBucket
+    ? await env.DB.prepare(
+      `SELECT
+        COALESCE(NULLIF(area_bucket, ''), 'unknown') AS area_bucket,
+        COUNT(*) AS scans,
+        MAX(created_at) AS last_scan_at
+       FROM qr_scan_events
+       GROUP BY COALESCE(NULLIF(area_bucket, ''), 'unknown')
+       ORDER BY scans DESC, last_scan_at DESC
+       LIMIT 200`
+    ).all()
+    : await env.DB.prepare(
+      `SELECT 'unknown' AS area_bucket, COUNT(*) AS scans, MAX(created_at) AS last_scan_at
+       FROM qr_scan_events`
+    ).all();
+
+  const recentScans = await env.DB.prepare(
+    `SELECT id, created_at, qr_key, target, referrer${hasLatitude ? ', latitude' : ''}${hasLongitude ? ', longitude' : ''}${hasAreaBucket ? ', area_bucket' : ''}
+     FROM qr_scan_events
+     ORDER BY created_at DESC
+     LIMIT 150`
+  ).all();
+
+  return json({
+    areas: (areaQuery.results || []).map((row) => ({
+      areaBucket: row.area_bucket || 'unknown',
+      scans: Number(row.scans || 0),
+      lastScanAt: Number(row.last_scan_at || 0)
+    })),
+    recentScans: (recentScans.results || []).map((row) => ({
+      id: row.id,
+      createdAt: Number(row.created_at || 0),
+      qrKey: row.qr_key || 'unknown',
+      target: row.target || '',
+      referrer: row.referrer || '',
+      latitude: hasLatitude && Number.isFinite(Number(row.latitude)) ? Number(row.latitude) : null,
+      longitude: hasLongitude && Number.isFinite(Number(row.longitude)) ? Number(row.longitude) : null,
+      areaBucket: hasAreaBucket ? (row.area_bucket || 'unknown') : 'unknown'
+    }))
+  });
+}
+
 async function handleOverview(env) {
   const [resources, waitlist, metrics, qr] = await Promise.all([
     env.DB.prepare('SELECT COUNT(*) AS count FROM directory_resources').first(),
@@ -258,7 +307,7 @@ async function handleOverview(env) {
       waitlist: Number(waitlist?.count || 0),
       categories: Number(metrics?.count || 0),
       qrScans: Number(qr?.count || 0),
-      qrStatus: 'coming_soon'
+      qrStatus: 'active'
     }
   });
 }
@@ -304,6 +353,10 @@ export async function handleAdmin(request, env) {
 
   if (path === '/api/v1/admin/waitlist' && method === 'GET') {
     return handleWaitlist(request, env);
+  }
+
+  if (path === '/api/v1/admin/qr-analytics' && method === 'GET') {
+    return handleQrAnalytics(request, env);
   }
 
   return json({ error: 'not_found' }, 404);

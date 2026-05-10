@@ -53,6 +53,23 @@ type WaitlistSubmission = {
   source: string;
 };
 
+type QrAreaSummary = {
+  areaBucket: string;
+  lastScanAt: number;
+  scans: number;
+};
+
+type QrRecentScan = {
+  areaBucket: string;
+  createdAt: number;
+  id: string;
+  latitude: number | null;
+  longitude: number | null;
+  qrKey: string;
+  referrer: string;
+  target: string;
+};
+
 const emptyResource: DirectoryResource = {
   about: [],
   cardBadges: ['Verified'],
@@ -85,7 +102,7 @@ const adminNavItems = [
   { description: 'Homepage counts', icon: 'tabler:chart-bar', label: 'Metrics', path: '/admin/metrics', section: 'metrics' },
   { description: 'Resource manager', icon: 'tabler:folders', label: 'Directory', path: '/admin/directory', section: 'directory' },
   { description: 'Waitlist data', icon: 'tabler:users', label: 'Membership', path: '/admin/membership', section: 'membership' },
-  { description: 'Coming soon', icon: 'tabler:qrcode', label: 'QR Analytics', path: '/admin/qr-analytics', section: 'qr-analytics' }
+  { description: 'Scan counts by area', icon: 'tabler:qrcode', label: 'QR Analytics', path: '/admin/qr-analytics', section: 'qr-analytics' }
 ];
 
 function splitList(value: string) {
@@ -117,22 +134,27 @@ export function AdminPage() {
   const [resources, setResources] = useState<DirectoryResource[]>([]);
   const [resourceDraft, setResourceDraft] = useState<DirectoryResource>(emptyResource);
   const [waitlist, setWaitlist] = useState<WaitlistSubmission[]>([]);
+  const [qrAreas, setQrAreas] = useState<QrAreaSummary[]>([]);
+  const [qrRecentScans, setQrRecentScans] = useState<QrRecentScan[]>([]);
   const [interestFilter, setInterestFilter] = useState('all');
 
   const isLoginRoute = location.pathname === '/admin/login';
 
   async function loadAdminData() {
-    const [overviewResponse, metricsResponse, resourcesResponse, waitlistResponse] = await Promise.all([
+    const [overviewResponse, metricsResponse, resourcesResponse, waitlistResponse, qrResponse] = await Promise.all([
       getJson('/admin/overview'),
       getJson('/admin/home-metrics'),
       getJson('/admin/resources'),
-      getJson('/admin/waitlist')
+      getJson('/admin/waitlist'),
+      getJson('/admin/qr-analytics')
     ]);
 
     setOverview(overviewResponse?.overview || overview);
     setMetrics(Array.isArray(metricsResponse?.metrics) && metricsResponse.metrics.length ? metricsResponse.metrics : FALLBACK_HOME_CATEGORY_METRICS);
     setResources(Array.isArray(resourcesResponse?.resources) ? resourcesResponse.resources : []);
     setWaitlist(Array.isArray(waitlistResponse?.submissions) ? waitlistResponse.submissions : []);
+    setQrAreas(Array.isArray(qrResponse?.areas) ? qrResponse.areas : []);
+    setQrRecentScans(Array.isArray(qrResponse?.recentScans) ? qrResponse.recentScans : []);
   }
 
   useEffect(() => {
@@ -345,7 +367,7 @@ export function AdminPage() {
             <article className="admin-stat"><span>Resources</span><strong>{overview.resources}</strong></article>
             <article className="admin-stat"><span>Waitlist</span><strong>{overview.waitlist}</strong></article>
             <article className="admin-stat"><span>Categories</span><strong>{overview.categories}</strong></article>
-            <article className="admin-stat admin-stat--muted"><span>QR scans</span><strong>Coming soon</strong></article>
+            <article className="admin-stat admin-stat--muted"><span>QR scans</span><strong>{overview.qrScans}</strong></article>
           </section>
 
           {currentAdminSection === 'metrics' ? <section className="admin-card">
@@ -462,10 +484,42 @@ export function AdminPage() {
             </div>
           </section> : null}
 
-          {currentAdminSection === 'qr-analytics' ? <section className="admin-card admin-coming-soon">
+          {currentAdminSection === 'qr-analytics' ? <section className="admin-card">
             <p className="admin-eyebrow">QR analytics</p>
             <h2>Scanned QR code data</h2>
-            <p>Coming soon. The schema is ready, but public QR tracking is intentionally shelved for this phase.</p>
+            <p className="admin-help">Areas are grouped from GPS coordinates using a 3-decimal map bucket.</p>
+
+            <div className="admin-table-wrap">
+              <table className="admin-table">
+                <thead><tr><th>Area bucket</th><th>Scans</th><th>Last scan</th></tr></thead>
+                <tbody>
+                  {qrAreas.length ? qrAreas.map((item) => (
+                    <tr key={item.areaBucket}>
+                      <td>{item.areaBucket}</td>
+                      <td>{item.scans}</td>
+                      <td>{item.lastScanAt ? formatDate(item.lastScanAt) : '-'}</td>
+                    </tr>
+                  )) : <tr><td colSpan={3}>No QR scans recorded yet.</td></tr>}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="admin-table-wrap">
+              <table className="admin-table">
+                <thead><tr><th>Date</th><th>QR key</th><th>Area</th><th>Coordinates</th><th>Path</th></tr></thead>
+                <tbody>
+                  {qrRecentScans.length ? qrRecentScans.map((item) => (
+                    <tr key={item.id}>
+                      <td>{formatDate(item.createdAt)}</td>
+                      <td>{item.qrKey}</td>
+                      <td>{item.areaBucket || 'unknown'}</td>
+                      <td>{item.latitude !== null && item.longitude !== null ? `${item.latitude.toFixed(5)}, ${item.longitude.toFixed(5)}` : '-'}</td>
+                      <td>{item.target || '-'}</td>
+                    </tr>
+                  )) : <tr><td colSpan={5}>No QR scan events yet.</td></tr>}
+                </tbody>
+              </table>
+            </div>
           </section> : null}
           </div>
         </section>

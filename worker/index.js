@@ -4,11 +4,12 @@ import { handlePublicDirectoryResources, handlePublicHomeMetrics } from './route
 import { handleTelemetry } from './routes/telemetry.js';
 import { handleResources } from './routes/resources.js';
 import { handleWaitlistSubmit } from './routes/waitlist.js';
+import { handleQrScanSubmit } from './routes/qr.js';
 import { json } from './utils/response.js';
 
 function withCors(response) {
   response.headers.set('Access-Control-Allow-Origin', '*');
-  response.headers.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  response.headers.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
   return response;
 }
@@ -86,6 +87,10 @@ function routeApiRequest(request, env) {
 
   if (path === '/api/v1/telemetry' && method === 'POST') {
     return handleTelemetry(request, env);
+  }
+
+  if (path === '/api/v1/qr-scans' && method === 'POST') {
+    return handleQrScanSubmit(request, env);
   }
 
   if (path.startsWith('/api/v1/admin/')) {

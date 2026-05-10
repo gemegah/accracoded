@@ -104,8 +104,9 @@
 
   .resources-footer {
     position: static;
-    background: transparent;
+    background: transparent !important;
     padding-top: 0;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
   }
 
   .site-credit {

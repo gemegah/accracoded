@@ -1,10 +1,28 @@
 import botanicalSprig from '../assets/campaign/ChatGPT Image May 8, 2026, 12_33_29 PM (1).png';
 import botanicalArch from '../assets/campaign/ChatGPT Image May 8, 2026, 12_33_30 PM (2).png';
 import { useTransparentPng } from '../hooks/useTransparentPng';
+import { useMemo } from 'react';
+
+const CAMPAIGN_VIDEOS = [
+  {
+    id: 'Ige_hNDQWBY',
+    quote: '"I know how Accra feels when everything piles up."',
+    title: 'Accra Coded campaign story 1'
+  },
+  {
+    id: '8SR6JOQ-aFs',
+    quote: '"Some days feel louder than your own thoughts."',
+    title: 'Accra Coded campaign story 2'
+  }
+];
 
 export function CampaignPage() {
   const cleanBotanicalSprig = useTransparentPng(botanicalSprig);
   const cleanBotanicalArch = useTransparentPng(botanicalArch);
+  const selectedVideo = useMemo(
+    () => CAMPAIGN_VIDEOS[Math.floor(Math.random() * CAMPAIGN_VIDEOS.length)],
+    []
+  );
 
   return (
     <>
@@ -77,7 +95,7 @@ export function CampaignPage() {
               </span>
             </button>
 
-            <button type="button" className="format-card" id="fmt-audio" data-action="select-format" data-format="audio" aria-pressed="false">
+            {/* <button type="button" className="format-card" id="fmt-audio" data-action="select-format" data-format="audio" aria-pressed="false">
               <span className="format-card__icon" aria-hidden="true">
                 <svg className="c-icon c-icon--lg" viewBox="0 0 24 24"><path d="M4 13v-2a2 2 0 0 1 2-2h2v6H6a2 2 0 0 1-2-2z"></path><path d="M20 13v-2a2 2 0 0 0-2-2h-2v6h2a2 2 0 0 0 2-2z"></path><path d="M8 9a4 4 0 0 1 8 0"></path></svg>
               </span>
@@ -85,7 +103,7 @@ export function CampaignPage() {
                 <span className="format-card__title">Listen</span>
                 <span className="format-card__desc">Audio-only format for busy spaces and lower data use.</span>
               </span>
-            </button>
+            </button> */}
 
             <button type="button" className="format-card" id="fmt-text" data-action="select-format" data-format="text" aria-pressed="false">
               <span className="format-card__icon" aria-hidden="true">
@@ -112,10 +130,10 @@ export function CampaignPage() {
               <svg className="c-icon" viewBox="0 0 24 24" aria-hidden="true"><polygon points="8 6 18 12 8 18 8 6"></polygon></svg>
               <span>Video</span>
             </button>
-            <button type="button" className="c-tab" id="tb-audio" data-action="switch-view" data-format="audio" aria-pressed="false">
+            {/* <button type="button" className="c-tab" id="tb-audio" data-action="switch-view" data-format="audio" aria-pressed="false">
               <svg className="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-2a2 2 0 0 1 2-2h2v6H6a2 2 0 0 1-2-2z"></path><path d="M20 13v-2a2 2 0 0 0-2-2h-2v6h2a2 2 0 0 0 2-2z"></path><path d="M8 9a4 4 0 0 1 8 0"></path></svg>
               <span>Audio</span>
-            </button>
+            </button> */}
             <button type="button" className="c-tab" id="tb-text" data-action="switch-view" data-format="text" aria-pressed="false">
               <svg className="c-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12a1 1 0 0 1 1 1v14l-3-2-3 2-3-2-3 2V5a1 1 0 0 1 1-1z"></path></svg>
               <span>Read</span>
@@ -124,27 +142,28 @@ export function CampaignPage() {
       
           <div className="content-stack">
             <div className="view" id="view-video">
-              <div className="media-shell">
-                <div className="media-shell__inner">
-                  <div className="avatar" aria-hidden="true">
-                    <svg className="c-icon c-icon--lg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg>
-                  </div>
-                  <button type="button" className="play-toggle" id="video-play" data-action="toggle-play" aria-pressed="false" aria-label="Play video message">
-                    <svg className="c-icon c-icon--lg icon-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="8 6 18 12 8 18 8 6"></polygon></svg>
-                    <svg className="c-icon c-icon--lg icon-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9" y1="6" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="18"></line></svg>
-                  </button>
+              <div className="media-shell media-shell--video-embed">
+                <div className="media-shell__inner media-shell__inner--video-embed">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${selectedVideo.id}`}
+                    title={selectedVideo.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
                 </div>
-                <p className="media-caption">"I know how Accra feels when everything piles up."</p>
+                <p className="media-caption">{selectedVideo.quote}</p>
               </div>
       
               <div className="c-card c-card--solid">
-                <p className="detail-name">Kofi, 31, Tema</p>
+                <p className="detail-name">A shared city voice</p>
                 <p className="detail-sub">When you are ready, a short check-in helps us understand who we are reaching so we can keep building this.</p>
               </div>
       
             </div>
       
-            <div className="view is-hidden" id="view-audio">
+            {/* <div className="view is-hidden" id="view-audio">
               <div className="c-card c-card--solid audio-panel" id="audio-panel">
                 <div className="audio-wave" aria-hidden="true">
                   <span className="wave-bar"></span><span className="wave-bar"></span><span className="wave-bar"></span><span className="wave-bar"></span>
@@ -166,7 +185,7 @@ export function CampaignPage() {
                 </div>
               </div>
       
-            </div>
+            </div> */}
       
             <div className="view is-hidden" id="view-text">
               <div className="c-card c-card--solid letter">
@@ -187,7 +206,7 @@ export function CampaignPage() {
             </div>
           </div>
       
-          <div className="screen__footer nav-row">
+          <div className="screen__footer nav-row campaign-screen__footer--plain campaign-content__footer">
             <button type="button" className="c-button c-button--secondary" data-action="campaign-back" data-fallback="s-campaign-format">Back</button>
             <button type="button" className="c-button c-button--primary" data-action="go-to" data-target="s-checkin">Next</button>
           </div>
@@ -259,7 +278,7 @@ export function CampaignPage() {
       
           <div className="spacer" aria-hidden="true"></div>
       
-          <div className="screen__footer">
+          <div className="screen__footer campaign-screen__footer--plain campaign-content__footer">
             <button type="button" className="c-button c-button--primary" data-action="submit-checkin">Submit and see support options</button>
             <button type="button" className="c-button c-button--ghost" data-action="campaign-back" data-fallback="s-content">Back</button>
           </div>
