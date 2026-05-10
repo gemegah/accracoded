@@ -1,5 +1,5 @@
 {
-<<<<<<< HEAD
+// <<<<<<< HEAD
 	"name": "accracoded",
 	"compatibility_date": "2026-04-16",
 	"main": "worker/index.js",
@@ -36,41 +36,41 @@
 			"id": "e44b7b813dfc45848aa379797129e0b4"
 		}
 	]
-=======
-  "name": "accracoded",
-  "account_id": "4b812618bd31517389511a8d8ebfdcec",
-  "compatibility_date": "2026-04-16",
-  "main": "worker/index.js",
-  "workers_dev": false,
-  "routes": [
-    {
-      "pattern": "accracoded.com",
-      "custom_domain": true
-    },
-    {
-      "pattern": "www.accracoded.com",
-      "custom_domain": true
-    }
-  ],
-  "assets": {
-    "directory": "dist",
-    "binding": "ASSETS",
-    "run_worker_first": [
-      "/api/*"
-    ]
-  },
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "accracoded-db",
-      "database_id": "c068d25a-2607-4eef-a4ef-41f2f2219387"
-    }
-  ],
-  "kv_namespaces": [
-    {
-      "binding": "RATE_LIMIT_KV",
-      "id": "f543222436d84e52b5d1071a49ea6d5b"
-    }
-  ]
->>>>>>> c2b944086a9165daae4336f5470733f268492665
+// =======
+//   "name": "accracoded",
+//   "account_id": "4b812618bd31517389511a8d8ebfdcec",
+//   "compatibility_date": "2026-04-16",
+//   "main": "worker/index.js",
+//   "workers_dev": false,
+//   "routes": [
+//     {
+//       "pattern": "accracoded.com",
+//       "custom_domain": true
+//     },
+//     {
+//       "pattern": "www.accracoded.com",
+//       "custom_domain": true
+//     }
+//   ],
+//   "assets": {
+//     "directory": "dist",
+//     "binding": "ASSETS",
+//     "run_worker_first": [
+//       "/api/*"
+//     ]
+//   },
+//   "d1_databases": [
+//     {
+//       "binding": "DB",
+//       "database_name": "accracoded-db",
+//       "database_id": "c068d25a-2607-4eef-a4ef-41f2f2219387"
+//     }
+//   ],
+//   "kv_namespaces": [
+//     {
+//       "binding": "RATE_LIMIT_KV",
+//       "id": "f543222436d84e52b5d1071a49ea6d5b"
+//     }
+//   ]
+// >>>>>>> c2b944086a9165daae4336f5470733f268492665
 }
