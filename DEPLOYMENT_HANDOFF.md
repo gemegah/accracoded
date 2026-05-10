@@ -23,6 +23,8 @@ The Worker custom domains are configured in `wrangler.jsonc`:
 
 Cloudflare creates the DNS records and certificates for Worker custom domains during deploy. If either hostname already has a conflicting DNS record or Worker route in the dashboard, remove the conflict before deploying.
 
+SPA deep links such as `/admin/login`, `/explore/:resourceSlug`, and `/campaign` are handled by the Static Assets SPA fallback plus the Worker script. The assets config intentionally runs the Worker first for app routes while excluding hashed files under `/assets/*`.
+
 ## 2. Cloudflare D1 And KV
 
 Confirm that `wrangler.jsonc` points to the production resources:
