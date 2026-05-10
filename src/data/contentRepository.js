@@ -19,10 +19,19 @@ function isBrokenLocalAssetReference(value) {
     value.startsWith('file:') ||
     value.includes('localhost') ||
     value.includes('127.0.0.1') ||
+    value.startsWith('/assets/') ||
     value.includes('/src/assets/') ||
     value.startsWith('../assets/') ||
     value.startsWith('./assets/')
   );
+}
+
+function isNonCardImageReference(value) {
+  if (typeof value !== 'string' || value.trim() === '') {
+    return true;
+  }
+
+  return value.includes('/explore-detail/') || value.includes('/partners/');
 }
 
 function withProductionAssetFallback(resource) {
@@ -34,7 +43,10 @@ function withProductionAssetFallback(resource) {
 
   const nextResource = {
     ...resource,
-    cardImage: isBrokenLocalAssetReference(resource.cardImage) ? fallback.cardImage : resource.cardImage
+    cardImage:
+      isBrokenLocalAssetReference(resource.cardImage) || isNonCardImageReference(resource.cardImage)
+        ? fallback.cardImage
+        : resource.cardImage
   };
 
   const gallery = Array.isArray(resource.gallery) ? resource.gallery : [];
@@ -61,7 +73,16 @@ export async function fetchDirectoryResources() {
   try {
     const response = await getJson('/directory-resources');
     const resources = Array.isArray(response?.resources) ? response.resources : [];
-    return resources.length ? resources.map(withProductionAssetFallback) : EXPLORE_RESOURCES;
+
+    if (resources.length === 0) {
+      return EXPLORE_RESOURCES;
+    }
+
+    const hydratedResources = resources.map(withProductionAssetFallback);
+    const hydratedIds = new Set(hydratedResources.map((resource) => resource.id));
+    const missingFallbackResources = EXPLORE_RESOURCES.filter((resource) => !hydratedIds.has(resource.id));
+
+    return [...hydratedResources, ...missingFallbackResources];
   } catch {
     return EXPLORE_RESOURCES;
   }

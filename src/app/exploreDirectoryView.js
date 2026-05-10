@@ -8,6 +8,82 @@ let activeHomeFeaturedCategory = 'all';
 let directoryResources = EXPLORE_RESOURCES;
 let hasRequestedRemoteResources = false;
 let activeDetailResourceId = '';
+const fallbackResourceMap = new Map(EXPLORE_RESOURCES.map((resource) => [resource.id, resource]));
+
+function getLocalImageFallbackSources(resourceId, options = {}) {
+  const fallback = fallbackResourceMap.get(resourceId);
+
+  if (!fallback) {
+    return [];
+  }
+
+  const includeCardImage = options.includeCardImage !== false;
+  const includeGallery = options.includeGallery !== false;
+  const preferredGalleryIndex = Number.isInteger(options.preferredGalleryIndex) ? options.preferredGalleryIndex : null;
+  const sources = [];
+
+  if (includeCardImage && fallback.cardImage) {
+    sources.push(fallback.cardImage);
+  }
+
+  if (includeGallery && Array.isArray(fallback.gallery) && fallback.gallery.length > 0) {
+    if (preferredGalleryIndex !== null && fallback.gallery[preferredGalleryIndex]?.src) {
+      sources.push(fallback.gallery[preferredGalleryIndex].src);
+    }
+
+    fallback.gallery.forEach((item, index) => {
+      if (index !== preferredGalleryIndex && item?.src) {
+        sources.push(item.src);
+      }
+    });
+  }
+
+  return [...new Set(sources)];
+}
+
+function attachImageFallback(img, fallbackSources) {
+  const baseHref = globalThis.location?.href || 'http://localhost/';
+  const toAbsoluteSource = (value) => {
+    try {
+      return new URL(value, baseHref).href;
+    } catch {
+      return value;
+    }
+  };
+
+  const seen = new Set();
+  const sources = fallbackSources
+    .filter((src) => typeof src === 'string' && src.trim() !== '')
+    .filter((src) => {
+      const absolute = toAbsoluteSource(src);
+      if (seen.has(absolute)) {
+        return false;
+      }
+      seen.add(absolute);
+      return true;
+    });
+
+  if (sources.length === 0) {
+    return;
+  }
+
+  let nextSourceIndex = 0;
+  const currentAbsoluteSource = () => toAbsoluteSource(img.currentSrc || img.src || '');
+
+  img.addEventListener('error', function handleError() {
+    while (nextSourceIndex < sources.length && toAbsoluteSource(sources[nextSourceIndex]) === currentAbsoluteSource()) {
+      nextSourceIndex += 1;
+    }
+
+    if (nextSourceIndex >= sources.length) {
+      img.removeEventListener('error', handleError);
+      return;
+    }
+
+    img.src = sources[nextSourceIndex];
+    nextSourceIndex += 1;
+  });
+}
 
 function matchesCategory(resource) {
   return activeCategory === 'all' || resource.categories.includes(activeCategory);
@@ -85,11 +161,13 @@ function createListingCard(resource, options = {}) {
 
   const image = document.createElement('img');
   image.className = 'listing-card__image';
-  image.src = resource.cardImage || resource.gallery?.[0]?.src || '';
+  const fallbackSources = getLocalImageFallbackSources(resource.id);
+  image.src = resource.cardImage || resource.gallery?.[0]?.src || fallbackSources[0] || '';
   image.alt = resource.name;
   image.loading = context === 'featured' ? 'eager' : 'lazy';
   image.decoding = 'async';
   image.fetchPriority = context === 'featured' ? 'high' : 'low';
+  attachImageFallback(image, fallbackSources);
   media.append(image);
 
   const content = document.createElement('div');
@@ -246,6 +324,10 @@ function createDetailGallery(resource) {
     img.fetchPriority = index === 0 ? 'high' : 'low';
     img.width = image.width || 960;
     img.height = image.height || 720;
+    attachImageFallback(
+      img,
+      getLocalImageFallbackSources(resource.id, { includeCardImage: false, preferredGalleryIndex: index })
+    );
 
     figure.appendChild(img);
     gallery.appendChild(figure);
