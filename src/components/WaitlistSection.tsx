@@ -6,7 +6,11 @@ export function WaitlistSection() {
   const [state, handleSubmit] = useForm('xqendlve');
 
   return (
-    <section className="app-waitlist-section w-full overflow-x-clip px-[18px] sm:px-6 md:px-7 lg:px-[26px]" aria-labelledby="waitlist-title">
+    <section
+      className="app-waitlist-section w-full overflow-x-clip px-[18px] sm:px-6 md:px-7 lg:px-[26px]"
+      id="wellness-list"
+      aria-labelledby="waitlist-title"
+    >
       <div className="footer-waitlist grid min-w-0 max-w-[1440px] overflow-x-clip gap-8 md:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.75fr)] lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,0.92fr)_minmax(320px,0.9fr)] lg:gap-14">
         <div className="footer-waitlist__copy order-1 min-w-0">
           <p className="footer-waitlist__eyebrow min-w-0">

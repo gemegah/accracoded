@@ -28,6 +28,7 @@ import { renderSupportDirectory } from '../app/supportDirectoryView.js';
 import { runLandingTypewriter } from '../app/typewriter.js';
 import { flushCheckins } from '../data/checkinRepository.js';
 import { WAITLIST_FORM_URL } from '../data/siteConfig.js';
+import { trackQrScanFromUrl } from '../data/qrScanRepository.js';
 import { flushTelemetry, trackEvent } from '../data/telemetryRepository.js';
 import { state } from '../domain/appState.js';
 
@@ -89,7 +90,7 @@ function applyNetworkAwareDefaultFormat() {
   if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
     selectFormat('text');
   } else if (connection.effectiveType === '3g') {
-    selectFormat('audio');
+    selectFormat('text');
   }
 }
 
@@ -182,6 +183,20 @@ export function useAccraCodedApp({
           screenId: state.currentScreen
         });
       },
+      'scroll-to-wellness-list': () => {
+        const scrollToForm = () => {
+          const target = document.getElementById('wellness-list');
+          target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+
+        if (location.pathname !== '/') {
+          navigate('/');
+          window.setTimeout(scrollToForm, 150);
+          return;
+        }
+
+        scrollToForm();
+      },
       'view-resource': (target) => {
         const resourceId = target.dataset.resourceId;
         if (resourceId) {
@@ -248,6 +263,7 @@ export function useAccraCodedApp({
     syncToggle(state.selectedFormat);
     void flushCheckins();
     void flushTelemetry();
+    void trackQrScanFromUrl();
     if (location.pathname === '/') {
       runLandingTypewriter();
     }

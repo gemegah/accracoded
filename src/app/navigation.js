@@ -1,6 +1,8 @@
 import { SCREEN_TRANSITION_MS, state } from '../domain/appState.js';
 import { trackEvent } from '../data/telemetryRepository.js';
 
+const ACTIVE_CAMPAIGN_FORMATS = ['video', 'text'];
+
 export function closeSiteMenus() {
   document.querySelectorAll('.site-nav--mobile').forEach((menu) => {
     menu.hidden = true;
@@ -35,10 +37,16 @@ export function toggleSiteMenu(button) {
 }
 
 export function syncToggle(format) {
+  const resolvedFormat = ACTIVE_CAMPAIGN_FORMATS.includes(format) ? format : 'video';
+
+  if (state.selectedFormat !== resolvedFormat) {
+    state.selectedFormat = resolvedFormat;
+  }
+
   ['video', 'audio', 'text'].forEach((name) => {
     const tab = document.getElementById(`tb-${name}`);
     const view = document.getElementById(`view-${name}`);
-    const isActive = name === format;
+    const isActive = name === resolvedFormat;
 
     if (tab) {
       tab.setAttribute('aria-pressed', String(isActive));
@@ -75,11 +83,12 @@ export function goTo(id) {
 }
 
 export function selectFormat(format, options = {}) {
-  state.selectedFormat = format;
+  const resolvedFormat = ACTIVE_CAMPAIGN_FORMATS.includes(format) ? format : 'video';
+  state.selectedFormat = resolvedFormat;
 
   ['video', 'audio', 'text'].forEach((name) => {
     const card = document.getElementById(`fmt-${name}`);
-    const isSelected = name === format;
+    const isSelected = name === resolvedFormat;
 
     if (!card) {
       return;
@@ -89,7 +98,7 @@ export function selectFormat(format, options = {}) {
     card.setAttribute('aria-pressed', String(isSelected));
   });
 
-  syncToggle(format);
+  syncToggle(resolvedFormat);
 
   if (options.advance) {
     goTo('s-content');

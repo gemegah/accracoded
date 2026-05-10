@@ -97,7 +97,11 @@ CREATE TABLE IF NOT EXISTS qr_scan_events (
   qr_key TEXT NOT NULL,
   target TEXT,
   user_agent TEXT,
-  referrer TEXT
+  referrer TEXT,
+  latitude REAL,
+  longitude REAL,
+  accuracy_meters REAL,
+  area_bucket TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_checkins_created_at ON checkins(created_at DESC);
@@ -108,6 +112,7 @@ CREATE INDEX IF NOT EXISTS idx_home_category_metrics_order ON home_category_metr
 CREATE INDEX IF NOT EXISTS idx_directory_resources_featured ON directory_resources(featured DESC, featured_rank ASC);
 CREATE INDEX IF NOT EXISTS idx_waitlist_created_at ON waitlist_submissions(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_qr_scan_events_created_at ON qr_scan_events(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_qr_scan_events_area_bucket ON qr_scan_events(area_bucket ASC);
 
 INSERT OR IGNORE INTO home_category_metrics
   (id, label, icon, count_label, category, card_class, sort_order, enabled, updated_at)

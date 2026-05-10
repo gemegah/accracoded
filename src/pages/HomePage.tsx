@@ -73,7 +73,7 @@ export function HomePage() {
                   &rarr;
                 </span>
               </button>
-              <button type="button" className="home-cta home-cta--secondary w-full min-w-0" data-action="go-to" data-target="s-membership">
+              <button type="button" className="home-cta home-cta--secondary w-full min-w-0" data-action="scroll-to-wellness-list">
                 <span className="min-w-0 whitespace-normal">Join the Wellness List</span>
                 <span className="home-cta__arrow" aria-hidden="true">
                   &rarr;
@@ -157,7 +157,7 @@ export function HomePage() {
                 </span>
                 <span className="discover-card__body min-w-0">
                   <span className="discover-card__title wrap-break-word">{card.label}</span>
-                  <span className="discover-card__meta">{card.meta}</span>
+                  {/* <span className="discover-card__meta">{card.meta}</span> */}
                 </span>
                 <span className="discover-card__arrow" aria-hidden="true">
                   &rarr;
