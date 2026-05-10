@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, type ReactNode } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { CrisisDialog } from './components/CrisisDialog';
@@ -6,14 +6,17 @@ import { Footer } from './components/Footer';
 import { NavBar } from './components/NavBar';
 import { WaitlistSection } from './components/WaitlistSection';
 import { useAccraCodedApp } from './hooks/useAccraCodedApp';
-import { AdminPage } from './pages/AdminPage';
-import { AboutPage } from './pages/AboutPage';
-import { CampaignPage } from './pages/CampaignPage';
-import { EventsPage } from './pages/EventsPage';
-import { ExplorePage } from './pages/ExplorePage';
-import { HomePage } from './pages/HomePage';
-import { MembershipPage } from './pages/MembershipPage';
-import { SupportResourcesPage } from './pages/SupportResourcesPage';
+
+const HomePage = lazy(() => import('./pages/HomePage').then((module) => ({ default: module.HomePage })));
+const ExplorePage = lazy(() => import('./pages/ExplorePage').then((module) => ({ default: module.ExplorePage })));
+const EventsPage = lazy(() => import('./pages/EventsPage').then((module) => ({ default: module.EventsPage })));
+const MembershipPage = lazy(() => import('./pages/MembershipPage').then((module) => ({ default: module.MembershipPage })));
+const AboutPage = lazy(() => import('./pages/AboutPage').then((module) => ({ default: module.AboutPage })));
+const CampaignPage = lazy(() => import('./pages/CampaignPage').then((module) => ({ default: module.CampaignPage })));
+const SupportResourcesPage = lazy(() =>
+  import('./pages/SupportResourcesPage').then((module) => ({ default: module.SupportResourcesPage }))
+);
+const AdminPage = lazy(() => import('./pages/AdminPage').then((module) => ({ default: module.AdminPage })));
 
 type AppRoute = {
   element: ReactNode;
@@ -62,12 +65,14 @@ function AnimatedRoutes() {
 
   return (
     <main className="app-routes min-h-dvh flex-1">
-      <Routes location={location} key={location.pathname}>
-        {appRoutes.map(({ path, element }) => (
-          <Route key={path} path={path} element={element} />
-        ))}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <Suspense fallback={<div className="page-shell screen__inner" aria-live="polite">Loading...</div>}>
+        <Routes location={location} key={location.pathname}>
+          {appRoutes.map(({ path, element }) => (
+            <Route key={path} path={path} element={element} />
+          ))}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </main>
   );
 }

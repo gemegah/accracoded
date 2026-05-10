@@ -1,8 +1,21 @@
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+
+import { renderExploreDirectory, renderResourceDetailById } from '../app/exploreDirectoryView.js';
 
 export function ExplorePage() {
   const { resourceSlug } = useParams();
   const isDetailPage = Boolean(resourceSlug);
+
+  useEffect(() => {
+    renderExploreDirectory();
+  }, []);
+
+  useEffect(() => {
+    if (resourceSlug) {
+      renderResourceDetailById(resourceSlug);
+    }
+  }, [resourceSlug]);
 
   return (
     <>

@@ -5,7 +5,6 @@ import { bindDialogOverlay, handleDialogTrap, hideCrisis, showCrisis } from '../
 import {
   filterExplore,
   filterHomeFeatured,
-  renderExploreDirectory,
   renderResourceDetailById,
   searchExplore,
 } from '../app/exploreDirectoryView.js';
@@ -244,12 +243,14 @@ export function useAccraCodedApp({
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     bindDialogOverlay();
+    renderSupportDirectory();
     applyNetworkAwareDefaultFormat();
     syncToggle(state.selectedFormat);
     void flushCheckins();
     void flushTelemetry();
-    void trackEvent('screen_view', { screenId: state.currentScreen });
-    runLandingTypewriter();
+    if (location.pathname === '/') {
+      runLandingTypewriter();
+    }
 
     return () => {
       document.removeEventListener('click', handleActionClick);
@@ -277,8 +278,7 @@ export function useAccraCodedApp({
 
     state.currentScreen = screenId;
     closeSiteMenus();
-    renderSupportDirectory();
-    renderExploreDirectory();
+
     if (location.pathname.startsWith('/explore/')) {
       renderResourceDetailById(decodeURIComponent(location.pathname.replace('/explore/', '')));
     }

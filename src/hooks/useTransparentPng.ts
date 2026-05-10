@@ -1,78 +1,105 @@
 import { useEffect, useState } from 'react';
 
+const transparentPngCache = new Map<string, string>();
+
 export function useTransparentPng(source: string) {
-  const [cleanSource, setCleanSource] = useState(source);
+  const [cleanSource, setCleanSource] = useState(() => transparentPngCache.get(source) || source);
 
   useEffect(() => {
+    const cached = transparentPngCache.get(source);
+
+    if (cached) {
+      setCleanSource(cached);
+      return;
+    }
+
     let isCancelled = false;
+    let idleId: number | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-    const image = new Image();
-    image.decoding = 'async';
+    const processImage = () => {
+      const image = new Image();
+      image.decoding = 'async';
 
-    image.onload = () => {
-      try {
-        const canvas = document.createElement('canvas');
-        canvas.width = image.naturalWidth;
-        canvas.height = image.naturalHeight;
+      image.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = image.naturalWidth;
+          canvas.height = image.naturalHeight;
 
-        const context = canvas.getContext('2d', { willReadFrequently: true });
-        if (!context) {
+          const context = canvas.getContext('2d', { willReadFrequently: true });
+          if (!context) {
+            if (!isCancelled) {
+              setCleanSource(source);
+            }
+            return;
+          }
+
+          context.drawImage(image, 0, 0);
+
+          const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+          const { data } = imageData;
+
+          for (let index = 0; index < data.length; index += 4) {
+            const red = data[index];
+            const green = data[index + 1];
+            const blue = data[index + 2];
+            const alpha = data[index + 3];
+
+            if (alpha === 0) {
+              continue;
+            }
+
+            const brightest = Math.max(red, green, blue);
+            const darkest = Math.min(red, green, blue);
+
+            if (brightest >= 240 && darkest >= 235) {
+              data[index + 3] = 0;
+              continue;
+            }
+
+            if (brightest >= 228 && darkest >= 220) {
+              data[index + 3] = Math.min(alpha, Math.max(0, Math.round((240 - brightest) * 18)));
+            }
+          }
+
+          context.putImageData(imageData, 0, 0);
+
+          if (!isCancelled) {
+            const nextSource = canvas.toDataURL('image/png');
+            transparentPngCache.set(source, nextSource);
+            setCleanSource(nextSource);
+          }
+        } catch {
           if (!isCancelled) {
             setCleanSource(source);
           }
-          return;
         }
+      };
 
-        context.drawImage(image, 0, 0);
-
-        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-        const { data } = imageData;
-
-        for (let index = 0; index < data.length; index += 4) {
-          const red = data[index];
-          const green = data[index + 1];
-          const blue = data[index + 2];
-          const alpha = data[index + 3];
-
-          if (alpha === 0) {
-            continue;
-          }
-
-          const brightest = Math.max(red, green, blue);
-          const darkest = Math.min(red, green, blue);
-
-          if (brightest >= 240 && darkest >= 235) {
-            data[index + 3] = 0;
-            continue;
-          }
-
-          if (brightest >= 228 && darkest >= 220) {
-            data[index + 3] = Math.min(alpha, Math.max(0, Math.round((240 - brightest) * 18)));
-          }
-        }
-
-        context.putImageData(imageData, 0, 0);
-
-        if (!isCancelled) {
-          setCleanSource(canvas.toDataURL('image/png'));
-        }
-      } catch {
+      image.onerror = () => {
         if (!isCancelled) {
           setCleanSource(source);
         }
-      }
+      };
+
+      image.src = source;
     };
 
-    image.onerror = () => {
-      if (!isCancelled) {
-        setCleanSource(source);
-      }
-    };
-
-    image.src = source;
+    if (typeof globalThis.requestIdleCallback === 'function') {
+      idleId = globalThis.requestIdleCallback(processImage, { timeout: 1000 });
+    } else {
+      timeoutId = globalThis.setTimeout(processImage, 0);
+    }
 
     return () => {
       isCancelled = true;
+      if (idleId !== null && typeof globalThis.cancelIdleCallback === 'function') {
+        globalThis.cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== null) {
+        globalThis.clearTimeout(timeoutId);
+      }
     };
   }, [source]);
 

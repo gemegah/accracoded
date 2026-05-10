@@ -8,6 +8,7 @@ import partnerGrowth from '../assets/partners/partner-growth.png';
 import partnerKukun from '../assets/partners/partner-kukun.png';
 import { useEffect, useState } from 'react';
 
+import { renderExploreDirectory } from '../app/exploreDirectoryView.js';
 import { fetchHomeCategoryMetrics } from '../data/contentRepository.js';
 import { FALLBACK_HOME_CATEGORY_METRICS, type HomeCategoryMetric } from '../data/homeCategories';
 
@@ -32,6 +33,10 @@ const partnerLogos = [
 
 export function HomePage() {
   const [discoverCards, setDiscoverCards] = useState<HomeCategoryMetric[]>(FALLBACK_HOME_CATEGORY_METRICS);
+
+  useEffect(() => {
+    renderExploreDirectory();
+  }, []);
 
   useEffect(() => {
     let active = true;
