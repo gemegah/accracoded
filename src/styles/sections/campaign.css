@@ -242,12 +242,16 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 6px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
     gap: 6px;
   }
 
   .c-tab {
+    flex: 1 1 0;
+    max-width: 220px;
     border: 1px solid transparent;
     border-radius: 10px;
     min-height: 44px;
