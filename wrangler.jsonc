@@ -3,9 +3,23 @@
   "account_id": "4b812618bd31517389511a8d8ebfdcec",
   "compatibility_date": "2026-04-16",
   "main": "worker/index.js",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "accracoded.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.accracoded.com",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "dist",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
   },
   "d1_databases": [
     {
