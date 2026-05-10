@@ -1,4 +1,4 @@
-const asset = (path) => new URL(path, import.meta.url).href;
+const asset = (path) => path.replace('../assets/', '/src/assets/');
 
 export const EXPLORE_CATEGORIES = [
   { id: 'all', label: 'All', icon: 'tabler:sparkles' },
@@ -39,21 +39,21 @@ export const EXPLORE_RESOURCES = [
     logoText: 'MHA',
     featured: true,
     featuredRank: 4,
-    cardImage: asset('../assets/listings/listing-office.png'),
+    cardImage: asset('../assets/listings/mental-health-authority-gh-card.webp'),
     cardType: 'Mental health support',
     cardLocation: 'Accra Central',
     cardDescription: 'Trusted public guidance, referrals and mental health support pathways for people seeking care in Accra.',
     cardBadges: ['Verified', 'Support line', 'Public'],
     gallery: [
       {
-        src: asset('../assets/explore-detail/mha-building.webp'),
-        alt: 'Mental Health Authority Ghana building exterior',
+        src: asset('../assets/explore-detail/mental-health-authority-gh-1.png'),
+        alt: 'Ghana Ministry of Health logo used in Mental Health Authority context',
         width: 960,
         height: 720
       },
       {
-        src: asset('../assets/explore-detail/mha-logo.webp'),
-        alt: 'Mental Health Authority Ghana logo',
+        src: asset('../assets/explore-detail/mental-health-authority-gh-2.png'),
+        alt: 'Ministry of Health Ghana institutional mark',
         width: 960,
         height: 720
       }
@@ -89,12 +89,25 @@ export const EXPLORE_RESOURCES = [
     logoText: 'BNG',
     featured: true,
     featuredRank: 3,
-    cardImage: asset('../assets/listings/listing-community.png'),
+    cardImage: asset('../assets/listings/basicneeds-ghana-explore-card.webp'),
     cardType: 'Community support',
     cardLocation: 'Abelenkpe',
     cardDescription: 'Community-rooted psychosocial support, advocacy and care pathways for individuals, families, and carers.',
     cardBadges: ['Verified', 'In-person', 'Community'],
-    gallery: [],
+    gallery: [
+      {
+        src: asset('../assets/explore-detail/basicneeds-ghana-explore-1.png'),
+        alt: 'BasicNeeds Ghana official logo',
+        width: 960,
+        height: 720
+      },
+      {
+        src: asset('../assets/explore-detail/basicneeds-ghana-explore-2.webp'),
+        alt: 'BasicNeeds Ghana community programme image',
+        width: 960,
+        height: 720
+      }
+    ],
     about: [
       'BasicNeeds Ghana presents itself as a mental health and development advocacy organisation working with people with mental illness or epilepsy, their families, and communities.',
       'Its model brings together integrated mental health care, social and economic support, community participation, and policy advocacy rather than acting like a single clinic office.'
@@ -126,15 +139,21 @@ export const EXPLORE_RESOURCES = [
     logoText: 'APH',
     featured: true,
     featuredRank: 5,
-    cardImage: asset('../assets/listings/listing-hospital.png'),
+    cardImage: asset('../assets/listings/accra-psychiatric-hospital-explore-card.webp'),
     cardType: 'Psychiatric hospital',
     cardLocation: 'Castle Road',
     cardDescription: '24-hour psychiatric assessment, outpatient follow-up and specialist clinical care in central Accra.',
     cardBadges: ['Verified', '24/7 care', 'Public'],
     gallery: [
       {
-        src: asset('../assets/explore-detail/aph-building.webp'),
-        alt: 'Accra Psychiatric Hospital building exterior',
+        src: asset('../assets/explore-detail/accra-psychiatric-hospital-explore-1.webp'),
+        alt: 'Accra Psychiatric Hospital facility image',
+        width: 960,
+        height: 720
+      },
+      {
+        src: asset('../assets/explore-detail/accra-psychiatric-hospital-explore-2.webp'),
+        alt: 'Accra Psychiatric Hospital service environment',
         width: 960,
         height: 720
       }
@@ -171,12 +190,31 @@ export const EXPLORE_RESOURCES = [
     logoText: 'PH',
     featured: false,
     featuredRank: 6,
-    cardImage: asset('../assets/listings/listing-therapist.png'),
+    cardImage: asset('../assets/listings/pantang-hospital-explore-card.webp'),
     cardType: 'Specialist clinic',
     cardLocation: 'Pantang',
     cardDescription: 'Ongoing psychiatric treatment and referral-led mental health care within a major public hospital setting.',
     cardBadges: ['Verified', 'Referral care', 'Public'],
-    gallery: [],
+    gallery: [
+      {
+        src: asset('../assets/explore-detail/pantang-hospital-explore-1.png'),
+        alt: 'Pantang Hospital official logo',
+        width: 960,
+        height: 720
+      },
+      {
+        src: asset('../assets/explore-detail/pantang-hospital-explore-2.webp'),
+        alt: 'Pantang Hospital facility image',
+        width: 960,
+        height: 720
+      },
+      {
+        src: asset('../assets/explore-detail/pantang-hospital-explore-3.webp'),
+        alt: 'Pantang area cityscape near hospital corridor',
+        width: 960,
+        height: 720
+      }
+    ],
     about: [
       'Pantang Hospital is widely referenced as one of the country’s principal psychiatric hospitals and a place people turn to for ongoing public mental health treatment.',
       'Use this option when someone needs specialist follow-up, psychiatric care in a larger hospital setting, or a public referral destination in Greater Accra.'
@@ -207,12 +245,31 @@ export const EXPLORE_RESOURCES = [
     logoText: 'SM',
     featured: true,
     featuredRank: 2,
-    cardImage: asset('../assets/listings/listing-skincare.png'),
+    cardImage: asset('../assets/listings/skinmedics-aesthetic-centre-card.webp'),
     cardType: 'Aesthetic clinic',
     cardLocation: 'Osu',
     cardDescription: 'Consultation-led skincare, facials, and aesthetic treatments in a polished appointment-based setting.',
     cardBadges: ['Verified', 'In-person', 'Premium'],
-    gallery: [],
+    gallery: [
+      {
+        src: asset('../assets/explore-detail/skinmedics-aesthetic-centre-1.png'),
+        alt: 'Skinmedics Aesthetic Centre logo',
+        width: 960,
+        height: 720
+      },
+      {
+        src: asset('../assets/explore-detail/skinmedics-aesthetic-centre-2.webp'),
+        alt: 'Skinmedics Aesthetic Centre interior treatment space',
+        width: 960,
+        height: 720
+      },
+      {
+        src: asset('../assets/explore-detail/skinmedics-aesthetic-centre-3.webp'),
+        alt: 'Skinmedics Aesthetic Centre service area',
+        width: 960,
+        height: 720
+      }
+    ],
     about: [
       'Skinmedics presents itself as an aesthetic centre in Accra with a broad menu of facial, body, laser, and beauty services available by booking.',
       'It fits best when someone wants a physical beauty or skin clinic rather than an internal self-care guide.'
@@ -245,15 +302,21 @@ export const EXPLORE_RESOURCES = [
     logoText: 'FM',
     featured: true,
     featuredRank: 1,
-    cardImage: asset('../assets/listings/listing-spa-house.png'),
+    cardImage: asset('../assets/listings/fulfilled-med-spa-clinic-card.webp'),
     cardType: 'Med spa clinic',
     cardLocation: 'Osu',
     cardDescription: 'Medical-grade beauty, skin, and spa rituals paired with tailored wellness care and premium treatment plans.',
     cardBadges: ['Verified', 'In-person', 'Premium'],
     gallery: [
       {
-        src: asset('../assets/explore-detail/fulfilled-logo.webp'),
+        src: asset('../assets/explore-detail/fulfilled-med-spa-clinic-1.png'),
         alt: 'Fulfilled Med Spa Clinic logo',
+        width: 960,
+        height: 720
+      },
+      {
+        src: asset('../assets/explore-detail/fulfilled-med-spa-clinic-2.webp'),
+        alt: 'Fulfilled Med Spa Clinic team and clinic image',
         width: 960,
         height: 720
       }
@@ -289,15 +352,21 @@ export const EXPLORE_RESOURCES = [
     logoText: 'GWP',
     featured: false,
     featuredRank: 7,
-    cardImage: asset('../assets/listings/listing-spa-house.png'),
+    cardImage: asset('../assets/listings/growth-wellness-place-card.webp'),
     cardType: 'Wellness club',
     cardLocation: 'Airport Residential',
     cardDescription: 'Recovery-focused wellness sessions, restorative therapies, and premium self-care rituals in Accra.',
     cardBadges: ['Verified', 'In-person', 'Membership'],
     gallery: [
       {
-        src: asset('../assets/partners/partner-growth.png'),
-        alt: 'Growth Wellness Place partner mark',
+        src: asset('../assets/explore-detail/growth-wellness-place-1.png'),
+        alt: 'Growth Wellness Place by R&R primary logo',
+        width: 960,
+        height: 720
+      },
+      {
+        src: asset('../assets/explore-detail/growth-wellness-place-2.webp'),
+        alt: 'Growth Wellness Place facility image',
         width: 960,
         height: 720
       }

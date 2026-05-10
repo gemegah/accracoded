@@ -239,22 +239,8 @@
 
   @media (max-width: 639px) {
     .explore-resources {
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(min(272px, 86vw), 84%);
-      grid-template-columns: none;
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      scroll-snap-type: x proximity;
-      padding: 2px 0 10px;
-      scrollbar-width: none;
-    }
-
-    .explore-resources::-webkit-scrollbar {
-      display: none;
-    }
-
-    .explore-resources .listing-card {
-      scroll-snap-align: start;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
   }
 
