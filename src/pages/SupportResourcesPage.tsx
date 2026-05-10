@@ -1,4 +1,12 @@
+import { useEffect } from 'react';
+
+import { renderSupportDirectory } from '../app/supportDirectoryView.js';
+
 export function SupportResourcesPage() {
+  useEffect(() => {
+    renderSupportDirectory();
+  }, []);
+
   return (
     <section className="screen screen--dark is-active" id="s-resources" aria-label="Support resources">
       <div className="screen__inner page-shell">
