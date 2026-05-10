@@ -1,112 +1,103 @@
 # Accra Coded Deployment Handoff
 
-This project is currently set up to use:
+This project is now set up for a single Cloudflare deployment:
 
-- Vercel for the React frontend.
-- Cloudflare Worker for `/api/v1/*`.
-- Cloudflare D1 for admin content, directory resources, and waitlist data.
+- Cloudflare Workers Static Assets serves the React build from `dist`.
+- The same Cloudflare Worker owns `/api/v1/*`, admin APIs, and SPA route fallback.
+- Cloudflare D1 stores admin content, directory resources, check-ins, QR scans, and waitlist submissions.
+- Cloudflare KV backs rate limiting.
+- Production domains are `accracoded.com` and `www.accracoded.com`.
 
-## 1. Cloudflare D1
+## 1. Cloudflare Domain
 
-Confirm that the D1 database exists and matches `wrangler.jsonc`:
+Confirm that `accracoded.com` is active in Cloudflare and belongs to the same account Wrangler is logged into.
+
+The Worker custom domains are configured in `wrangler.jsonc`:
+
+```jsonc
+"routes": [
+  { "pattern": "accracoded.com", "custom_domain": true },
+  { "pattern": "www.accracoded.com", "custom_domain": true }
+]
+```
+
+Cloudflare creates the DNS records and certificates for Worker custom domains during deploy. If either hostname already has a conflicting DNS record or Worker route in the dashboard, remove the conflict before deploying.
+
+## 2. Cloudflare D1 And KV
+
+Confirm that `wrangler.jsonc` points to the production resources:
 
 ```txt
-accracoded-db
+D1 binding: DB
+D1 database: accracoded-db
+KV binding: RATE_LIMIT_KV
 ```
 
-Run the schema from the repo root:
+Run the production schema migration from the repo root:
 
 ```bash
-npx wrangler d1 execute accracoded-db --file worker/db/schema.sql
+npm run db:migrate:remote
 ```
 
-## 2. Cloudflare Worker Secrets
+For local-only D1 testing, use:
+
+```bash
+npm run db:migrate
+```
+
+## 3. Worker Secrets
 
 Set the required admin password:
 
 ```bash
-npx wrangler secret put ADMIN_PASSWORD
+wrangler secret put ADMIN_PASSWORD
 ```
 
 Optional, for forwarding waitlist notifications to Formspree:
 
 ```bash
-npx wrangler secret put FORMSPREE_ENDPOINT
+wrangler secret put FORMSPREE_ENDPOINT
 ```
 
-Use this value:
+Use this value if Formspree forwarding should stay enabled:
 
 ```txt
 https://formspree.io/f/xwvynqzd
 ```
 
-## 3. Deploy Cloudflare Worker
+## 4. Deploy
 
-Deploy the Worker:
-
-```bash
-npx wrangler deploy
-```
-
-Save the deployed Worker URL. It should look similar to:
-
-```txt
-https://accracoded.<account>.workers.dev
-```
-
-## 4. Vercel API Rewrite
-
-The frontend calls API routes using `/api/v1/...`.
-
-In Vercel, forward those requests to the Cloudflare Worker. Add or update `vercel.json`:
-
-```json
-{
-  "rewrites": [
-    {
-      "source": "/api/v1/:path*",
-      "destination": "https://YOUR-WORKER-URL.workers.dev/api/v1/:path*"
-    }
-  ]
-}
-```
-
-Replace `YOUR-WORKER-URL.workers.dev` with the deployed Worker URL.
-
-## 5. Vercel Build Settings
-
-Use:
+Deploy the React build, static assets, Worker API, and custom domains:
 
 ```bash
-npm run build
+npm run deploy
 ```
 
-Output directory:
+The deploy script runs `npm run build` first, then `wrangler deploy`.
 
-```txt
-dist
-```
-
-## 6. Seed Admin Content
+## 5. Seed Admin Content
 
 After deployment:
 
-1. Open `/admin/login`.
+1. Open `https://accracoded.com/admin/login`.
 2. Log in with the `ADMIN_PASSWORD`.
 3. Go to `/admin/directory`.
 4. Click **Seed content**.
 
 This pushes the current static homepage metrics and directory resources into D1.
 
-## 7. Verification Checklist
+## 6. Verification Checklist
 
-Confirm the following:
+Confirm the following after deploy:
 
+- `https://accracoded.com` loads the homepage.
+- `https://www.accracoded.com` loads or resolves correctly.
+- `https://accracoded.com/api/v1/health` returns JSON with `"ok": true`.
 - `/explore` loads directory resources.
 - Explore listing images show correctly.
 - Clicking an Explore card opens `/explore/:resourceSlug`.
-- Back to Explore returns to `/explore`.
-- Waitlist submissions save successfully.
+- Refreshing `/explore/:resourceSlug`, `/about`, `/campaign`, and `/admin/login` serves the React app rather than a 404.
+- Waitlist submissions save successfully after the frontend is wired to `/api/v1/waitlist`.
 - Waitlist submissions appear under `/admin/membership`.
 - `/admin/login` rejects the wrong password.
 - Admin pages are blocked when logged out.
@@ -114,14 +105,15 @@ Confirm the following:
 
 ## Ownership Note
 
-Vercel hosts the React frontend only.
+Cloudflare owns the whole production surface:
 
-Cloudflare Worker owns:
-
+- `accracoded.com`
+- `www.accracoded.com`
+- React static assets
 - `/api/v1/*`
 - Admin login/session APIs
 - D1 reads and writes
 - Directory resource storage
 - Homepage category metrics
-- Waitlist storage
+- Check-in, telemetry, QR scan, and waitlist storage
 - Optional Formspree notification forwarding
