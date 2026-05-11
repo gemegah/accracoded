@@ -10,6 +10,7 @@ import {
 } from '../app/exploreDirectoryView.js';
 import {
   clearCheckinError,
+  cycleCampaignVideo,
   copyShareLink,
   cycleMessage,
   selectMood,
@@ -131,6 +132,7 @@ export function useAccraCodedApp({
       },
       'toggle-play': (target) => togglePlay(target),
       'toggle-audio': (target) => toggleAudio(target),
+      'next-video': () => cycleCampaignVideo(),
       'cycle-message': () => cycleMessage(),
       'select-mood': (target) => selectMood(target, target.dataset.mood),
       'submit-checkin': () => {

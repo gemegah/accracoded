@@ -302,6 +302,10 @@
     gap: 16px;
   }
 
+  .campaign-next-video-btn {
+    width: 100%;
+  }
+
   .view.is-hidden {
     display: none;
   }
