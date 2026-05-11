@@ -1,20 +1,8 @@
 import botanicalSprig from '../assets/campaign/ChatGPT Image May 8, 2026, 12_33_29 PM (1).png';
 import botanicalArch from '../assets/campaign/ChatGPT Image May 8, 2026, 12_33_30 PM (2).png';
+import { CAMPAIGN_VIDEOS } from '../data/campaignVideos.js';
 import { useTransparentPng } from '../hooks/useTransparentPng';
 import { useMemo } from 'react';
-
-const CAMPAIGN_VIDEOS = [
-  {
-    id: 'Ige_hNDQWBY',
-    quote: '"I know how Accra feels when everything piles up."',
-    title: 'Accra Coded campaign story 1'
-  },
-  {
-    id: '8SR6JOQ-aFs',
-    quote: '"Some days feel louder than your own thoughts."',
-    title: 'Accra Coded campaign story 2'
-  }
-];
 
 export function CampaignPage() {
   const cleanBotanicalSprig = useTransparentPng(botanicalSprig);
@@ -145,6 +133,7 @@ export function CampaignPage() {
               <div className="media-shell media-shell--video-embed">
                 <div className="media-shell__inner media-shell__inner--video-embed">
                   <iframe
+                    id="campaign-video-iframe"
                     src={`https://www.youtube.com/embed/${selectedVideo.id}`}
                     title={selectedVideo.title}
                     loading="lazy"
@@ -153,8 +142,11 @@ export function CampaignPage() {
                     allowFullScreen
                   ></iframe>
                 </div>
-                <p className="media-caption">{selectedVideo.quote}</p>
+                <p className="media-caption" id="campaign-video-caption">{selectedVideo.quote}</p>
               </div>
+              <button type="button" className="c-button c-button--secondary campaign-next-video-btn" data-action="next-video">
+                Next video
+              </button>
       
               <div className="c-card c-card--solid">
                 <p className="detail-name">A shared city voice</p>

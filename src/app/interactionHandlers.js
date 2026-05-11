@@ -1,4 +1,5 @@
 import { state } from '../domain/appState.js';
+import { CAMPAIGN_VIDEOS } from '../data/campaignVideos.js';
 import { saveCheckin } from '../data/checkinRepository.js';
 import { trackEvent } from '../data/telemetryRepository.js';
 import { goTo } from './navigation.js';
@@ -150,6 +151,31 @@ export function cycleMessage() {
   void trackEvent('cycle_text_message', {
     screenId: state.currentScreen,
     messageIndex: state.messageIndex
+  });
+}
+
+export function cycleCampaignVideo() {
+  const iframe = document.getElementById('campaign-video-iframe');
+  const caption = document.getElementById('campaign-video-caption');
+
+  if (!iframe || !caption || CAMPAIGN_VIDEOS.length === 0) {
+    return;
+  }
+
+  const currentSrc = iframe.getAttribute('src') || '';
+  const currentId = currentSrc.split('/embed/')[1]?.split('?')[0];
+  const currentIndex = CAMPAIGN_VIDEOS.findIndex((video) => video.id === currentId);
+  const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % CAMPAIGN_VIDEOS.length : 0;
+  const nextVideo = CAMPAIGN_VIDEOS[nextIndex];
+
+  iframe.setAttribute('src', `https://www.youtube.com/embed/${nextVideo.id}`);
+  iframe.setAttribute('title', nextVideo.title);
+  caption.textContent = nextVideo.quote;
+
+  void trackEvent('cycle_campaign_video', {
+    screenId: state.currentScreen,
+    videoIndex: nextIndex,
+    videoId: nextVideo.id
   });
 }
 

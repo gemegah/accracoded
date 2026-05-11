@@ -25,6 +25,20 @@ export function SupportResourcesPage() {
                 <button type="button" className="c-button c-button--ghost resources-about-btn" data-action="go-to" data-target="s-explore">Explore support in Ghana</button>
               </div>
             </div>
+
+            <details className="c-list-item carers-collapsible">
+              <summary className="carers-summary">
+                <span className="resource-name">Message for Therapists &amp; Carers</span>
+              </summary>
+              <div className="carers-body support-copy">
+                <p className="resource-desc">Caring for someone living with mental health challenges is an act of profound love, patience, and emotional endurance. Yet, one question is rarely asked... who cares for the carers?</p>
+                <p className="resource-desc">Behind every person navigating mental illness, there is often a family member, partner, friend, or professional quietly carrying the emotional weight alongside them. Carers give their time, energy, stability, and compassion so freely, often placing the wellbeing of others before their own.</p>
+                <p className="resource-desc">The responsibility can be overwhelming, isolating, and deeply exhausting. Many carers experience burnout, anxiety, grief, guilt, and chronic stress, yet still feel they must remain strong and steady for the person they support.</p>
+                <p className="resource-desc">Today, I want to acknowledge the quiet, unseen love that carers and therapists offer every single day. The listening, the holding, the patience, and the hope you carry for others truly matters.</p>
+                <p className="resource-desc">This Mental Health Month is a gentle reminder that your care is valuable, your wellbeing is important, and you too deserve rest, softness, and support.</p>
+                <p className="resource-desc"><em>Love is not only what you give. Love is also what you allow yourself to receive.</em></p>
+              </div>
+            </details>
         
             <div className="resources-list" id="resources-directory"></div>
         
@@ -53,20 +67,6 @@ export function SupportResourcesPage() {
                 </button>
               </div>
             </div>
-        
-            <details className="c-list-item carers-collapsible">
-              <summary className="carers-summary">
-                <span className="resource-name">Message for Therapists &amp; Carers</span>
-              </summary>
-              <div className="carers-body support-copy">
-                <p className="resource-desc">Caring for someone living with mental health challenges is an act of profound love, patience, and emotional endurance. Yet, one question is rarely asked... who cares for the carers?</p>
-                <p className="resource-desc">Behind every person navigating mental illness, there is often a family member, partner, friend, or professional quietly carrying the emotional weight alongside them. Carers give their time, energy, stability, and compassion so freely, often placing the wellbeing of others before their own.</p>
-                <p className="resource-desc">The responsibility can be overwhelming, isolating, and deeply exhausting. Many carers experience burnout, anxiety, grief, guilt, and chronic stress, yet still feel they must remain strong and steady for the person they support.</p>
-                <p className="resource-desc">Today, I want to acknowledge the quiet, unseen love that carers and therapists offer every single day. The listening, the holding, the patience, and the hope you carry for others truly matters.</p>
-                <p className="resource-desc">This Mental Health Month is a gentle reminder that your care is valuable, your wellbeing is important, and you too deserve rest, softness, and support.</p>
-                <p className="resource-desc"><em>Love is not only what you give. Love is also what you allow yourself to receive.</em></p>
-              </div>
-            </details>
         
             <div className="screen__footer nav-row resources-footer">
               <button type="button" className="c-button c-button--secondary" data-action="go-to" data-target="s-checkin">Back</button>

@@ -1,4 +1,4 @@
-const DIRECTORY_GROUP_ORDER = ['urgent', 'clinical', 'community'];
+const DIRECTORY_GROUP_ORDER = ['urgent', 'community', 'clinical'];
 
 export const DIRECTORY_GROUPS = {
   urgent: {
